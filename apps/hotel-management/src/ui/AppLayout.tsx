@@ -14,13 +14,20 @@ const Main = styled.main`
   background-color: var(--color-grey-100);
   padding: 4rem 4.8rem 6.4rem;
 `;
+
+const Container = styled.div`
+  max-width: 120rem;
+  margin: 0 auto;
+`;
 export default function AppLayout() {
   return (
     <StyledLayout>
       <Header />
       <Sidebar />
       <Main>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Main>
     </StyledLayout>
   );
