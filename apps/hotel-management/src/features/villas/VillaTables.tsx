@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useVillas } from "./hooks/useVillas";
+
 import styled from "styled-components";
-import { getVillas } from "../../services/apiVillas";
 import Spinner from "../../ui/Spinner";
 import VillaRows from "./VillaRows";
 
@@ -29,11 +29,8 @@ const TableHeader = styled.header`
 `;
 
 export default function VillaTable() {
-  const { isLoading, data: villa } = useQuery({
-    queryKey: ["villa"],
-    queryFn: getVillas,
-  });
-  //console.log(query);
+  const { isLoading, villa } = useVillas();
+  //console.log(villa);
   if (isLoading) return <Spinner />;
   return (
     <Table role="table">

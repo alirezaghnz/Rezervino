@@ -6,10 +6,10 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { insertVilla } from "../../services/apiVillas";
-import toast from "react-hot-toast";
+
 import type { CreateVillaForm } from "../../types/database.types";
+import { useCreateVilla } from "./hooks/useCreateVilla";
+import { useUpdateVilla } from "./hooks/useUpdateVilla";
 
 const FormRow = styled.div`
   display: grid;
@@ -49,38 +49,37 @@ const Error = styled.span`
 
 export function CreateVilla({ villaEdit = {} }) {
   const { id: editId, ...editValue } = villaEdit;
+  const { isCreating, createVilla } = useCreateVilla();
+  const { isEditing, editVilla } = useUpdateVilla();
   const editSession = Boolean(editId);
   const { register, handleSubmit, reset } = useForm<CreateVillaForm>({
     defaultValues: editSession ? editValue : {},
   });
-  const queryClient = useQueryClient();
-  const { isLoading: isCreating, mutate: createVilla } = useMutation({
-    mutationFn: insertVilla,
-    onSuccess: () => {
-      toast.success("ویلا جدید اضافه شد");
-      queryClient.invalidateQueries({ queryKey: ["villa"] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
 
-  const { isLoading: isEditing, mutate: editVilla } = useMutation({
-    mutationFn: ({ newVillaData, id }) => insertVilla(newVillaData, id),
-    onSuccess: () => {
-      toast.success("ویلا با موفقیت ویرایش شد");
-      queryClient.invalidateQueries({ queryKey: ["villa"] });
-      reset();
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
+  //for disable feature
   const isWorking = isCreating || isEditing;
 
   const onSubmit: SubmitHandler<CreateVillaForm> = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
+    // if editSession find , villa edited and if not createVilla(insert & update both handle together)
     if (editSession)
-      editVilla({ newVillaData: { ...data, image }, id: editId });
-    else createVilla({ ...data, image: image });
+      editVilla(
+        { newVillaData: { ...data, image }, id: editId },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        }
+      );
+    else
+      createVilla(
+        { ...data, image: image },
+        {
+          onSuccess: () => {
+            reset();
+          },
+        }
+      );
     // console.log(data);
   };
   return (
@@ -139,12 +138,7 @@ export function CreateVilla({ villaEdit = {} }) {
 
       <FormRow>
         <Label htmlFor="image">عکس ویلا</Label>
-        <FileInput
-          id="image"
-          accept="image/*"
-          {...register("image")}
-          disabled={isWorking}
-        />
+        <FileInput id="image" accept="image/*" {...register("image")} />
       </FormRow>
 
       <FormRow>
