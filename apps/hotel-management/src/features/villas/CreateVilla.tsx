@@ -47,10 +47,14 @@ const Error = styled.span`
   color: var(--color-red-700);
 `;
 
-export function CreateVilla() {
-  const { register, handleSubmit, reset } = useForm<CreateVillaForm>();
+export function CreateVilla({ villaEdit = {} }) {
+  const { id: editId, ...editValue } = villaEdit;
+  const editSession = Boolean(editId);
+  const { register, handleSubmit, reset } = useForm<CreateVillaForm>({
+    defaultValues: editSession ? editValue : {},
+  });
   const queryClient = useQueryClient();
-  const { isLoading: isCreating, mutate } = useMutation({
+  const { isLoading: isCreating, mutate: createVilla } = useMutation({
     mutationFn: insertVilla,
     onSuccess: () => {
       toast.success("ویلا جدید اضافه شد");
@@ -60,25 +64,55 @@ export function CreateVilla() {
     onError: (err) => toast.error(err.message),
   });
 
+  const { isLoading: isEditing, mutate: editVilla } = useMutation({
+    mutationFn: ({ newVillaData, id }) => insertVilla(newVillaData, id),
+    onSuccess: () => {
+      toast.success("ویلا با موفقیت ویرایش شد");
+      queryClient.invalidateQueries({ queryKey: ["villa"] });
+      reset();
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  const isWorking = isCreating || isEditing;
+
   const onSubmit: SubmitHandler<CreateVillaForm> = (data) => {
-    mutate({ ...data, image: data.image[0] });
+    const image = typeof data.image === "string" ? data.image : data.image[0];
+    if (editSession)
+      editVilla({ newVillaData: { ...data, image }, id: editId });
+    else createVilla({ ...data, image: image });
     // console.log(data);
   };
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow>
         <Label htmlFor="name">نام ویلا</Label>
-        <Input type="text" id="name" {...register("name")} />
+        <Input
+          type="text"
+          id="name"
+          {...register("name")}
+          disabled={isWorking}
+        />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="maxCapacity">حداکثر ظرفیت</Label>
-        <Input type="number" id="maxCapacity" {...register("maxCapacity")} />
+        <Input
+          type="number"
+          id="maxCapacity"
+          {...register("maxCapacity")}
+          disabled={isWorking}
+        />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="regularPrice">قیمت ویلا</Label>
-        <Input type="number" id="regularPrice" {...register("regularPrice")} />
+        <Input
+          type="number"
+          id="regularPrice"
+          {...register("regularPrice")}
+          disabled={isWorking}
+        />
       </FormRow>
 
       <FormRow>
@@ -88,6 +122,7 @@ export function CreateVilla() {
           id="discount"
           defaultValue={0}
           {...register("discount")}
+          disabled={isWorking}
         />
       </FormRow>
 
@@ -98,19 +133,25 @@ export function CreateVilla() {
           id="description"
           defaultValue=""
           {...register("description")}
+          disabled={isWorking}
         />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="image">عکس ویلا</Label>
-        <FileInput id="image" accept="image/*" {...register("image")} />
+        <FileInput
+          id="image"
+          accept="image/*"
+          {...register("image")}
+          disabled={isWorking}
+        />
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button variation="secondary" type="reset" disabled={isWorking}>
           بازگشت
         </Button>
-        <Button disabled={isCreating}>اضافه</Button>
+        <Button disabled={isWorking}>{editSession ? "ویرایش" : "اضافه"}</Button>
       </FormRow>
     </Form>
   );

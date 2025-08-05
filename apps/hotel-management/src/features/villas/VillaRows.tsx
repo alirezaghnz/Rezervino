@@ -3,6 +3,8 @@ import type { VillaRowsProps } from "../../types/database.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteVilla } from "../../services/apiVillas";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import { CreateVilla } from "./CreateVilla";
 
 const TableRow = styled.div`
   display: grid;
@@ -44,6 +46,7 @@ const Discount = styled.div`
 `;
 
 export default function VillaRows({ v }: VillaRowsProps) {
+  const [showForm, setShowForm] = useState(false);
   const { id: villaId, name, maxCapacity, regularPrice, discount, image } = v;
 
   const queryClient = useQueryClient();
@@ -57,15 +60,21 @@ export default function VillaRows({ v }: VillaRowsProps) {
   });
 
   return (
-    <TableRow>
-      <Img src={image} />
-      <Villa>{name}</Villa>
-      <div>برای {maxCapacity} ظرفیت داده شد</div>
-      <Price>{regularPrice}</Price>
-      <Discount>{discount}</Discount>
-      <button onClick={() => mutate(villaId)} disabled={deleteLoading}>
-        حذف
-      </button>
-    </TableRow>
+    <>
+      <TableRow>
+        <Img src={image} />
+        <Villa>{name}</Villa>
+        <div>برای {maxCapacity} ظرفیت داده شد</div>
+        <Price>{regularPrice}</Price>
+        <Discount>{discount}</Discount>
+        <div>
+          <button onClick={() => setShowForm((show) => !show)}>ویرایش</button>
+          <button onClick={() => mutate(villaId)} disabled={deleteLoading}>
+            حذف
+          </button>
+        </div>
+      </TableRow>
+      {showForm && <CreateVilla villaEdit={v} />}
+    </>
   );
 }

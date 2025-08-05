@@ -24,17 +24,26 @@ export async function deleteVilla(id: number): Promise<Villa[]> {
   return data ?? [];
 }
 
-export async function insertVilla(newVilla): Promise<Villa[]> {
+//insert and update
+export async function insertVilla(newVilla, id): Promise<Villa[]> {
+  const hasImage = newVilla.image?.startsWith?.(supabaseUrl);
   const imageName = `${Math.random()}-${newVilla.image.name}`.replaceAll(
     "/",
     ""
   );
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/villa-images/${imageName}`;
+  const imagePath = hasImage
+    ? newVilla.image
+    : `${supabaseUrl}/storage/v1/object/public/villa-images/${imageName}`;
   //https://ttpaxypnlgpojmtnkzir.supabase.co/storage/v1/object/public/villa-images/cabin-001.jpg
-  const { data, error } = await supabase
-    .from("villa")
-    .insert([{ ...newVilla, image: imagePath }]);
 
+  //create and edit villa
+  let query = supabase.from("villa");
+  //create
+  if (!id) query = query.insert([{ ...newVilla, image: imagePath }]);
+  //edit
+  if (id) query = query.update({ ...newVilla, image: imagePath }).eq("id", id);
+
+  const { data, error } = await query.select().single();
   if (error) {
     console.log(error);
     throw new Error("data not loaded");
