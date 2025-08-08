@@ -1,5 +1,3 @@
-import styled from "styled-components";
-
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
@@ -10,44 +8,15 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import type { CreateVillaForm } from "../../types/database.types";
 import { useCreateVilla } from "./hooks/useCreateVilla";
 import { useUpdateVilla } from "./hooks/useUpdateVilla";
+import FormRow from "../../ui/FormRow";
 
-const FormRow = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
-
-  padding: 1.2rem 0;
-
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
-`;
-
-const Label = styled.label`
-  font-weight: 500;
-`;
-
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
-`;
-
-export function CreateVilla({ villaEdit = {} }) {
+export function CreateVilla({
+  villaEdit = {},
+  onCloseModal,
+}: {
+  villaEdit?: Partial<CreateVillaForm>;
+  onCloseModal?: () => void;
+}) {
   const { id: editId, ...editValue } = villaEdit;
   const { isCreating, createVilla } = useCreateVilla();
   const { isEditing, editVilla } = useUpdateVilla();
@@ -68,6 +37,7 @@ export function CreateVilla({ villaEdit = {} }) {
         {
           onSuccess: () => {
             reset();
+            onCloseModal?.();
           },
         }
       );
@@ -77,15 +47,18 @@ export function CreateVilla({ villaEdit = {} }) {
         {
           onSuccess: () => {
             reset();
+            onCloseModal?.();
           },
         }
       );
     // console.log(data);
   };
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow>
-        <Label htmlFor="name">نام ویلا</Label>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      type={onCloseModal ? "modal" : "regular"}
+    >
+      <FormRow label="نام ویلا">
         <Input
           type="text"
           id="name"
@@ -94,8 +67,7 @@ export function CreateVilla({ villaEdit = {} }) {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="maxCapacity">حداکثر ظرفیت</Label>
+      <FormRow label="ظرفیت">
         <Input
           type="number"
           id="maxCapacity"
@@ -104,8 +76,7 @@ export function CreateVilla({ villaEdit = {} }) {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="regularPrice">قیمت ویلا</Label>
+      <FormRow label="قیمت ویلا">
         <Input
           type="number"
           id="regularPrice"
@@ -114,8 +85,7 @@ export function CreateVilla({ villaEdit = {} }) {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="discount">تخفیف</Label>
+      <FormRow label="تخفیف">
         <Input
           type="number"
           id="discount"
@@ -125,8 +95,7 @@ export function CreateVilla({ villaEdit = {} }) {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="description">توضیحات</Label>
+      <FormRow label="توضیحات">
         <Textarea
           type="number"
           id="description"
@@ -136,13 +105,17 @@ export function CreateVilla({ villaEdit = {} }) {
         />
       </FormRow>
 
-      <FormRow>
-        <Label htmlFor="image">عکس ویلا</Label>
+      <FormRow label="عکس خانه">
         <FileInput id="image" accept="image/*" {...register("image")} />
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset" disabled={isWorking}>
+        <Button
+          variation="secondary"
+          type="reset"
+          disabled={isWorking}
+          onClick={() => onCloseModal?.()}
+        >
           بازگشت
         </Button>
         <Button disabled={isWorking}>{editSession ? "ویرایش" : "اضافه"}</Button>

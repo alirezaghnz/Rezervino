@@ -12,6 +12,15 @@ export type Database = {
           image: string;
         };
       };
+      settings: {
+        Row: {
+          id: number;
+          minBookingLength: number;
+          maxBookingLength: number;
+          maxGuestsPerBooking: number;
+          breakfastPrice: number;
+        };
+      };
     };
   };
 };

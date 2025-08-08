@@ -1,12 +1,9 @@
-import { useState } from "react";
+import AddVilla from "../features/villas/AddVilla";
 import VillaTable from "../features/villas/VillaTables";
-import Button from "../ui/Button";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
-import { CreateVilla } from "../features/villas/CreateVilla";
 
 export default function Villa() {
-  const [showForm, setShowForm] = useState(false);
   return (
     <>
       <Row type="horizontal">
@@ -15,10 +12,7 @@ export default function Villa() {
       </Row>
       <Row type="vertical">
         <VillaTable />
-        <Button onClick={() => setShowForm((show) => !show)}>
-          اضافه کردن ویلا
-        </Button>
-        {showForm && <CreateVilla />}
+        <AddVilla />
       </Row>
     </>
   );
