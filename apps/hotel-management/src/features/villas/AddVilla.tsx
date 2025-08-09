@@ -13,8 +13,6 @@ export default function AddVilla() {
       </Modal.Window>
     </Modal>
 
-    // we need add table villa , but not now
-
     //   const [isOpenModal, setIsOpenModal] = useState(false);
     //   return (
     //     <div>

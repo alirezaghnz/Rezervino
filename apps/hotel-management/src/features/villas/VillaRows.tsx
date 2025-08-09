@@ -1,12 +1,15 @@
-import styled from "styled-components";
 import type { VillaRowsProps } from "../../types/database.types";
 
-import { useState } from "react";
 import { CreateVilla } from "./CreateVilla";
 import { useDeleteVilla } from "./hooks/useDeleteVilla";
 import { useCreateVilla } from "./hooks/useCreateVilla";
+import { Modal } from "../../ui/Modal";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import Table from "../../ui/Table";
+import styled from "styled-components";
 
-export const TableRow = styled.div`
+{
+  /*export const TableRow = styled.div`
   display: grid;
   grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
   column-gap: 2.4rem;
@@ -17,7 +20,8 @@ export const TableRow = styled.div`
     border-bottom: 1px solid var(--color-grey-100);
   }
 `;
-
+*/
+}
 const Img = styled.img`
   display: block;
   width: 6.4rem;
@@ -46,7 +50,6 @@ const Discount = styled.div`
 `;
 
 export default function VillaRows({ v }: VillaRowsProps) {
-  const [showForm, setShowForm] = useState(false);
   const { deleteLoading, deleteVilla } = useDeleteVilla();
   const { id: villaId, name, maxCapacity, regularPrice, discount, image } = v;
   const { createVilla } = useCreateVilla();
@@ -63,21 +66,36 @@ export default function VillaRows({ v }: VillaRowsProps) {
 
   return (
     <>
-      <TableRow>
+      <Table.Row role="row">
         <Img src={image} />
         <Villa>{name}</Villa>
         <div>برای {maxCapacity} ظرفیت داده شد</div>
         <Price>{regularPrice}</Price>
         {discount === 0 ? "__" : <Discount>{discount}</Discount>}
+
         <div>
           <button onClick={handleDup}>کپی</button>
-          <button onClick={() => setShowForm((show) => !show)}>ویرایش</button>
-          <button onClick={() => deleteVilla(villaId)} disabled={deleteLoading}>
-            حذف
-          </button>
+          <Modal>
+            <Modal.Open opens="edit-villa">
+              <button>ویرایش</button>
+            </Modal.Open>
+            <Modal.Window name="edit-villa">
+              <CreateVilla villaEdit={v} />
+            </Modal.Window>
+
+            <Modal.Open opens="delete-villa">
+              <button>حذف</button>
+            </Modal.Open>
+            <Modal.Window name="delete-villa">
+              <ConfirmDelete
+                resourceName="ویلا"
+                disabled={deleteLoading}
+                onConfirm={() => deleteVilla(villaId)}
+              />
+            </Modal.Window>
+          </Modal>
         </div>
-      </TableRow>
-      {showForm && <CreateVilla villaEdit={v} />}
+      </Table.Row>
     </>
   );
 }
