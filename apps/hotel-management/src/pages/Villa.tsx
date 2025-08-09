@@ -1,4 +1,5 @@
 import AddVilla from "../features/villas/AddVilla";
+import VillaTableOp from "../features/villas/VillaTableOp";
 import VillaTable from "../features/villas/VillaTables";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
@@ -8,7 +9,7 @@ export default function Villa() {
     <>
       <Row type="horizontal">
         <Heading as="h1">لیست ویلا</Heading>
-        <p>لیست/فیلتر</p>
+        <VillaTableOp />
       </Row>
       <Row type="vertical">
         <VillaTable />
