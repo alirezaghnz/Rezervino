@@ -89,14 +89,7 @@ function Row({ children }: TableHeaderProps) {
     </StyledRow>
   );
 }
-function Body({
-  data,
-  render,
-}: {
-  //reminder: data is any type, needed to fixed and improve later
-  data: any[];
-  render: (item: any) => React.ReactNode;
-}) {
+function Body({ data, render }) {
   if (!data.length) return <Empty>داده ای برای نمایش وجود ندارد.</Empty>;
 
   return <StyledBody>{data.map(render)}</StyledBody>;

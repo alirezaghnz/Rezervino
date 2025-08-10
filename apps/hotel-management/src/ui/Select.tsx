@@ -8,7 +8,7 @@ const StyledSelect = styled.select`
       props.type === "white"
         ? "var(--color-grey-100)"
         : "var(--color-grey-300)"};
-  border-radius: var(--border-radius-sm);
+  border-radius: var(--border-radius-md);
   background-color: var(--color-grey-0);
   font-weight: 500;
   box-shadow: var(--shadow-sm);
