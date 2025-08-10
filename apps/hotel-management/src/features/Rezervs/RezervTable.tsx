@@ -40,7 +40,7 @@ export default function RezervTabel() {
         <div>مهمان</div>
         <div>زمان</div>
         <div>وضعیت</div>
-        <div>مانده</div>
+        <div>قیمت پرداختی</div>
         <div></div>
       </Table.Header>
 
