@@ -9,9 +9,9 @@ export default function RezervTabelOp() {
         filterFiled="status"
         options={[
           { value: "all", label: "همه" },
-          { value: "وارد شده", label: "تحویل گرفته شده" },
-          { value: "تایید نشده", label: "تایید نشده" },
-          { value: "خارج شده", label: "اتمام اقامت" },
+          { value: "در انتظار", label: "در انتظار تایید" },
+          { value: "تایید رزرو", label: "رزرو های تایید شده" },
+          { value: "اتمام رزرو", label: "اتمام رزرو" },
         ]}
       />
       <SortBy

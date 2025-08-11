@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { format, isToday } from "date-fns-jalali";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
+import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
+import { formatJalali, toPersianDigits } from "../../utils/persianFormat";
 
 const Villa = styled.div`
   font-size: 1.6rem;
@@ -31,8 +34,8 @@ const Amount = styled.div`
 `;
 
 export default function RezervRow({
-  booking: {
-    id: bookingId,
+  rezerving: {
+    id: rezervId,
     created_at,
     startDate,
     endDate,
@@ -44,18 +47,12 @@ export default function RezervRow({
     villa: { name: villaName },
   },
 }) {
+  const navigate = useNavigate();
   const statusToTagName = {
-    "تایید نشده": "blue",
-    "وارد شده": "green",
-    "خارج شده": "silver",
+    "در انتظار": "blue",
+    "تایید رزرو": "green",
+    "اتمام رزرو": "silver",
   };
-
-  function toPersianDigits(str) {
-    return str.replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
-  }
-  function formatJalali(date, fmt = "yyyy/MM/dd") {
-    return toPersianDigits(format(new Date(date), fmt));
-  }
 
   return (
     <Table.Row>
@@ -82,6 +79,11 @@ export default function RezervRow({
       <Tag type={statusToTagName[status]}>{status}</Tag>
 
       <Amount>{totalPrice}</Amount>
+
+      <HiEye onClick={() => navigate(`/rezervs/${rezervId}`)} />
+      {status === "در انتظار" && (
+        <HiArrowDownOnSquare onClick={() => navigate(`/checkin/${rezervId}`)} />
+      )}
     </Table.Row>
   );
 }

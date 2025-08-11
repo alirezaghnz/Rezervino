@@ -20,6 +20,7 @@ export async function getRezervs({ filter, sortBy, page }) {
   }
 
   //Pagination
+
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
@@ -34,4 +35,34 @@ export async function getRezervs({ filter, sortBy, page }) {
   }
 
   return { data, count };
+}
+
+export async function getRezerv(id: number) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, villa(*), guests(*)")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("رزروی پیدا نشد");
+  }
+
+  return data;
+}
+
+export async function updateRezerv(id, obj) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(obj)
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("رزرو اپدیت نشد");
+  }
+  return data;
 }

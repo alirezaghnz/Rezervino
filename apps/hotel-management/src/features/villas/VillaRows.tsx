@@ -7,6 +7,7 @@ import { Modal } from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
 import styled from "styled-components";
+import { formatToman } from "../../utils/persianFormat";
 
 {
   /*export const TableRow = styled.div`
@@ -70,7 +71,7 @@ export default function VillaRows({ v }: VillaRowsProps) {
         <Img src={image} />
         <Villa>{name}</Villa>
         <div>برای {maxCapacity} ظرفیت داده شد</div>
-        <Price>{regularPrice}</Price>
+        <Price>{formatToman(regularPrice)}</Price>
         {discount === 0 ? "__" : <Discount>{discount}</Discount>}
 
         <div>

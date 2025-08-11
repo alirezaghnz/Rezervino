@@ -1,4 +1,3 @@
-import { useSearchParams } from "react-router-dom";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import { useRezervs } from "./hooks/useRezervs";
@@ -46,7 +45,7 @@ export default function RezervTabel() {
 
       <Table.Body
         data={rezervs}
-        render={(rezerv) => <RezervRow key={rezerv.id} booking={rezerv} />}
+        render={(rezerv) => <RezervRow key={rezerv.id} rezerving={rezerv} />}
       />
       <Table.Footer>
         <Pagination count={count} />

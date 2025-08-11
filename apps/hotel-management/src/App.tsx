@@ -13,6 +13,8 @@ import AppLayout from "./ui/AppLayout";
 import Dashboard from "./pages/Dashboard";
 import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./context/DarkModeContext";
+import RezervPage from "./pages/RezervPage";
+import Checkin from "./pages/Checkin";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -35,6 +37,8 @@ export default function App() {
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="account" element={<Account />} />
               <Route path="rezervs" element={<Rezerv />} />
+              <Route path="rezervs/:bookingId" element={<RezervPage />} />
+              <Route path="checkin/:bookingId" element={<Checkin />} />
               <Route path="settings" element={<Settings />} />
               <Route path="villa" element={<Villa />} />
               <Route path="users" element={<Users />} />
