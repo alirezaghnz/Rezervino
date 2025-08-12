@@ -13,6 +13,9 @@ import Spinner from "../../ui/Spinner";
 import RezervData from "./RezervData";
 import { useNavigate } from "react-router-dom";
 import { useCheckinOut } from "../check-in-out/hooks/useCheckinOut";
+import { Modal } from "../../ui/Modal";
+import { useDeleteRezerv } from "./hooks/useDeleteRezerv";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -24,6 +27,7 @@ function RezervDetail() {
   const navigate = useNavigate();
   const { rezerv, isLoading } = useRezerv();
   const { checkout, isCheckingOut } = useCheckinOut();
+  const { deleteRezerv, isDeleteRezerv } = useDeleteRezerv();
   const moveBack = useMoveBack();
 
   if (isLoading) return <Spinner />;
@@ -61,6 +65,22 @@ function RezervDetail() {
         <Button variation="secondary" onClick={moveBack}>
           بازگشت
         </Button>
+        <Modal>
+          <Modal.Open opens="delete-rezerv">
+            <Button variation="danger">حذف رزرو</Button>
+          </Modal.Open>
+          <Modal.Window name="delete-rezerv">
+            <ConfirmDelete
+              resourceName="رزرو"
+              disabled={isDeleteRezerv}
+              onConfirm={() =>
+                deleteRezerv(rezervId, {
+                  onSettled: () => navigate(-1),
+                })
+              }
+            />
+          </Modal.Window>
+        </Modal>
       </ButtonGroup>
     </>
   );

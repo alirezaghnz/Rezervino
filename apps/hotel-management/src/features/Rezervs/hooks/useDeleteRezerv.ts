@@ -5,9 +5,9 @@ import toast from "react-hot-toast";
 export function useDeleteRezerv() {
   const queryClient = useQueryClient();
   const { mutate: deleteRezerv, isPending: isDeleteRerzerv } = useMutation({
-    mutationFn: (rezervId) => deleteRezervA(rezervId),
-    onSuccess: (data) => {
-      toast.success(`رزرو با ایدی ${data.id} با موفقیت حذف شد`);
+    mutationFn: deleteRezervA,
+    onSuccess: () => {
+      toast.success("رزرو با موفقیت حذف شد");
       queryClient.invalidateQueries({ queryKey: ["bookings"] });
     },
     onError: (error) => toast.error(error.message),
