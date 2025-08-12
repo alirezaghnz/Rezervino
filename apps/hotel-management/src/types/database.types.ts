@@ -21,6 +21,18 @@ export type Database = {
           breakfastPrice: number;
         };
       };
+      bookings: {
+        Row: {
+          numNights: number;
+          numGuests: number;
+          villaPrice: number;
+          extraPrice: number;
+          totalPrice: number;
+          status: string;
+          hasBreakfast: boolean;
+          isPaid: boolean;
+        };
+      };
     };
   };
 };

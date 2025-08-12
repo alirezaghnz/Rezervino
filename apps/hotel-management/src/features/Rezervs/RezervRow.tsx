@@ -2,9 +2,16 @@ import styled from "styled-components";
 import { format, isToday } from "date-fns-jalali";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
-import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
+import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
-import { formatJalali, toPersianDigits } from "../../utils/persianFormat";
+import {
+  formatJalali,
+  formatToman,
+  toPersianDigits,
+} from "../../utils/persianFormat";
+import { useCheckinOut } from "../check-in-out/hooks/useCheckinOut";
+import { HiFolderRemove } from "react-icons/hi";
+import { useDeleteRezerv } from "./hooks/useDeleteRezerv";
 
 const Villa = styled.div`
   font-size: 1.6rem;
@@ -48,6 +55,8 @@ export default function RezervRow({
   },
 }) {
   const navigate = useNavigate();
+  const { checkout, isCheckingOut } = useCheckinOut();
+  const { deleteRezerv, isDeleteRezerv } = useDeleteRezerv();
   const statusToTagName = {
     "در انتظار": "blue",
     "تایید رزرو": "green",
@@ -78,12 +87,19 @@ export default function RezervRow({
 
       <Tag type={statusToTagName[status]}>{status}</Tag>
 
-      <Amount>{totalPrice}</Amount>
+      <Amount>{formatToman(totalPrice)}</Amount>
 
       <HiEye onClick={() => navigate(`/rezervs/${rezervId}`)} />
       {status === "در انتظار" && (
         <HiArrowDownOnSquare onClick={() => navigate(`/checkin/${rezervId}`)} />
       )}
+      {status === "تایید رزرو" && (
+        <HiArrowUpOnSquare
+          onClick={() => checkout(rezervId)}
+          disabled={isCheckingOut}
+        />
+      )}
+      <HiFolderRemove onClick={() => deleteRezerv(rezervId)} />
     </Table.Row>
   );
 }

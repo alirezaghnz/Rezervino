@@ -52,7 +52,8 @@ export async function getRezerv(id: number) {
   return data;
 }
 
-export async function updateRezerv(id, obj) {
+//for Update Rezerv
+export async function updateRezerv(id: number, obj) {
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)
@@ -65,4 +66,15 @@ export async function updateRezerv(id, obj) {
     throw new Error("رزرو اپدیت نشد");
   }
   return data;
+}
+
+//for Delete Rezerv
+export async function deleteRezerv(id: number) {
+  const { data, error } = await supabase.from("bookings").delete().eq("id", id);
+  if (error) {
+    console.error(error);
+    throw new Error("رزرو با موفقیت حذف نشد");
+  }
+
+  return data ?? [];
 }

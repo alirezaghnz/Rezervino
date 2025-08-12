@@ -1,6 +1,7 @@
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
+import { formatToman } from "../../utils/persianFormat";
 
 import { useSetting } from "./hooks/useSetting";
 import { useUpdateSetting } from "./hooks/useUpdateSetting";

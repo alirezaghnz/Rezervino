@@ -1,25 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateRezerv } from "../../../services/apiRezervs";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
-export function useCheckin() {
+export function useCheckinOut() {
   const queryClient = useQueryClient();
-  const navigate = useNavigate();
+
   //for update rezerving database(supabase)
-  const { mutate: checkin, isLoading: isChecking } = useMutation({
-    mutationFn: ({ rezervId, breakfast }: { rezervId: number; breakfast }) =>
+  const { mutate: checkout, isLoading: isCheckingOut } = useMutation({
+    mutationFn: (rezervId) =>
       updateRezerv(rezervId, {
-        status: "تایید رزرو",
-        isPaid: true,
-        ...breakfast,
+        status: "اتمام رزرو",
       }),
     onSuccess: (data) => {
-      toast.success(`رزرو با ایدی ${data.id} تایید شد`);
+      toast.success(`اتمام رزرو با ایدی ${data.id} انجام شد `);
       // with type: active all queries so they refetch and show updated data > ReactQuery 4/5
       queryClient.invalidateQueries({ type: "active" });
-      navigate("/");
     },
   });
-  return { checkin, isChecking };
+  return { checkout, isCheckingOut };
 }

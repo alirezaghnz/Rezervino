@@ -12,6 +12,7 @@ import { useRezerv } from "./hooks/useRezerv";
 import Spinner from "../../ui/Spinner";
 import RezervData from "./RezervData";
 import { useNavigate } from "react-router-dom";
+import { useCheckinOut } from "../check-in-out/hooks/useCheckinOut";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -22,6 +23,7 @@ const HeadingGroup = styled.div`
 function RezervDetail() {
   const navigate = useNavigate();
   const { rezerv, isLoading } = useRezerv();
+  const { checkout, isCheckingOut } = useCheckinOut();
   const moveBack = useMoveBack();
 
   if (isLoading) return <Spinner />;
@@ -33,6 +35,7 @@ function RezervDetail() {
     "تایید رزرو": "green",
     "اتمام رزرو": "silver",
   };
+
   return (
     <>
       <Row type="horizontal">
@@ -48,6 +51,11 @@ function RezervDetail() {
         {status === "در انتظار" && (
           <Button onClick={() => navigate(`/checkin/${rezervId}`)}>
             تایید رزرو
+          </Button>
+        )}
+        {status === "تایید رزرو" && (
+          <Button onClick={() => checkout(rezervId)} disabled={isCheckingOut}>
+            اتمام رزرو
           </Button>
         )}
         <Button variation="secondary" onClick={moveBack}>

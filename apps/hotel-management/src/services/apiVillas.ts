@@ -18,7 +18,7 @@ export async function deleteVilla(id: number): Promise<Villa[]> {
 
   if (error) {
     console.log(error);
-    throw new Error("data not loaded");
+    throw new Error("data not deleted");
   }
 
   return data ?? [];

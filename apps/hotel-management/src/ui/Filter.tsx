@@ -50,6 +50,9 @@ export default function Filter({
 
   const handleFilter = (value: string) => {
     searchParams.set(filterFiled, value);
+    //fix bug in filter when we go another filter
+    if (searchParams.get("page")) searchParams.set("page", 1);
+
     setSearchParams(searchParams);
   };
   return (

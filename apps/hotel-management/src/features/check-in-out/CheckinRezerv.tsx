@@ -12,6 +12,8 @@ import Spinner from "../../ui/Spinner";
 import Checkbox from "../../ui/Checkbox";
 import { useEffect, useState } from "react";
 import { useCheckin } from "./hooks/useCheckin";
+import { useSetting } from "../settings/hooks/useSetting";
+import { formatToman } from "../../utils/persianFormat";
 
 const Box = styled.div`
   /* Box */
@@ -23,7 +25,10 @@ const Box = styled.div`
 
 function CheckinRezerv() {
   const [confirmPaid, setConfirmPaid] = useState(false);
+  const [addBreakfast, setAddBreakfast] = useState(false);
+
   const { isLoading, rezerv } = useRezerv();
+  const { settings, isLoading: isSettingLoading } = useSetting();
 
   useEffect(() => {
     setConfirmPaid(rezerv?.isPaid ?? false);
@@ -42,9 +47,25 @@ function CheckinRezerv() {
     numNights,
   } = rezerv;
 
+  const breakfastP = settings.breakfastPrice;
+
+  const niazBeBreakfast = breakfastP * numNights * numGuests;
+
   function handleCheckin() {
     if (!confirmPaid) return;
-    checkin(rezervId);
+
+    if (addBreakfast) {
+      checkin({
+        rezervId,
+        breakfast: {
+          hasBreakfast: true,
+          extraPrice: niazBeBreakfast,
+          totalPrice: totalPrice + breakfastP,
+        },
+      });
+    } else {
+      checkin({ rezervId, breakfast: {} });
+    }
   }
 
   return (
@@ -53,6 +74,21 @@ function CheckinRezerv() {
         <Heading as="h1">رزرو #{rezervId}</Heading>
       </Row>
       <RezervData rezerv={rezerv} />
+
+      {!hasBreakfast && (
+        <Box>
+          <Checkbox
+            id="breakfast"
+            checked={addBreakfast}
+            onChange={() => {
+              setAddBreakfast((a) => !a);
+              setConfirmPaid(false);
+            }}
+          >
+            اضافه کردن صبحانه با قیمت {formatToman(breakfastP)}
+          </Checkbox>
+        </Box>
+      )}
       <Box>
         <Checkbox
           checked={confirmPaid}
@@ -60,8 +96,12 @@ function CheckinRezerv() {
           disabled={confirmPaid || isChecking}
           id="confirm"
         >
-          من قبول می کنم که کاربر {guests.fullName} با ایدی #{rezervId} مبلغ را
-          پرداخت کرده.
+          من می پذیرم کاربر {guests.fullName} با ایدی #{rezervId} مبلغ را پرداخت
+          کرده. مبلغ کل(
+          {!addBreakfast
+            ? formatToman(totalPrice)
+            : formatToman(niazBeBreakfast + totalPrice)}
+          )
         </Checkbox>
       </Box>
       <ButtonGroup>

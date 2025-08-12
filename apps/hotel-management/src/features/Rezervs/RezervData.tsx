@@ -114,7 +114,7 @@ function RezervData({ rezerv }) {
     extraPrice,
     totalPrice,
     hasBreakfast,
-    observations,
+    observation,
     isPaid,
     guests: { fullName: guestName, email, country, countryFlag, nationalID },
     villa: { name: villa },
@@ -154,12 +154,12 @@ function RezervData({ rezerv }) {
           <p> با کد ملی: {nationalID}</p>
         </Guest>
 
-        {observations && (
+        {observation && (
           <DataItem
             icon={<HiOutlineChatBubbleBottomCenterText />}
-            label="Observations"
+            label="توضیحات"
           >
-            {observations}
+            {observation}
           </DataItem>
         )}
 
