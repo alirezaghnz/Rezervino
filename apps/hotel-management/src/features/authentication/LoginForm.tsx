@@ -8,14 +8,23 @@ import { useLogin } from "./hooks/useLogin";
 
 export default function LoginForm() {
   const { login, isLoadingLogin } = useLogin();
-  const [email, setEmail] = useState("alireza@gmail.com");
-  const [password, setPassword] = useState("Alireza1378");
+  const [email, setEmail] = useState("alireza1@gmail.com");
+  const [password, setPassword] = useState("S5yz#GNzSjz2fv6");
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!email || !password) return;
 
-    login({ email, password });
+    login(
+      { email, password },
+      // for clear email and password if something went wrong
+      {
+        onSettled: () => {
+          setEmail("");
+          setPassword("");
+        },
+      }
+    );
   }
 
   return (

@@ -37,3 +37,11 @@ export async function getUser() {
 
   return data?.user;
 }
+
+export async function logout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error(error);
+    throw new Error(error.message || "problem with sign out user(logout)");
+  }
+}

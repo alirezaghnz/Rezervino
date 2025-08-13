@@ -21,6 +21,7 @@ export default function App() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
+        gcTime: 700000,
         staleTime: 0,
       },
     },
