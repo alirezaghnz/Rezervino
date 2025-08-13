@@ -20,3 +20,20 @@ export async function login({
   console.log(data);
   return data;
 }
+
+// Current user in session
+export async function getUser() {
+  const { data: session } = await supabase.auth.getSession();
+  if (!session.session) return null;
+
+  const { data, error } = await supabase.auth.getUser();
+
+  if (error) {
+    console.error(error);
+    throw new Error(error.message || "problem with get auth user");
+  }
+
+  console.log(data);
+
+  return data?.user;
+}

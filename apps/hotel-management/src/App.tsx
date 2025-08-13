@@ -15,6 +15,7 @@ import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import RezervPage from "./pages/RezervPage";
 import Checkin from "./pages/Checkin";
+import ProtectionRoute from "./ui/ProtectionRoute";
 
 export default function App() {
   const queryClient = new QueryClient({
@@ -32,7 +33,13 @@ export default function App() {
         <GlobalStyles />
         <BrowserRouter>
           <Routes>
-            <Route element={<AppLayout />}>
+            <Route
+              element={
+                <ProtectionRoute>
+                  <AppLayout />
+                </ProtectionRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="account" element={<Account />} />
