@@ -71,7 +71,7 @@ export default function MainNav() {
       <li>
         <StyledNavLink to="/users">
           <HiOutlineUsers />
-          <span>کاربران</span>
+          <span>ایجاد کاربر</span>
         </StyledNavLink>
       </li>
       <li>
