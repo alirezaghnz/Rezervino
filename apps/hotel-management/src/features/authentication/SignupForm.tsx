@@ -3,14 +3,22 @@ import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
+import { useSignup } from "./hooks/useSignup";
 
 export default function SignupForm() {
   // add useForm for control Form better
-  const { register, getValues, handleSubmit, formState } = useForm();
+  const { signup, isLoading } = useSignup();
+  const { register, getValues, handleSubmit, formState, reset } = useForm();
+
   const { errors } = formState;
 
-  const onSubmit = (data) => {
-    //  console.log(data);
+  const onSubmit = ({ fullName, email, password }) => {
+    signup(
+      { fullName, email, password, reset },
+      {
+        onSettled: reset,
+      }
+    );
   };
 
   return (

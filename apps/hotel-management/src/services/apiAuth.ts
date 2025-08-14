@@ -45,3 +45,30 @@ export async function logout() {
     throw new Error(error.message || "problem with sign out user(logout)");
   }
 }
+
+export async function signup({
+  email,
+  password,
+  fullName,
+}: {
+  email: string;
+  password: string;
+  fullName: string;
+}) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        fullName,
+      },
+    },
+  });
+
+  if (error) {
+    console.error(error);
+    throw new Error(error.message || "user not created");
+  }
+
+  return data;
+}
