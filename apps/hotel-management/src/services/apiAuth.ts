@@ -50,10 +50,12 @@ export async function signup({
   email,
   password,
   fullName,
+  pic,
 }: {
   email: string;
   password: string;
   fullName: string;
+  pic: string;
 }) {
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -61,6 +63,7 @@ export async function signup({
     options: {
       data: {
         fullName,
+        pic,
       },
     },
   });

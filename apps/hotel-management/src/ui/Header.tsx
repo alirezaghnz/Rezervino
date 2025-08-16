@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import DarkMode from "./DarkMode";
-import Logout from "../features/authentication/Logout";
+import HeaderData from "./HeaderData";
+import UserData from "../features/authentication/UserData";
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);
@@ -10,8 +10,8 @@ const StyledHeader = styled.header`
 export default function Header() {
   return (
     <StyledHeader>
-      <Logout />
-      <DarkMode />
+      <UserData />
+      <HeaderData />
     </StyledHeader>
   );
 }
