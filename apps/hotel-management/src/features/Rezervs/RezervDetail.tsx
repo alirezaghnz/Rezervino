@@ -53,21 +53,32 @@ function RezervDetail() {
 
       <ButtonGroup>
         {status === "در انتظار" && (
-          <Button onClick={() => navigate(`/checkin/${rezervId}`)}>
+          <Button
+            variation="primary"
+            size="medium"
+            onClick={() => navigate(`/checkin/${rezervId}`)}
+          >
             تایید رزرو
           </Button>
         )}
         {status === "تایید رزرو" && (
-          <Button onClick={() => checkout(rezervId)} disabled={isCheckingOut}>
+          <Button
+            size="medium"
+            variation="primary"
+            onClick={() => checkout(rezervId)}
+            disabled={isCheckingOut}
+          >
             اتمام رزرو
           </Button>
         )}
-        <Button variation="secondary" onClick={moveBack}>
+        <Button size="medium" variation="secondary" onClick={moveBack}>
           بازگشت
         </Button>
         <Modal>
           <Modal.Open opens="delete-rezerv">
-            <Button variation="danger">حذف رزرو</Button>
+            <Button size="medium" variation="danger">
+              حذف رزرو
+            </Button>
           </Modal.Open>
           <Modal.Window name="delete-rezerv">
             <ConfirmDelete

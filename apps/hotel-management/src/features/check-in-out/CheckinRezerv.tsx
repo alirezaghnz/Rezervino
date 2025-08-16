@@ -105,10 +105,15 @@ function CheckinRezerv() {
         </Checkbox>
       </Box>
       <ButtonGroup>
-        <Button onClick={handleCheckin} disabled={!confirmPaid || isChecking}>
+        <Button
+          size="medium"
+          variation="primary"
+          onClick={handleCheckin}
+          disabled={!confirmPaid || isChecking}
+        >
           تایید رزرو با ایدی #{rezervId}
         </Button>
-        <Button variation="secondary" onClick={moveBack}>
+        <Button size="medium" variation="secondary" onClick={moveBack}>
           بازگشت
         </Button>
       </ButtonGroup>

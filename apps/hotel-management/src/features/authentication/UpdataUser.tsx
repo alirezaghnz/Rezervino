@@ -19,7 +19,7 @@ export default function UpdateUser() {
 
   const { updateUsers, isUpdateUserLoading } = useUpdateUser();
   const [fullName, setFullName] = useState<string>(currentFullName);
-  const [pic, setPic] = useState(null);
+  const [pic, setPic] = useState<File | null>(null);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -46,21 +46,24 @@ export default function UpdateUser() {
         <FileInput
           id="pic"
           accept="image/*"
-          onChange={(e: ChangeEvent<HTMLInputElement>) =>
-            setPic(e.target.files[0])
-          }
-          disabled={isUpdateUserLoading}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const file = e.target.files?.[0] ?? null;
+            setPic(file);
+          }}
         />
       </FormRow>
       <FormRow>
         <Button
           type="reset"
           variation="secondary"
+          size="small"
           disabled={isUpdateUserLoading}
         >
           بازگشت
         </Button>
-        <Button disabled={isUpdateUserLoading}>ویرایش کاربر</Button>
+        <Button size="small" variation="primary" disabled={isUpdateUserLoading}>
+          ویرایش کاربر
+        </Button>
       </FormRow>
     </Form>
   );

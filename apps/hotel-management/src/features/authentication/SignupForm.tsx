@@ -75,10 +75,12 @@ export default function SignupForm() {
       </FormRow>
 
       <FormRow>
-        <Button variation="secondary" type="reset">
+        <Button size="medium" variation="secondary" type="reset">
           بازگشت
         </Button>
-        <Button>ایجاد کاربر</Button>
+        <Button size="medium" variation="primary">
+          ایجاد کاربر
+        </Button>
       </FormRow>
     </Form>
   );

@@ -52,7 +52,9 @@ export default function UpdatePassword() {
         <Button onClick={reset} type="reset" variation="secondary">
           بازگشت
         </Button>
-        <Button disabled={isUpdateUserLoading}>تغییر رمز عبور</Button>
+        <Button variation="primary" size="small" disabled={isUpdateUserLoading}>
+          تغییر رمز عبور
+        </Button>
       </FormRow>
     </Form>
   );

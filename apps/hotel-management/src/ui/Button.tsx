@@ -1,6 +1,10 @@
-import styled from "styled-components";
-{
-  /*
+import styled, { css } from "styled-components";
+
+type ButtonProps = {
+  size?: "small" | "medium" | "large";
+  variation?: "primary" | "secondary" | "danger";
+};
+
 const sizes = {
   small: css`
     font-size: 1.2rem;
@@ -47,21 +51,21 @@ const variations = {
       background-color: var(--color-red-800);
     }
   `,
-}; */
-}
+};
 
-const Button = styled.button`
-  font-size: 1.4rem;
+const Button = styled.button<ButtonProps>`
   border: none;
-  border-radius: var(--border-radius-lg);
-  background-color: var(--color-brand-500);
-  color: var(--color-brand-50);
-  padding: 1.2rem 1.6rem;
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  margin-top: 5px;
 
-  &: hover {
-    background-color: var(--color-brand-700);
-  }
+  ${(props) => props.size && sizes[props.size]}
+  ${(props) => props.variation && variations[props.variation]}
 `;
+
+Button.defaultProps = {
+  variation: "primary",
+  size: "medium",
+};
+
 export default Button;

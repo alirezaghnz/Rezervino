@@ -112,13 +112,16 @@ export function CreateVilla({
       <FormRow>
         <Button
           variation="secondary"
+          size="medium"
           type="reset"
           disabled={isWorking}
           onClick={() => onCloseModal?.()}
         >
           بازگشت
         </Button>
-        <Button disabled={isWorking}>{editSession ? "ویرایش" : "اضافه"}</Button>
+        <Button variation="primary" size="medium" disabled={isWorking}>
+          {editSession ? "ویرایش" : "اضافه"}
+        </Button>
       </FormRow>
     </Form>
   );

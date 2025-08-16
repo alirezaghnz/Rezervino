@@ -1,12 +1,12 @@
 import supabase from "./supabase";
-
-export async function login({
-  email,
-  password,
-}: {
+type AuthArgs = {
   email: string;
   password: string;
-}) {
+  fullName?: string;
+  pic?: File | null;
+};
+
+export async function login({ email, password }: AuthArgs) {
   if (!email || !password) throw new Error("ایمیل و پسورد وارد کنید");
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -46,17 +46,7 @@ export async function logout() {
   }
 }
 
-export async function signup({
-  email,
-  password,
-  fullName,
-  pic,
-}: {
-  email: string;
-  password: string;
-  fullName: string;
-  pic: string;
-}) {
+export async function signup({ email, password, fullName }: AuthArgs) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -76,28 +66,26 @@ export async function signup({
   return data;
 }
 
-export async function updateUser({
-  password,
-  fullName,
-  pic,
-}: {
-  password: string;
-  fullName: string;
-  pic: string;
-}) {
+export async function updateUser({ password, fullName, pic }: AuthArgs) {
   // we need update password or fullName , we cant update both at the same time(bcuse we have two forms). so we nneed conditional
-  let updateData;
+  let updateData: any = null;
+  if (password && fullName) {
+    throw new Error("همزمان نمی توان تغییر ایجاد کرد");
+  }
   if (password) updateData = { password };
   if (fullName) updateData = { data: { fullName } };
-  const { data, error } = await supabase.auth.updateUser(updateData);
+
+  const { data, error } = await supabase.auth.updateUser(updateData ?? {});
   if (error) throw new Error(error.message);
+
   if (!pic) return data;
 
   //upload pic
-  const fileName = `pic-${data.user.id}-${Math.random()}`;
+  const fileName = `pic-${data.user.id}-${Date.now()}`;
   const { error: errorStorage } = await supabase.storage
     .from("pics")
-    .update(fileName, pic);
+    //add upsert for re-upload dont failed
+    .update(fileName, pic, { upsert: true });
 
   if (errorStorage) throw new Error(errorStorage.message);
 
