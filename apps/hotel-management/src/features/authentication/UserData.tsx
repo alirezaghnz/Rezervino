@@ -22,10 +22,10 @@ const Pic = styled.img`
 `;
 export default function UserData() {
   const { user } = useGetUser();
-  const { fullName, avatar } = user.user_metadata;
+  const { fullName, pic } = user.user_metadata;
   return (
     <StyledUserData>
-      <Pic src={avatar || "default.jpg"} alt={`عکس کاربر ${fullName}`} />
+      <Pic src={pic || "default.jpg"} alt={`عکس کاربر ${fullName}`} />
       <span>{fullName}</span>
     </StyledUserData>
   );

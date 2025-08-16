@@ -63,7 +63,7 @@ export async function signup({
     options: {
       data: {
         fullName,
-        pic,
+        pic: "",
       },
     },
   });
@@ -74,4 +74,40 @@ export async function signup({
   }
 
   return data;
+}
+
+export async function updateUser({
+  password,
+  fullName,
+  pic,
+}: {
+  password: string;
+  fullName: string;
+  pic: string;
+}) {
+  // we need update password or fullName , we cant update both at the same time(bcuse we have two forms). so we nneed conditional
+  let updateData;
+  if (password) updateData = { password };
+  if (fullName) updateData = { data: { fullName } };
+  const { data, error } = await supabase.auth.updateUser(updateData);
+  if (error) throw new Error(error.message);
+  if (!pic) return data;
+
+  //upload pic
+  const fileName = `pic-${data.user.id}-${Math.random()}`;
+  const { error: errorStorage } = await supabase.storage
+    .from("pics")
+    .update(fileName, pic);
+
+  if (errorStorage) throw new Error(errorStorage.message);
+
+  //update pic
+  const { data: updatePic, error: errorPic } = await supabase.auth.updateUser({
+    data: {
+      pic: `https://ttpaxypnlgpojmtnkzir.supabase.co/storage/v1/object/public/pics/${fileName}`,
+    },
+  });
+  if (errorPic) throw new Error(errorPic.message);
+
+  return updatePic;
 }
