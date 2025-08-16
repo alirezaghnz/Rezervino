@@ -7,8 +7,14 @@ export function useCheckin() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   //for update rezerving database(supabase)
-  const { mutate: checkin, isLoading: isChecking } = useMutation({
-    mutationFn: ({ rezervId, breakfast }: { rezervId: number; breakfast }) =>
+  const { mutate: checkin, isPending: isChecking } = useMutation({
+    mutationFn: ({
+      rezervId,
+      breakfast,
+    }: {
+      rezervId: number;
+      breakfast: any;
+    }) =>
       updateRezerv(rezervId, {
         status: "تایید رزرو",
         isPaid: true,

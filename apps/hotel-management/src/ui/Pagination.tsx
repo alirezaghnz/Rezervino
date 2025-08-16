@@ -23,7 +23,10 @@ const Buttons = styled.div`
   gap: 0.6rem;
 `;
 
-const PaginationButton = styled.button`
+type Pagination = {
+  active?: boolean;
+};
+const PaginationButton = styled.button<Pagination>`
   background-color: ${(props) =>
     props.active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
   color: ${(props) => (props.active ? " var(--color-brand-50)" : "inherit")};
@@ -68,14 +71,14 @@ export default function Pagination({ count }: { count: number }) {
     //If currentPage is the last page, do not noting
     const next = currentPage === pageCount ? currentPage : currentPage + 1;
 
-    searchParams.set("page", next);
+    searchParams.set("page", String(next));
     setSearchParams(searchParams);
   }
   function handlePrev() {
     //If currentPage is the first page, do not noting
     const prev = currentPage === 1 ? currentPage : currentPage - 1;
 
-    searchParams.set("page", prev);
+    searchParams.set("page", String(prev));
     setSearchParams(searchParams);
   }
 

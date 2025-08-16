@@ -53,13 +53,21 @@ const Button = styled.button`
   }
 `;
 
-const ModalContext = createContext();
+type ModalContextType = {
+  openName: string;
+  close: () => void;
+  open: (name: string) => void;
+};
+const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 // Modal component
-export function Modal({ children }: { children: React.ReactNode }) {
-  const [openName, setOpenName] = useState("");
+interface ModalProps {
+  children: React.ReactNode;
+}
+export function Modal({ children }: ModalProps) {
+  const [openName, setOpenName] = useState<string>("");
   const close = () => setOpenName("");
-  const open = setOpenName;
+  const open = (name: string) => setOpenName(name);
 
   return (
     <ModalContext.Provider value={{ openName, close, open }}>
@@ -68,19 +76,25 @@ export function Modal({ children }: { children: React.ReactNode }) {
   );
 }
 //
-function Open({
-  children,
-  opens: openWindowName,
-}: {
+interface OpenProps {
   children: React.ReactElement;
   opens: string;
-}) {
-  const { open } = useContext(ModalContext);
+}
+function Open({ children, opens: openWindowName }: OpenProps) {
+  const context = useContext(ModalContext);
+  if (!context) throw new Error("Open must be used within a Modal");
+  const { open } = context;
   return cloneElement(children, { onClick: () => open(openWindowName) });
 }
 
-export function Window({ children, name }: { children: React.ReactNode }) {
-  const { openName, close } = useContext(ModalContext);
+interface WindowProps {
+  children: React.ReactElement;
+  name: string;
+}
+export function Window({ children, name }: WindowProps) {
+  const context = useContext(ModalContext);
+  if (!context) throw new Error("Window must be used within a Modal");
+  const { openName, close } = context;
   //for click outside the modal we create custom hook with ref
   const ref = useOutsideClick(close);
 

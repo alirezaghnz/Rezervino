@@ -1,19 +1,19 @@
 import styled from "styled-components";
 
-import Row from "../../ui/Row";
-import Heading from "../../ui/Heading";
-import ButtonGroup from "../../ui/ButtonGroup";
-import Button from "../../ui/Button";
-
-import { useMoveBack } from "../../hooks/useBack";
-import RezervData from "../Rezervs/RezervData";
-import { useRezerv } from "../Rezervs/hooks/useRezerv";
-import Spinner from "../../ui/Spinner";
-import Checkbox from "../../ui/Checkbox";
 import { useEffect, useState } from "react";
 import { useCheckin } from "./hooks/useCheckin";
 import { useSetting } from "../settings/hooks/useSetting";
 import { formatToman } from "../../utils/persianFormat";
+import { useMoveBack } from "../../hooks/useBack";
+import { useRezerv } from "../Rezervs/hooks/useRezerv";
+
+import Row from "../../ui/Row";
+import Heading from "../../ui/Heading";
+import ButtonGroup from "../../ui/ButtonGroup";
+import Button from "../../ui/Button";
+import RezervData from "../Rezervs/RezervData";
+import Spinner from "../../ui/Spinner";
+import Checkbox from "../../ui/Checkbox";
 
 const Box = styled.div`
   /* Box */
@@ -28,7 +28,7 @@ function CheckinRezerv() {
   const [addBreakfast, setAddBreakfast] = useState(false);
 
   const { isLoading, rezerv } = useRezerv();
-  const { settings, isLoading: isSettingLoading } = useSetting();
+  const { settings } = useSetting();
 
   useEffect(() => {
     setConfirmPaid(rezerv?.isPaid ?? false);

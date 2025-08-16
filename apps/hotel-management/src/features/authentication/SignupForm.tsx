@@ -7,12 +7,20 @@ import { useSignup } from "./hooks/useSignup";
 
 export default function SignupForm() {
   // add useForm for control Form better
-  const { signup, isLoading } = useSignup();
+  const { signup, isPending } = useSignup();
   const { register, getValues, handleSubmit, formState, reset } = useForm();
 
   const { errors } = formState;
 
-  const onSubmit = ({ fullName, email, password }) => {
+  const onSubmit = ({
+    fullName,
+    email,
+    password,
+  }: {
+    fullName: string;
+    email: string;
+    password: string;
+  }) => {
     signup(
       { fullName, email, password, reset },
       {
@@ -25,6 +33,7 @@ export default function SignupForm() {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="نام و نام خانوادگی" error={errors?.fullName?.message}>
         <Input
+          disabled={isPending}
           type="text"
           id="fullName"
           {...register("fullName", { required: "فیلد  پر کنید" })}
@@ -33,6 +42,7 @@ export default function SignupForm() {
 
       <FormRow label="ایمیل آدرس" error={errors?.email?.message}>
         <Input
+          disabled={isPending}
           type="email"
           id="email"
           {...register("email", {
@@ -50,6 +60,7 @@ export default function SignupForm() {
         error={errors?.password?.message}
       >
         <Input
+          disabled={isPending}
           type="password"
           id="password"
           {...register("password", {
@@ -64,6 +75,7 @@ export default function SignupForm() {
 
       <FormRow label="تکرار رمز عبور" error={errors?.passwordConfirm?.message}>
         <Input
+          disabled={isPending}
           type="password"
           id="passwordConfirm"
           {...register("password", {

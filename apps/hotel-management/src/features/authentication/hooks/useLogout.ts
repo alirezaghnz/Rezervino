@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export function useLogout() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { mutate: logout, isLoading } = useMutation({
+  const { mutate: logout, isPending } = useMutation({
     mutationFn: logoutA,
     onSuccess: () => {
       //add removeQueries for delete session and catch
@@ -13,5 +13,5 @@ export function useLogout() {
       navigate("/login", { replace: true });
     },
   });
-  return { logout, isLoading };
+  return { logout, isPending };
 }

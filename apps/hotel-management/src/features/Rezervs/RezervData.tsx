@@ -10,7 +10,6 @@ import { Flag } from "../../ui/Flag";
 import DataItem from "../../ui/DataItem";
 import {
   formatJalali,
-  formattedPrice,
   formatToman,
   toPersianDigits,
 } from "../../utils/persianFormat";
@@ -70,7 +69,10 @@ const Guest = styled.div`
   }
 `;
 
-const Price = styled.div`
+type Price = {
+  isPaid: boolean;
+};
+const Price = styled.div<Price>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -103,7 +105,7 @@ const Footer = styled.footer`
   text-align: right;
 `;
 
-function RezervData({ rezerv }) {
+function RezervData({ rezerv }: any) {
   const {
     created_at,
     startDate,

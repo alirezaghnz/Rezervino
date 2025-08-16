@@ -6,8 +6,8 @@ export function useCheckinOut() {
   const queryClient = useQueryClient();
 
   //for update rezerving database(supabase)
-  const { mutate: checkout, isLoading: isCheckingOut } = useMutation({
-    mutationFn: (rezervId) =>
+  const { mutate: checkout, isPending: isCheckingOut } = useMutation({
+    mutationFn: (rezervId: number) =>
       updateRezerv(rezervId, {
         status: "اتمام رزرو",
       }),

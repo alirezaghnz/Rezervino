@@ -1,20 +1,18 @@
 import styled from "styled-components";
 import { useMoveBack } from "../../hooks/useBack";
-
-import Row from "../../ui/Row";
-import Heading from "../../ui/Heading";
-import Tag from "../../ui/Tag";
-
-import Button from "../../ui/Button";
-
-import ButtonGroup from "../../ui/ButtonGroup";
 import { useRezerv } from "./hooks/useRezerv";
-import Spinner from "../../ui/Spinner";
-import RezervData from "./RezervData";
 import { useNavigate } from "react-router-dom";
 import { useCheckinOut } from "../check-in-out/hooks/useCheckinOut";
 import { Modal } from "../../ui/Modal";
 import { useDeleteRezerv } from "./hooks/useDeleteRezerv";
+
+import Row from "../../ui/Row";
+import Heading from "../../ui/Heading";
+import Tag from "../../ui/Tag";
+import Button from "../../ui/Button";
+import ButtonGroup from "../../ui/ButtonGroup";
+import Spinner from "../../ui/Spinner";
+import RezervData from "./RezervData";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const HeadingGroup = styled.div`
