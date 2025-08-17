@@ -56,7 +56,7 @@ const PaginationButton = styled.button<Pagination>`
   }
 `;
 
-export default function Pagination({ count }: { count: number }) {
+export default function Pagination({ count }: { count: any }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   //Get current page from searchParams or default  1

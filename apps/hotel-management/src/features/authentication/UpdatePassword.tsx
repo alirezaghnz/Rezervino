@@ -15,7 +15,7 @@ export default function UpdatePassword() {
     updateUsers({ password }, { onSuccess: reset });
   }
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit as any)}>
       <FormRow
         label="رمز عبور (حداقل 8 کراکتر)"
         error={errors?.password?.message}

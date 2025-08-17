@@ -43,25 +43,25 @@ const Amount = styled.div`
 export default function RezervRow({
   rezerving: {
     id: rezervId,
-    created_at,
     startDate,
     endDate,
     numNights,
-    numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
     villa: { name: villaName },
   },
-}) {
+}: any) {
   const navigate = useNavigate();
-  const { checkout, isCheckingOut } = useCheckinOut();
-  const { deleteRezerv, isDeleteRezerv } = useDeleteRezerv();
+  // need to add loading
+  const { checkout } = useCheckinOut();
+  const { deleteRezerv } = useDeleteRezerv();
+
   const statusToTagName = {
     "در انتظار": "blue",
     "تایید رزرو": "green",
     "اتمام رزرو": "silver",
-  };
+  } as any;
 
   return (
     <Table.Row>
@@ -94,10 +94,7 @@ export default function RezervRow({
         <HiArrowDownOnSquare onClick={() => navigate(`/checkin/${rezervId}`)} />
       )}
       {status === "تایید رزرو" && (
-        <HiArrowUpOnSquare
-          onClick={() => checkout(rezervId)}
-          disabled={isCheckingOut}
-        />
+        <HiArrowUpOnSquare onClick={() => checkout(rezervId)} />
       )}
       <HiFolderRemove onClick={() => deleteRezerv(rezervId)} />
     </Table.Row>

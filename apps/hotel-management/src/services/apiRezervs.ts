@@ -1,7 +1,7 @@
 import { PAGE_SIZE } from "../utils/constantist";
 import supabase from "./supabase";
 
-export async function getRezervs({ filter, sortBy, page }) {
+export async function getRezervs({ filter, sortBy, page }: any) {
   let query = supabase
     .from("bookings")
     // with count: exact to get the total number of records for Pagination
@@ -53,7 +53,7 @@ export async function getRezerv(id: number) {
 }
 
 //for Update Rezerv
-export async function updateRezerv(id: number, obj) {
+export async function updateRezerv(id: number, obj: any) {
   const { data, error } = await supabase
     .from("bookings")
     .update(obj)

@@ -61,7 +61,7 @@ const Empty = styled.p`
   margin: 2.4rem;
 `;
 
-const TableContext = createContext<{ columns: string } | null>(null);
+const TableContext = createContext<{ columns: any } | null>(null);
 
 function Table({ children, columns }: TableProps) {
   return (
@@ -89,7 +89,7 @@ function Row({ children }: TableHeaderProps) {
     </StyledRow>
   );
 }
-function Body({ data, render }) {
+function Body({ data, render }: any) {
   if (!data.length) return <Empty>داده ای برای نمایش وجود ندارد.</Empty>;
 
   return <StyledBody>{data.map(render)}</StyledBody>;

@@ -29,7 +29,7 @@ const StyledToggle = styled.button`
   }
 `;
 
-const StyledList = styled.ul`
+const StyledList = styled.ul<{ position: { x: number; y: number } }>`
   position: fixed;
 
   background-color: var(--color-grey-0);
@@ -65,9 +65,9 @@ const StyledButton = styled.button`
   }
 `;
 
-const MenusContext = createContext();
+const MenusContext = createContext<any>(null);
 
-function Menus({ children }) {
+function Menus({ children }: any) {
   const [openId, setOpenId] = useState("");
   const [position, setPosition] = useState(null);
 
@@ -83,17 +83,18 @@ function Menus({ children }) {
   );
 }
 
-function Toggle({ id }) {
+function Toggle({ id }: { id: number | string }) {
   const { openId, close, open, setPosition } = useContext(MenusContext);
 
-  function handleClick(e) {
+  function handleClick(e: any) {
     const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
       y: rect.y + rect.height + 8,
     });
 
-    openId === "" || openId !== id ? open(id) : close();
+    if (openId === "" || openId !== id) open(id);
+    else close();
   }
 
   return (
@@ -103,7 +104,7 @@ function Toggle({ id }) {
   );
 }
 
-function List({ id, children }) {
+function List({ id, children }: any) {
   const { openId, position, close } = useContext(MenusContext);
   const ref = useOutsideClick(close);
 
@@ -117,7 +118,7 @@ function List({ id, children }) {
   );
 }
 
-function Button({ children, icon, onClick }) {
+function Button({ children, icon, onClick }: any) {
   const { close } = useContext(MenusContext);
 
   function handleClick() {

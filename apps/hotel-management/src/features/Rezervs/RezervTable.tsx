@@ -45,7 +45,9 @@ export default function RezervTabel() {
 
       <Table.Body
         data={rezervs}
-        render={(rezerv) => <RezervRow key={rezerv.id} rezerving={rezerv} />}
+        render={(rezerv: any) => (
+          <RezervRow key={rezerv.id} rezerving={rezerv} />
+        )}
       />
       <Table.Footer>
         <Pagination count={count} />

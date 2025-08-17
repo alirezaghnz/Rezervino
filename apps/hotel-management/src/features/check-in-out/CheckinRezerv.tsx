@@ -47,6 +47,7 @@ function CheckinRezerv() {
     numNights,
   } = rezerv;
 
+  //we need fix that
   const breakfastP = settings.breakfastPrice;
 
   const niazBeBreakfast = breakfastP * numNights * numGuests;

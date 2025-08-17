@@ -1,30 +1,33 @@
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import { useSignup } from "./hooks/useSignup";
-
+type SignupFormValues = {
+  fullName: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+};
 export default function SignupForm() {
   // add useForm for control Form better
   const { signup, isPending } = useSignup();
-  const { register, getValues, handleSubmit, formState, reset } = useForm();
+  const { register, getValues, handleSubmit, formState, reset } =
+    useForm<SignupFormValues>();
 
   const { errors } = formState;
 
-  const onSubmit = ({
+  const onSubmit: SubmitHandler<SignupFormValues> = ({
     fullName,
     email,
     password,
-  }: {
-    fullName: string;
-    email: string;
-    password: string;
   }) => {
     signup(
-      { fullName, email, password, reset },
+      { fullName, email, password },
       {
-        onSettled: reset,
+        // reset form after mutation finishes
+        onSettled: () => reset(),
       }
     );
   };
@@ -78,7 +81,7 @@ export default function SignupForm() {
           disabled={isPending}
           type="password"
           id="passwordConfirm"
-          {...register("password", {
+          {...register("passwordConfirm", {
             required: "فیلد پسورد را پر کنید",
             validate: (value) =>
               value === getValues().password || "پسورد یکسان وارد کنید",

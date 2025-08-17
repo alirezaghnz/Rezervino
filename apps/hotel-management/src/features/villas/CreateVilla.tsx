@@ -1,13 +1,13 @@
+import { useForm, type SubmitHandler } from "react-hook-form";
+import type { CreateVillaForm } from "../../types/database.types";
+import { useCreateVilla } from "./hooks/useCreateVilla";
+import { useUpdateVilla } from "./hooks/useUpdateVilla";
+
 import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
-import { useForm, type SubmitHandler } from "react-hook-form";
-
-import type { CreateVillaForm } from "../../types/database.types";
-import { useCreateVilla } from "./hooks/useCreateVilla";
-import { useUpdateVilla } from "./hooks/useUpdateVilla";
 import FormRow from "../../ui/FormRow";
 
 export function CreateVilla({
@@ -97,7 +97,6 @@ export function CreateVilla({
 
       <FormRow label="توضیحات">
         <Textarea
-          type="number"
           id="description"
           defaultValue=""
           {...register("description")}

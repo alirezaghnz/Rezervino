@@ -1,13 +1,27 @@
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useContext, useEffect, type ReactNode } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
-const DarkModeContext = createContext();
+type DarkModeContextType = {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+};
 
-function DarkModeProvider({ children }) {
+//For Type Context bcuse needed defaultValue
+const defaultValue: DarkModeContextType = {
+  isDarkMode: false,
+  toggleDarkMode: () => {},
+};
+type DarkModeProviderProps = {
+  children: ReactNode;
+};
+
+const DarkModeContext = createContext<DarkModeContextType>(defaultValue);
+
+function DarkModeProvider({ children }: DarkModeProviderProps) {
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(false, "isDarkMode");
 
   function toggleDarkMode() {
-    setIsDarkMode((prev) => !prev);
+    setIsDarkMode((prev: any) => !prev);
   }
 
   useEffect(() => {
@@ -26,9 +40,11 @@ function DarkModeProvider({ children }) {
     </DarkModeContext.Provider>
   );
 }
+//custom hook
 function useDarkMode() {
   const context = useContext(DarkModeContext);
   return context;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export { useDarkMode, DarkModeProvider };

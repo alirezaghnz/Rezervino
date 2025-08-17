@@ -7,7 +7,6 @@ export default function AddVilla() {
     <Modal>
       <Modal.Open opens="villa-form">
         <Button size="medium" variation="primary">
-          {" "}
           اضافه کردن ویلا
         </Button>
       </Modal.Open>

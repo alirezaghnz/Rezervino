@@ -25,7 +25,7 @@ export async function deleteVilla(id: number): Promise<Villa[]> {
 }
 
 //insert and update
-export async function insertVilla(newVilla, id): Promise<Villa[]> {
+export async function insertVilla(newVilla: any, id: number): Promise<Villa[]> {
   const hasImage = newVilla.image?.startsWith?.(supabaseUrl);
   const imageName = `${Math.random()}-${newVilla.image.name}`.replaceAll(
     "/",

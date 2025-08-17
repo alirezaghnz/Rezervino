@@ -3,14 +3,15 @@ import { getRezerv } from "../../../services/apiRezervs";
 import { useParams } from "react-router-dom";
 
 export function useRezerv() {
-  const { bookingId } = useParams();
+  const { bookingId } = useParams<{ bookingId: string }>();
+  const rezervId = bookingId ? Number(bookingId) : undefined;
   const {
     isLoading,
     data: rezerv,
     error,
   } = useQuery({
-    queryKey: ["bookings", bookingId],
-    queryFn: () => getRezerv(bookingId),
+    queryKey: ["bookings", rezervId],
+    queryFn: () => getRezerv(rezervId as number),
     retry: false,
   });
 

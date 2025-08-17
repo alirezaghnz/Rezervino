@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "../../../services/apiAuth";
 
-type User = { email: string; user_metadata: { fullName: string } };
-
-export function useGetUser(): { user: User } {
+export function useGetUser(): any {
   const { isLoading: loadingUser, data: user } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,

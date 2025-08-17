@@ -6,7 +6,7 @@ import {
   HiOutlineCurrencyDollar,
   HiOutlineHomeModern,
 } from "react-icons/hi2";
-import { Flag } from "../../ui/Flag";
+
 import DataItem from "../../ui/DataItem";
 import {
   formatJalali,
@@ -104,7 +104,7 @@ const Footer = styled.footer`
   color: var(--color-grey-500);
   text-align: right;
 `;
-
+// we need ad country and flag country later
 function RezervData({ rezerv }: any) {
   const {
     created_at,
@@ -118,7 +118,7 @@ function RezervData({ rezerv }: any) {
     hasBreakfast,
     observation,
     isPaid,
-    guests: { fullName: guestName, email, country, countryFlag, nationalID },
+    guests: { fullName: guestName, email, nationalID },
     villa: { name: villa },
   } = rezerv;
 

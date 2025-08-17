@@ -1,14 +1,12 @@
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import { formatToman } from "../../utils/persianFormat";
 
 import { useSetting } from "./hooks/useSetting";
 import { useUpdateSetting } from "./hooks/useUpdateSetting";
 
 function UpdateSettings() {
   const {
-    isLoading,
     settings: {
       minBookingLength,
       maxBookingLength,
@@ -19,7 +17,7 @@ function UpdateSettings() {
 
   const { isPending, editSetting } = useUpdateSetting();
 
-  function handleSetting(e, field) {
+  function handleSetting(e: any, field: any) {
     const { value } = e.target;
     if (!value) return;
     editSetting({ [field]: value });
