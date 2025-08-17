@@ -11,7 +11,7 @@ const LoadingPage = styled.div`
   align-items: center;
   justify-content: center;
 `;
-export default function ProtectionRoute({ children }) {
+export default function ProtectionRoute({ children }: any) {
   const { isAuthenticated, loadingUser } = useGetUser();
 
   const navigate = useNavigate();

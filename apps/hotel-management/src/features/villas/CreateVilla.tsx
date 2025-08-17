@@ -30,27 +30,19 @@ export function CreateVilla({
 
   const onSubmit: SubmitHandler<CreateVillaForm> = (data) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
+
+    const payload = { ...data, image };
+    const commonOption = {
+      onSuccess: () => {
+        reset();
+        onCloseModal?.();
+      },
+    };
+
     // if editSession find , villa edited and if not createVilla(insert & update both handle together)
     if (editSession)
-      editVilla(
-        { newVillaData: { ...data, image }, id: editId },
-        {
-          onSuccess: () => {
-            reset();
-            onCloseModal?.();
-          },
-        }
-      );
-    else
-      createVilla(
-        { ...data, image: image },
-        {
-          onSuccess: () => {
-            reset();
-            onCloseModal?.();
-          },
-        }
-      );
+      editVilla({ newVillaData: payload, id: editId }, commonOption);
+    else createVilla(payload, commonOption);
     // console.log(data);
   };
   return (

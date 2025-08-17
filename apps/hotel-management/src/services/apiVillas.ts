@@ -24,8 +24,15 @@ export async function deleteVilla(id: number): Promise<Villa[]> {
   return data ?? [];
 }
 
+export type InsertOrEditVillaArgs = {
+  newVilla: any;
+  id?: any;
+};
 //insert and update
-export async function insertVilla(newVilla: any, id: number): Promise<Villa[]> {
+export async function insertVilla({
+  newVilla,
+  id,
+}: InsertOrEditVillaArgs): Promise<any> {
   const hasImage = newVilla.image?.startsWith?.(supabaseUrl);
   const imageName = `${Math.random()}-${newVilla.image.name}`.replaceAll(
     "/",
@@ -37,11 +44,14 @@ export async function insertVilla(newVilla: any, id: number): Promise<Villa[]> {
   //https://ttpaxypnlgpojmtnkzir.supabase.co/storage/v1/object/public/villa-images/cabin-001.jpg
 
   //create and edit villa
-  let query = supabase.from("villa");
+  let query: any = supabase.from("villa");
   //create
-  if (!id) query = query.insert([{ ...newVilla, image: imagePath }]);
-  //edit
-  if (id) query = query.update({ ...newVilla, image: imagePath }).eq("id", id);
+  if (!id) {
+    query = query.insert([{ ...newVilla, image: imagePath }]);
+  } else {
+    //edit
+    query = query.update({ ...newVilla, image: imagePath }).eq("id", id);
+  }
 
   const { data, error } = await query.select().single();
   if (error) {

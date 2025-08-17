@@ -77,7 +77,7 @@ export function Modal({ children }: ModalProps) {
 }
 //
 interface OpenProps {
-  children: React.ReactElement;
+  children: React.ReactElement<{ onClick?: () => void }>;
   opens: string;
 }
 function Open({ children, opens: openWindowName }: OpenProps) {
@@ -88,7 +88,7 @@ function Open({ children, opens: openWindowName }: OpenProps) {
 }
 
 interface WindowProps {
-  children: React.ReactElement;
+  children: React.ReactElement<{ onCloseModal?: () => void }>;
   name: string;
 }
 export function Window({ children, name }: WindowProps) {
@@ -96,7 +96,7 @@ export function Window({ children, name }: WindowProps) {
   if (!context) throw new Error("Window must be used within a Modal");
   const { openName, close } = context;
   //for click outside the modal we create custom hook with ref
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClick<HTMLDivElement>(close);
 
   if (name !== openName) return null;
   return createPortal(

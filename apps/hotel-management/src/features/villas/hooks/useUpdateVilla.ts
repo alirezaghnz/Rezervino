@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 export function useUpdateVilla() {
   const query = useQueryClient();
   const { isPending: isEditing, mutate: editVilla } = useMutation({
-    mutationFn: ({ newVillaData, id }) => insertVilla(newVillaData, id),
+    mutationFn: ({ newVillaData, id }: any) => insertVilla(newVillaData, id),
     onSuccess: () => {
       toast.success("ویلا با موفقیت ویرایش شد");
       query.invalidateQueries({ queryKey: ["villa"] });

@@ -13,7 +13,7 @@ export default function SortBy({ options }: any) {
     <Select
       value={sortBy}
       options={options}
-      type="white"
+      $type="white"
       onChange={handleSort}
     />
   );
