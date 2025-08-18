@@ -25,18 +25,21 @@ function RezervDetail() {
   const navigate = useNavigate();
   const { rezerv, isLoading } = useRezerv();
   const { checkout, isCheckingOut } = useCheckinOut();
-  const { deleteRezerv, isDeleteRezerv } = useDeleteRezerv();
+  // we need add isDelet loading
+  const { deleteRezerv, isDeleteRerzerv } = useDeleteRezerv();
   const moveBack = useMoveBack();
 
   if (isLoading) return <Spinner />;
 
-  const { status, id: rezervId } = rezerv;
-
-  const statusToTagName = {
+  type Status = "در انتظار" | "تایید رزرو" | "اتمام رزرو";
+  type TagColor = "blue" | "green" | "silver";
+  const statusToTagName: Record<Status, TagColor> = {
     "در انتظار": "blue",
     "تایید رزرو": "green",
     "اتمام رزرو": "silver",
   };
+
+  const { status, id: rezervId } = rezerv as { status: Status; id: number };
 
   return (
     <>
@@ -80,13 +83,12 @@ function RezervDetail() {
           </Modal.Open>
           <Modal.Window name="delete-rezerv">
             <ConfirmDelete
-              resourceName="رزرو"
-              disabled={isDeleteRezerv}
-              onConfirm={() =>
-                deleteRezerv(rezervId, {
-                  onSettled: () => navigate(-1),
-                })
-              }
+              {...({
+                resourceName: "رزرو",
+                disabled: isDeleteRerzerv,
+                onConfirm: () =>
+                  deleteRezerv(rezervId, { onSettled: () => navigate(-1) }),
+              } as any)}
             />
           </Modal.Window>
         </Modal>

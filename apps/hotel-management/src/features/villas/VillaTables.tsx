@@ -24,10 +24,7 @@ export default function VillaTable() {
   }
 
   const sortBy = searchParams.get("sortBy") || "startDate-asc";
-  const [field, direction] = sortBy.split("-") as [
-    keyof (typeof villa)[0],
-    string
-  ];
+  const [field, direction] = sortBy.split("-") as [string, string];
   //Defining the Villa type to ensure type safety but need to add Type Folder
   type Villa = {
     id: number;
@@ -57,7 +54,7 @@ export default function VillaTable() {
 
   return (
     <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
-      <Table.Header role="row">
+      <Table.Header {...({ role: "row" } as any)}>
         <div></div>
         <div>ویلا</div>
         <div>ظرفیت</div>
@@ -67,7 +64,7 @@ export default function VillaTable() {
       {/*  we use render prop to render each villa Body instead of compound components */}
       <Table.Body
         data={sortedVillas ?? []}
-        render={(v) => <VillaRows key={v.id} v={v} />}
+        render={(v: any) => <VillaRows key={v.id} v={v} />}
       />
     </Table>
   );

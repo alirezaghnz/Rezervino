@@ -72,7 +72,7 @@ function Table({ children, columns }: TableProps) {
 }
 
 function Header({ children }: TableHeaderProps) {
-  const { columns } = useContext(TableContext);
+  const { columns } = useContext(TableContext) as { columns: any };
 
   return (
     <StyledHeader role="row" columns={columns}>
@@ -81,7 +81,7 @@ function Header({ children }: TableHeaderProps) {
   );
 }
 function Row({ children }: TableHeaderProps) {
-  const { columns } = useContext(TableContext);
+  const { columns } = useContext(TableContext) as { columns: any };
 
   return (
     <StyledRow role="row" columns={columns}>

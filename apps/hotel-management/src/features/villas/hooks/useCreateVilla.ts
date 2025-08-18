@@ -1,18 +1,15 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  insertVilla,
-  type InsertOrEditVillaArgs,
-} from "../../../services/apiVillas";
+import { insertVilla } from "../../../services/apiVillas";
 import toast from "react-hot-toast";
 
 export function useCreateVilla() {
   const queryClient = useQueryClient();
   const { isPending: isCreating, mutate: createVilla } = useMutation<
-    unknown,
-    Error,
-    InsertOrEditVillaArgs
+    any,
+    any,
+    any
   >({
-    mutationFn: insertVilla,
+    mutationFn: (newVilla) => insertVilla(newVilla, null),
     onSuccess: () => {
       toast.success("ویلا جدید اضافه شد");
       queryClient.invalidateQueries({ queryKey: ["villa"] });

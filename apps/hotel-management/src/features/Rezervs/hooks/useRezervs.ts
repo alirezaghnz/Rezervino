@@ -3,10 +3,6 @@ import { getRezervs } from "../../../services/apiRezervs";
 import { useSearchParams } from "react-router-dom";
 import { PAGE_SIZE } from "../../../utils/constantist";
 
-interface RezervsResponse {
-  data: Rezerv[];
-  count: number;
-}
 export function useRezervs() {
   const [searchParams] = useSearchParams();
   const queryClient = useQueryClient();
@@ -26,7 +22,7 @@ export function useRezervs() {
 
   const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
-  const { isLoading, data: { data: rezervs, count } = {} } = useQuery({
+  const { isLoading, data: { data: rezervs, count } = {} as any } = useQuery({
     queryKey: ["bookings", filter, sortBy, page],
     queryFn: () => getRezervs({ filter, sortBy, page }),
   });

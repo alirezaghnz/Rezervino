@@ -111,7 +111,7 @@ function List({ id, children }: any) {
   if (openId !== id) return null;
 
   return createPortal(
-    <StyledList position={position} ref={ref}>
+    <StyledList position={position} ref={ref as any}>
       {children}
     </StyledList>,
     document.body

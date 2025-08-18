@@ -13,7 +13,7 @@ function UpdateSettings() {
       maxGuestsPerBooking,
       breakfastPrice,
     } = {},
-  } = useSetting();
+  } = useSetting() as any;
 
   const { isPending, editSetting } = useUpdateSetting();
 

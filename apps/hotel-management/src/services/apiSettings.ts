@@ -1,8 +1,6 @@
-import type { Database } from "../types/database.types";
 import supabase from "./supabase";
 
-type settings = Database["public"]["Tables"]["settings"]["Row"];
-export async function getSettings(): Promise<settings[]> {
+export async function getSettings(): Promise<any[]> {
   const { data, error } = await supabase.from("settings").select("*").single();
 
   if (error) {

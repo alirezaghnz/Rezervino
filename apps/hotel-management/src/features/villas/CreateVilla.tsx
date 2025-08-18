@@ -28,7 +28,7 @@ export function CreateVilla({
   //for disable feature
   const isWorking = isCreating || isEditing;
 
-  const onSubmit: SubmitHandler<CreateVillaForm> = (data) => {
+  const onSubmit: SubmitHandler<any> = (data: any) => {
     const image = typeof data.image === "string" ? data.image : data.image[0];
 
     const payload = { ...data, image };

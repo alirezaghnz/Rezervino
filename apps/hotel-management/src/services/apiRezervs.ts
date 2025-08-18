@@ -9,7 +9,7 @@ export async function getRezervs({ filter, sortBy, page }: any) {
 
   // Filter on the back-end for better performance
   if (filter) {
-    query = query[filter.method || "eq"](filter.field, filter.value);
+    query = (query as any)[filter.method || "eq"](filter.field, filter.value);
   }
 
   //Sort on the back-end side

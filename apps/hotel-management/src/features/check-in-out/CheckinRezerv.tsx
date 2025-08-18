@@ -28,7 +28,7 @@ function CheckinRezerv() {
   const [addBreakfast, setAddBreakfast] = useState(false);
 
   const { isLoading, rezerv } = useRezerv();
-  const { settings } = useSetting();
+  const { settings } = useSetting() as any;
 
   useEffect(() => {
     setConfirmPaid(rezerv?.isPaid ?? false);
@@ -48,9 +48,8 @@ function CheckinRezerv() {
   } = rezerv;
 
   //we need fix that
-  const breakfastP = settings.breakfastPrice;
 
-  const niazBeBreakfast = breakfastP * numNights * numGuests;
+  const niazBeBreakfast = settings.breakfastPrice * numNights * numGuests;
 
   function handleCheckin() {
     if (!confirmPaid) return;
@@ -61,7 +60,7 @@ function CheckinRezerv() {
         breakfast: {
           hasBreakfast: true,
           extraPrice: niazBeBreakfast,
-          totalPrice: totalPrice + breakfastP,
+          totalPrice: totalPrice + niazBeBreakfast,
         },
       });
     } else {
@@ -86,7 +85,7 @@ function CheckinRezerv() {
               setConfirmPaid(false);
             }}
           >
-            اضافه کردن صبحانه با قیمت {formatToman(breakfastP)}
+            اضافه کردن صبحانه با قیمت {formatToman(niazBeBreakfast)}
           </Checkbox>
         </Box>
       )}

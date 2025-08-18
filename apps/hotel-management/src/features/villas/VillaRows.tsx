@@ -1,5 +1,3 @@
-import type { VillaRowsProps } from "../../types/database.types";
-
 import { CreateVilla } from "./CreateVilla";
 import { useDeleteVilla } from "./hooks/useDeleteVilla";
 import { useCreateVilla } from "./hooks/useCreateVilla";
@@ -50,8 +48,9 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-export default function VillaRows({ v }: VillaRowsProps) {
+export default function VillaRows({ v }: any) {
   const { deleteLoading, deleteVilla } = useDeleteVilla();
+
   const { id: villaId, name, maxCapacity, regularPrice, discount, image } = v;
   const { createVilla } = useCreateVilla();
 
@@ -62,12 +61,12 @@ export default function VillaRows({ v }: VillaRowsProps) {
       regularPrice,
       discount,
       image,
-    });
+    } as any);
   }
 
   return (
     <>
-      <Table.Row role="row">
+      <Table.Row {...({ role: "row" } as any)}>
         <Img src={image} />
         <Villa>{name}</Villa>
         <div>برای {maxCapacity} ظرفیت داده شد</div>
@@ -89,9 +88,11 @@ export default function VillaRows({ v }: VillaRowsProps) {
             </Modal.Open>
             <Modal.Window name="delete-villa">
               <ConfirmDelete
-                resourceName="ویلا"
-                disabled={deleteLoading}
-                onConfirm={() => deleteVilla(villaId)}
+                {...({
+                  resourceName: "رزرو",
+                  disabled: deleteLoading,
+                  onConfirm: () => deleteVilla(villaId),
+                } as any)}
               />
             </Modal.Window>
           </Modal>

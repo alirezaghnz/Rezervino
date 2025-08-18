@@ -1,9 +1,6 @@
-import type { Database } from "../types/database.types";
 import supabase, { supabaseUrl } from "./supabase";
 
-type Villa = Database["public"]["Tables"]["villa"]["Row"];
-
-export async function getVillas(): Promise<Villa[]> {
+export async function getVillas(): Promise<any[]> {
   const { data, error } = await supabase.from("villa").select("*");
 
   if (error) {
@@ -13,7 +10,7 @@ export async function getVillas(): Promise<Villa[]> {
   return data ?? [];
 }
 
-export async function deleteVilla(id: number): Promise<Villa[]> {
+export async function deleteVilla(id: number): Promise<any[]> {
   const { data, error } = await supabase.from("villa").delete().eq("id", id);
 
   if (error) {
@@ -24,15 +21,10 @@ export async function deleteVilla(id: number): Promise<Villa[]> {
   return data ?? [];
 }
 
-export type InsertOrEditVillaArgs = {
-  newVilla: any;
-  id?: any;
-};
 //insert and update
-export async function insertVilla({
-  newVilla,
-  id,
-}: InsertOrEditVillaArgs): Promise<any> {
+export async function insertVilla(newVilla: any, id: any): Promise<any[]> {
+  if (!newVilla) throw new Error("newVilla is undefined");
+
   const hasImage = newVilla.image?.startsWith?.(supabaseUrl);
   const imageName = `${Math.random()}-${newVilla.image.name}`.replaceAll(
     "/",
@@ -44,22 +36,33 @@ export async function insertVilla({
   //https://ttpaxypnlgpojmtnkzir.supabase.co/storage/v1/object/public/villa-images/cabin-001.jpg
 
   //create and edit villa
-  let query: any = supabase.from("villa");
-  //create
+  let data, error;
   if (!id) {
-    query = query.insert([{ ...newVilla, image: imagePath }]);
+    // Insert: do not call .select() after .insert()
+    const insertResult = await supabase
+      .from("villa")
+      .insert([{ ...newVilla, image: imagePath }]);
+    data = insertResult.data;
+    error = insertResult.error;
   } else {
-    //edit
-    query = query.update({ ...newVilla, image: imagePath }).eq("id", id);
+    // Edit: use .update().select().single()
+    const updateResult = await supabase
+      .from("villa")
+      .update({ ...newVilla, image: imagePath })
+      .eq("id", id)
+      .select()
+      .single();
+    data = updateResult.data;
+    error = updateResult.error;
   }
 
-  const { data, error } = await query.select().single();
   if (error) {
     console.log(error);
     throw new Error("data not loaded");
   }
 
   //upload image
+  if (hasImage) return data;
   const { error: storageError } = await supabase.storage
     .from("villa-images")
     .upload(imageName, newVilla.image);
