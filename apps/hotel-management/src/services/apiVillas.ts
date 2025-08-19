@@ -25,6 +25,7 @@ export async function deleteVilla(id: number): Promise<any[]> {
 export async function insertVilla(newVilla: any, id: any): Promise<any[]> {
   if (!newVilla) throw new Error("newVilla is undefined");
 
+  // for image
   const hasImage = newVilla.image?.startsWith?.(supabaseUrl);
   const imageName = `${Math.random()}-${newVilla.image.name}`.replaceAll(
     "/",
@@ -63,6 +64,7 @@ export async function insertVilla(newVilla: any, id: any): Promise<any[]> {
 
   //upload image
   if (hasImage) return data;
+
   const { error: storageError } = await supabase.storage
     .from("villa-images")
     .upload(imageName, newVilla.image);

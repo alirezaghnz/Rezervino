@@ -7,6 +7,11 @@ import { useSearchParams } from "react-router-dom";
 export default function VillaTable() {
   const { isLoading, villa } = useVillas();
   const [searchParams] = useSearchParams();
+
+  {
+    /*Filter and sorting on the client side */
+  }
+
   // Using useSearchParams to get the current filter state from the URL
   const filteredValue = searchParams.get("discount") || "all";
   let filteredVillas;
