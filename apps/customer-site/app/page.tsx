@@ -5,7 +5,14 @@ import Link from "next/link";
 export default function Page() {
   return (
     <main className="mt-24">
-      <Image src={bg} fill alt="رزرو بهترین ویلاهای شمال کشور در خزرشهر" />
+      <Image
+        className="object-cover"
+        placeholder="blur"
+        src={bg}
+        quality={80}
+        fill
+        alt="رزرو بهترین ویلاهای شمال کشور در خزرشهر"
+      />
       <div className="relative z-10 text-center">
         <h1 className="text-6xl text-primary-200 mb-10 font-normal tracking-tight">
           به رزروینو خوش آمدید

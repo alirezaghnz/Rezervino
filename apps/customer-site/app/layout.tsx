@@ -25,11 +25,11 @@ export default function RootLayout({
   return (
     <html dir="rtl" lang="fa">
       <body
-        className={`${vazir.className} bg-primary-700 text-primary-100 min-h-screen flex flex-col antialiased`}
+        className={`${vazir.className} bg-neutral text-primary-100 min-h-screen flex flex-col antialiased relative`}
       >
         <Header />
-        <div className="flex-1 px-5 py-7">
-          <main className="max-w-xl mx-auto">{children}</main>
+        <div className="flex-1 px-8 py-12 grid">
+          <main className="max-w-7xl mx-auto w-full">{children}</main>
         </div>
       </body>
     </html>
