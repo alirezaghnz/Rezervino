@@ -1,3 +1,4 @@
+import ShowMore from "@/app/_components/ShowMore";
 import { getVilla, getVillas } from "@/app/_lib/data-supabase";
 import { EyeSlashIcon, MapIcon, UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
@@ -13,6 +14,7 @@ export async function generateStaticParams() {
   const id = (await villas).map((villa) => ({
     villId: String(villa.id),
   }));
+  console.log(id);
   return id;
 }
 
@@ -32,10 +34,13 @@ export default async function Page({ params }: any) {
           />
         </div>
         <div>
-          <h3 className="text-accent-600 font-black rounded-sm text-2xl mb-5 translate-x-[284px] bg-primary-800 p-4 pb-2 w-[150%]">
+          <h3 className="text-accent-600 font-black rounded-lg text-2xl mb-5 translate-x-[284px] bg-primary-800 p-4 pb-2 w-[150%]">
             ویلا {name}
           </h3>
-          <p className="text-xl text-primary-200 mb-10">{description}</p>
+          <p className="text-xl text-primary-200 mb-10">
+            {" "}
+            <ShowMore>{description}</ShowMore>
+          </p>
           <ul className="flex flex-col gap-4 mb-7">
             <li className="flex gap-3 items-center">
               <UserIcon className="h-5 w-5 text-primary-100" />
