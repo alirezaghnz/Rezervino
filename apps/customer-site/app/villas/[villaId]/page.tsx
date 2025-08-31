@@ -1,0 +1,54 @@
+import { getVilla } from "@/app/_lib/data-supabase";
+import { EyeSlashIcon, MapIcon, UserIcon } from "@heroicons/react/24/solid";
+import Image from "next/image";
+
+//for generate dynamic metaData title
+export async function generateMetadata({ params }: any) {
+  const { name } = await getVilla(params.villaId);
+  return { title: `ویلا ${name}` };
+}
+export default async function Page({ params }: any) {
+  const villa = await getVilla(params.villaId);
+  const { id, name, maxCapacity, regularPrice, discount, image, description } =
+    villa;
+  return (
+    <div className="max-w-6xl mx-auto mt-8 bg-primary-800 rounded-lg">
+      <div className="grid grid-cols-[3fr_4fr] gap-20 py-3 px-10 mb-24">
+        <div className="relative scale-[1.2] -translate-x-3">
+          <Image
+            src={image}
+            fill
+            className="object-cover rounded-lg"
+            alt={`ویلا ${name}`}
+          />
+        </div>
+        <div>
+          <h3 className="text-accent-600 font-black rounded-sm text-2xl mb-5 translate-x-[284px] bg-primary-800 p-4 pb-2 w-[150%]">
+            ویلا {name}
+          </h3>
+          <p className="text-xl text-primary-200 mb-10">{description}</p>
+          <ul className="flex flex-col gap-4 mb-7">
+            <li className="flex gap-3 items-center">
+              <UserIcon className="h-5 w-5 text-primary-100" />
+              <span className="text-lg">
+                برای حداکثر <span className="font-bold">{maxCapacity}</span>{" "}
+                مهمان
+              </span>
+            </li>
+            <li className="flex gap-3 items-center">
+              <MapIcon className="h-5 w-5 text-primary-100" />
+              <span className="text-xl">
+                موقعیت مکانی در دل <span className="font-bold">رامسر</span>{" "}
+                مازندران
+              </span>
+            </li>
+            <li className="flex gap-3 items-center">
+              <EyeSlashIcon className="h-5 w-5 text-primary-100" />
+              <span className="text-lg"> به همراه بیمه 100% مهمانان</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
