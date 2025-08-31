@@ -1,4 +1,4 @@
-import { getVilla } from "@/app/_lib/data-supabase";
+import { getVilla, getVillas } from "@/app/_lib/data-supabase";
 import { EyeSlashIcon, MapIcon, UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
@@ -7,6 +7,15 @@ export async function generateMetadata({ params }: any) {
   const { name } = await getVilla(params.villaId);
   return { title: `ویلا ${name}` };
 }
+// static villaId route for better performance
+export async function generateStaticParams() {
+  const villas = getVillas();
+  const id = (await villas).map((villa) => ({
+    villId: String(villa.id),
+  }));
+  return id;
+}
+
 export default async function Page({ params }: any) {
   const villa = await getVilla(params.villaId);
   const { id, name, maxCapacity, regularPrice, discount, image, description } =

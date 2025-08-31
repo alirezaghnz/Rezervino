@@ -1,6 +1,12 @@
 "use client";
 //for error bounderis
-export default function Error({ error, reset }: any) {
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
   return (
     <main className="flex justify-center items-center flex-col gap-6 text-primary-800">
       <h1 className="text-3xl font-semibold">

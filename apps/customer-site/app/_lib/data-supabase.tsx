@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 
 export async function getVilla(id: any) {
@@ -8,6 +9,7 @@ export async function getVilla(id: any) {
     .single();
   if (error) {
     console.error(error);
+    notFound();
   }
 
   return data;
