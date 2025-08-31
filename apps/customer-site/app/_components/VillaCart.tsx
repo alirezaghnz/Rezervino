@@ -31,11 +31,11 @@ export default function VillaCart({ villa }: any) {
           <p className="flex gap-3 justify-end items-baseline">
             {discount > 0 ? (
               <>
-                <span className="text-3xl font-[350]">
-                  ${regularPrice - discount}
+                <span className="text-xl font-[350]">
+                  {regularPrice - discount} تومان
                 </span>
                 <span className="line-through font-semibold text-primary-600">
-                  ${regularPrice}
+                  {regularPrice} تومان
                 </span>
               </>
             ) : (
