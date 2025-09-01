@@ -1,12 +1,17 @@
+"use client";
 import {
   CalendarDaysIcon,
   HomeIcon,
   UserIcon,
 } from "@heroicons/react/16/solid";
-import { ArrowRightOnRectangleIcon } from "@heroicons/react/20/solid";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/20/solid";
 
 export default function SideNav() {
+  //use pathName hook for Active element
+  const pathname = usePathname();
+
   const nLink = [
     { name: "حساب", href: "/account", icon: <HomeIcon className="h-6 w-6" /> },
     {
@@ -23,16 +28,20 @@ export default function SideNav() {
   return (
     <nav className="border-l border-primary-950 bg-primary-700">
       <ul className="flex flex-col gap-2 h-full text-lg">
-        {nLink.map((link) => (
-          <li
-            key={link.name}
-            className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200`}
-          >
-            <Link href={link.href}>
-              {link.icon} <span>{link.name}</span>
-            </Link>
-          </li>
-        ))}
+        {nLink.map((link) => {
+          const isActive = pathname === link.href;
+          return (
+            <li
+              key={link.name}
+              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 
+             ${isActive ? "bg-primary-900" : " "}`}
+            >
+              <Link href={link.href}>
+                {link.icon} <span>{link.name}</span>
+              </Link>
+            </li>
+          );
+        })}
 
         <li className="mt-auto">
           <button className="py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 w-full">
