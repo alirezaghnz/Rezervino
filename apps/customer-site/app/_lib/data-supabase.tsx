@@ -47,8 +47,7 @@ export async function getRezervedByVillaId(villaId: any) {
     .from("bookings")
     .select("*")
     .eq("villaId", villaId)
-    .gte("startDate", today.toISOString()); // شرط واضح‌تر
-
+    .gte("startDate", today.toISOString());
   if (error) {
     console.error(error);
     throw new Error("Bookings could not get loaded");
@@ -58,10 +57,6 @@ export async function getRezervedByVillaId(villaId: any) {
     .map((rezerv: any) => {
       const start = new Date(rezerv.startDate);
       const end = new Date(rezerv.endDate);
-
-      if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-        return [];
-      }
 
       return eachDayOfInterval({ start, end });
     })

@@ -74,7 +74,6 @@ export default async function Page({ params }: any) {
           همین امروز رزرو کنید
         </h2>
         <Suspense fallback={<Spinner />}>
-          {" "}
           <Rezervation villa={villa} />
         </Suspense>
       </div>

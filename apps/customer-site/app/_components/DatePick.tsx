@@ -15,7 +15,7 @@ function isAlreadyBooked(range, datesArr) {
 }
 
 function DatePicker({ settings }: any) {
-  const { range, setRange } = useRezervation();
+  const { range, setRange, resetRange } = useRezervation();
   const regularPrice = 23;
   const discount = 23;
   const numNights = 23;
@@ -24,20 +24,23 @@ function DatePicker({ settings }: any) {
   const { minBookingLength, maxBookingLength } = settings;
 
   return (
-    <div className="flex flex-col justify-between bg-primary-600">
+    <div className="flex flex-col justify-between bg-primary-600 ">
       <DayPicker
-        className="pt-12 place-self-center text-primary-900"
+        className={`pt-6 place-self-center bg-white rounded-lg text-primary-900 mt-7 `}
         mode="range"
         animate
-        onSelect={setRange}
+        navLayout="around"
+        onSelect={(newRange) => {
+          setRange(newRange || { from: undefined, to: undefined });
+        }}
         selected={range}
-        min={minBookingLength + 1}
-        max={maxBookingLength}
+        minDuration={minBookingLength + 1}
+        maxDuration={maxBookingLength}
         fromMonth={new Date()}
         fromDate={new Date()}
         toYear={new Date().getFullYear() + 5}
         captionLayout="dropdown"
-        numberOfMonths={1}
+        numberOfMonths={2}
       />
       <div className="flex items-center justify-between px-8 bg-accent-600 text-primary-900 h-[72px] rounded-lg">
         <div className="flex items-baseline gap-6">
