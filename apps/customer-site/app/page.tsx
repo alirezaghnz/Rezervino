@@ -19,7 +19,10 @@ export default function Page() {
         </h1>
         <Link
           href="/villas"
-          className="bg-[#00B4D8] px-10 py-3 text-primary-100 text-lg font-semibold rounded-sm"
+          className="inline-block rounded-sm px-10 py-3
+                 bg-[#00B4D8] text-primary-100 text-lg font-semibold
+                 transition-transform duration-300 ease-in-out
+                 hover:scale-105 hover:shadow-lg"
         >
           رزرو ویلا در شمال ایران
         </Link>

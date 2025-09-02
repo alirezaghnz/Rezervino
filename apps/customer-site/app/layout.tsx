@@ -4,6 +4,7 @@ import "@/app/_styles/globals.css";
 
 import { Vazirmatn } from "@next/font/google";
 import Header from "./_components/Header";
+import { RezervationProvider } from "./_context/RezervationContext";
 
 const vazir = Vazirmatn({
   subsets: ["arabic"],
@@ -29,7 +30,9 @@ export default function RootLayout({
       >
         <Header />
         <div className="flex-1 px-8 py-12 grid">
-          <main className="max-w-7xl mx-auto w-full">{children}</main>
+          <main className="max-w-7xl mx-auto w-full">
+            <RezervationProvider>{children}</RezervationProvider>
+          </main>
         </div>
       </body>
     </html>
