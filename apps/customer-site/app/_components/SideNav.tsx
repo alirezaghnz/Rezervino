@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/16/solid";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { ArrowRightOnRectangleIcon } from "@heroicons/react/20/solid";
+import SignOutButt from "./signOutButt";
 
 export default function SideNav() {
   //use pathName hook for Active element
@@ -44,10 +44,7 @@ export default function SideNav() {
         })}
 
         <li className="mt-auto">
-          <button className="py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 w-full">
-            <ArrowRightOnRectangleIcon className="h-5 w-5 text-primary-600" />
-            <span> خروج حساب کاربری</span>
-          </button>
+          <SignOutButt />
         </li>
       </ul>
     </nav>

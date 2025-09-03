@@ -64,3 +64,24 @@ export async function getRezervedByVillaId(villaId: any) {
 
   return RezervDate;
 }
+
+export async function getGuest(email: any) {
+  const { data } = await supabase
+    .from("guests")
+    .select("*")
+    .eq("email", email)
+    .single();
+
+  return data;
+}
+
+export async function createGuest(newUser: any) {
+  const { data, error } = await supabase.from("guests").insert([newUser]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("اکانت کاربر ساخته نشد");
+  }
+
+  return data;
+}

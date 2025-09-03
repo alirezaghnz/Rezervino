@@ -32,8 +32,12 @@ export default async function Navigation() {
               href="/account"
               className="flex items-center gap-2 hover:text-accent-400 transition-colors"
             >
-              <span>{dataUser.user.name}</span>
-              <img className="w-5 h-5 rounded-full" src={dataUser.user.image} />
+              <span className="text-sm">{dataUser.user.name}</span>
+              <img
+                className="w-6 h-6 rounded-full"
+                src={dataUser.user.image}
+                alt={dataUser.user.name}
+              />
             </Link>
           ) : (
             <Link
