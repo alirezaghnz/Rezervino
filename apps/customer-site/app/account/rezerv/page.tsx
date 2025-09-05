@@ -1,8 +1,11 @@
 import RezervCard from "@/app/_components/RezervCard";
+import { auth } from "@/app/_lib/auth";
+import { getRezerved } from "@/app/_lib/data-supabase";
 import Link from "next/link";
 
-export default function Page() {
-  const rezervs = [];
+export default async function Page() {
+  const session = await auth();
+  const rezervs = await getRezerved(session?.user.guestId);
   return (
     <>
       <div>
@@ -20,7 +23,7 @@ export default function Page() {
         ) : (
           <ul className="space-y-6">
             {rezervs.map((rezerv) => (
-              <RezervCard booking={rezerv} key={rezerv.id} />
+              <RezervCard rezerv={rezerv} key={rezerv.id} />
             ))}
           </ul>
         )}

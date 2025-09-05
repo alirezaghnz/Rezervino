@@ -85,3 +85,18 @@ export async function createGuest(newUser: any) {
 
   return data;
 }
+
+export async function getRezerved(guestId) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, villa(name, image)")
+    .eq("guestId", guestId)
+    .order("startDate");
+
+  if (error) {
+    console.error(error);
+    throw new Error("لیست رزرو ها لود نشده است.");
+  }
+
+  return data;
+}

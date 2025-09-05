@@ -19,6 +19,7 @@ const authConfig = {
         //if guest exist(like login), we dont need to createGuest
         const existUser = await getGuest(user.email);
         if (!existUser)
+          //very important to add await for craeteGuest,bcuse otherwise move on return true
           await createGuest({ email: user.email, fullName: user.name });
 
         return true;
