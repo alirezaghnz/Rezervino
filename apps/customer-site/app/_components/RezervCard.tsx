@@ -2,8 +2,8 @@ import { PencilSquareIcon } from "@heroicons/react/24/solid";
 import { format, formatDistance, isPast, isToday, parseISO } from "date-fns";
 
 import Link from "next/link";
-import { TrashIcon } from "@heroicons/react/16/solid";
 import Image from "next/image";
+import DeleteRezerv from "./DeleteRezerv";
 
 export const formatDistanceFromNow = (dateStr: any) =>
   formatDistance(parseISO(dateStr), new Date(), {
@@ -79,11 +79,7 @@ export default function RezervCard({ rezerv }: any) {
           <PencilSquareIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
           <span className="mt-1">ویرایش</span>
         </Link>
-
-        <button className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-3 hover:bg-primary-900 transition-colors hover:text-primary-100 hover:rounded-xl">
-          <TrashIcon className="h-5 w-5 text-primary-600 group-hover:text-primary-800 transition-colors" />
-          <span className="mt-1">حذف</span>
-        </button>
+        <DeleteRezerv rezervId={id} />
       </div>
     </div>
   );

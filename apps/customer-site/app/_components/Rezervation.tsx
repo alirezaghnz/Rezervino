@@ -5,14 +5,18 @@ import LoginM from "./LoginM";
 import RezervForm from "./RezervForm";
 
 export default async function Rezervation({ villa }: any) {
-  const [settings, rezervById] = await Promise.all([
+  const [settings, rezervedDates] = await Promise.all([
     getSettings(),
     getRezervedByVillaId(villa.id),
   ]);
   const dataUser = await auth();
   return (
     <div className="grid grid-cols-2 min-h-[400px] border border-primary-600">
-      <DatePicker settings={settings} rezervById={rezervById} villa={villa} />
+      <DatePicker
+        settings={settings}
+        rezervedDates={rezervedDates}
+        villa={villa}
+      />
 
       {dataUser?.user ? (
         <RezervForm villa={villa} dataUser={dataUser.user} />

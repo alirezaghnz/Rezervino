@@ -100,3 +100,18 @@ export async function getRezerved(guestId) {
 
   return data;
 }
+
+export async function getRezerv(id: any) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*, villaId, observation")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.log(error);
+    throw new Error("ایدی رزرو وجود ندارد");
+  }
+
+  return data ?? [];
+}

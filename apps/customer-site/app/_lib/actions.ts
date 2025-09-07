@@ -3,6 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { auth, signIn, signOut } from "./auth";
 import { supabase } from "./supabase";
+import { getRezerved } from "./data-supabase";
+import { redirect } from "next/navigation";
 
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
@@ -32,4 +34,73 @@ export async function updateProf(formData: any) {
     throw new Error("اطلاعات کاربر با موفقیت اپدیت نشد");
   }
   revalidatePath("/account/profile");
+}
+
+export async function delelteRezerv(rezervId: any) {
+  const session = await auth();
+  if (!session) throw new Error("لطفا به حساب کاربری ورود کنید");
+
+  // need to be fixed
+  const guestRezerv = await getRezerved(session.user.guestId);
+  const guestRezervId = guestRezerv.map((r) => r.id);
+
+  if (!guestRezervId.includes(rezervId))
+    throw new Error("You not allowed to remove rezerved :)");
+
+  const { error } = await supabase.from("bookings").delete().eq("id", rezervId);
+  if (error) throw new Error("رزرو با موفقیت حذف نشد");
+
+  revalidatePath("/account/rezerv");
+}
+
+export async function editRezerv(formData) {
+  const session = await auth();
+  if (!session) throw new Error("لطفا به حساب کاربری ورود کنید");
+
+  const numGuests = Number(formData.get("numGuests"));
+  const observation = formData.get("observation");
+
+  const editRezerv = { numGuests, observation };
+
+  const rezervId = Number(formData.get("rezervId"));
+
+  const { error } = await supabase
+    .from("bookings")
+    .update(editRezerv)
+    .eq("id", rezervId)
+    .select()
+    .single();
+
+  if (error) throw new Error("ویرایش انجام نشد");
+
+  redirect("/account/rezerv");
+}
+
+export async function createRezerv(rezervData, formData) {
+  const session = await auth();
+  if (!session) throw new Error("لطفا به حساب کاربری ورود کنید");
+  const newRezervs = {
+    ...rezervData,
+    guestId: session.user.guestId,
+    numGuests: Number(formData.get("numGuests")),
+    observation: formData.get("observation"),
+    totalPrice: rezervData.villaPrice,
+    extraPrice: rezervData.villaPriceCalculated,
+    isPaid: false,
+    hasBreakfast: false,
+    status: "در انتظار تایید",
+  };
+  //console.log(newRezervs);
+
+  // insert new rezerv to supabase
+  const { error } = await supabase.from("bookings").insert([newRezervs]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("رزرو با موفقیت انجام نشد");
+  }
+
+  // for update rezerv date in villa page imidiately
+  revalidatePath("/villa/" + rezervData.villaId);
+  redirect("/villas/thankyourezerved");
 }
