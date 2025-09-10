@@ -8,7 +8,8 @@ export default function RezervForm({ villa, dataUser }: any) {
   const { maxCapacity, regularPrice, discount, id } = villa;
   const startDate = range.from;
   const endDate = range.to;
-  const numNights = differenceInDays(endDate, startDate);
+  const numNights =
+    startDate && endDate ? differenceInDays(endDate, startDate) : 0;
   const villaPrice = numNights * (regularPrice - discount);
   const rezervData = {
     villaId: id,
@@ -30,9 +31,7 @@ export default function RezervForm({ villa, dataUser }: any) {
       </div>
 
       <form
-        action={(formData) =>
-          crreateRezervWithData(formData).then(resetRange())
-        }
+        action={(formData) => crreateRezervWithData(formData).then(resetRange)}
         className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col"
       >
         <div className="space-y-2">

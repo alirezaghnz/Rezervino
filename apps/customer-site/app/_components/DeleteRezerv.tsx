@@ -3,7 +3,7 @@ import { TrashIcon } from "@heroicons/react/24/solid";
 import { delelteRezerv } from "../_lib/actions";
 import { useTransition } from "react";
 
-export default function DeleteRezerv({ rezervId }: any) {
+export default function DeleteRezerv({ rezervId }: { rezervId: string }) {
   const [isPending, startTransition] = useTransition();
   const handleDelete = () => {
     startTransition(() => delelteRezerv(rezervId));

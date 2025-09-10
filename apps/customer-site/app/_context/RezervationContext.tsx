@@ -1,13 +1,13 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useState } from "react";
 
-const RezervationContext = createContext();
+const RezervationContext = createContext<any>(null);
 const initialState = {
   from: undefined,
   to: undefined,
 };
 
-function RezervationProvider({ children }: any) {
+function RezervationProvider({ children }: { children: ReactNode }) {
   const [range, setRange] = useState(initialState);
   const resetRange = () => setRange(initialState);
   return (

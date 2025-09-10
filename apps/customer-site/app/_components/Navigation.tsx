@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auth } from "../_lib/auth";
+import Image from "next/image";
 
 export default async function Navigation() {
   const dataUser = await auth();
@@ -33,18 +34,21 @@ export default async function Navigation() {
               className="flex items-center gap-2 hover:text-accent-400 transition-colors"
             >
               <span className="text-sm">{dataUser.user.name}</span>
-              <img
-                className="w-6 h-6 rounded-full"
-                src={dataUser.user.image}
-                alt={dataUser.user.name}
-              />
+              <div className="relative w-6 h-6">
+                <Image
+                  className="rounded-full"
+                  fill
+                  src={dataUser.user.image}
+                  alt={"عکس کاربر"}
+                />
+              </div>
             </Link>
           ) : (
             <Link
               href="/account"
               className="hover:text-accent-400 transition-colors"
             >
-              اکانت
+              ورود
             </Link>
           )}
         </li>

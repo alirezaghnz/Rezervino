@@ -10,7 +10,7 @@ async function VillaList({ filter }: VillaListProps) {
   //console.log(villas);
 
   // filter on the server side and need to intraction with client with params on URL
-  let displayVilla;
+  let displayVilla: any;
   if (filter === "all") {
     displayVilla = villas.filter((villa) => villa.maxCapacity);
   }
@@ -29,7 +29,7 @@ async function VillaList({ filter }: VillaListProps) {
   if (villas.length === 0) return null;
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-      {displayVilla.map((villa) => (
+      {displayVilla.map((villa: any) => (
         <VillaCart key={villa.id} villa={villa} />
       ))}
     </div>

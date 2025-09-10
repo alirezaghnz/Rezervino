@@ -2,7 +2,13 @@
 import { updateProf } from "../_lib/actions";
 import { SubmitUpdateForm } from "./SubmitUpdateForm";
 
-export default function UpdateForm({ dataUser, children }: any) {
+export default function UpdateForm({
+  dataUser,
+  children,
+}: {
+  children: React.ReactNode;
+  dataUser: any;
+}) {
   const { fullName, email, nationalID } = dataUser;
 
   return (

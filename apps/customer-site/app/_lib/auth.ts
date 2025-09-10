@@ -28,7 +28,7 @@ const authConfig = {
       }
     },
     //find guestId for mutation rezerv and another things
-    async session({ session }) {
+    async session({ session }: any) {
       const guest = await getGuest(session.user.email);
       session.user.guestId = guest.id;
       return session;

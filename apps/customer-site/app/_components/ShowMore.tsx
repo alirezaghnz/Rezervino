@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const MAX_TEXT = 40;
 
-export default function ShowMore({ children }: any) {
+export default function ShowMore({ children }: { children: string }) {
   const [isShowMore, setIsShowMore] = useState(false);
 
   const display = isShowMore

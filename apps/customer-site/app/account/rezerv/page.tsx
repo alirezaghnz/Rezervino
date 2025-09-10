@@ -3,9 +3,14 @@ import { auth } from "@/app/_lib/auth";
 import { getRezerved } from "@/app/_lib/data-supabase";
 import Link from "next/link";
 
+type User = {
+  guestId: string;
+};
 export default async function Page() {
   const session = await auth();
-  const rezervs = await getRezerved(session?.user.guestId);
+  //for type guestId
+  const guestId = (session?.user as User)?.guestId;
+  const rezervs = await getRezerved(guestId);
   return (
     <>
       <div>

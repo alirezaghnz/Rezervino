@@ -9,7 +9,7 @@ import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { useRezervation } from "../_context/RezervationContext";
 
-function isAlreadyRezerv(range, datesArr) {
+function isAlreadyRezerv(range: any, datesArr: Date[]) {
   return (
     range.from &&
     range.to &&
@@ -21,14 +21,15 @@ function isAlreadyRezerv(range, datesArr) {
 
 function DatePicker({ settings, villa, rezervedDates }: any) {
   const { range, setRange, resetRange } = useRezervation();
-  const displayRange = isAlreadyRezerv(range, rezervedDates) ? {} : range;
+  const displayRange = isAlreadyRezerv(range, rezervedDates)
+    ? undefined
+    : range;
   const { regularPrice, discount } = villa;
 
-  const { minBookingLength, maxBookingLength } = settings;
-
   const numNights = differenceInDays(displayRange.to, displayRange.from);
-  const villaPriceCalculated = numNights * (regularPrice - discount);
 
+  const villaPriceCalculated = numNights * (regularPrice - discount);
+  const { minBookingLength, maxBookingLength } = settings;
   return (
     <div className="flex flex-col justify-between bg-primary-600 ">
       <DayPicker
@@ -40,6 +41,7 @@ function DatePicker({ settings, villa, rezervedDates }: any) {
           setRange(newRange || { from: undefined, to: undefined });
         }}
         selected={displayRange}
+        // @ts-ignore
         minDuration={minBookingLength + 1}
         maxDuration={maxBookingLength}
         fromMonth={new Date()}
@@ -49,7 +51,7 @@ function DatePicker({ settings, villa, rezervedDates }: any) {
         numberOfMonths={2}
         disabled={(curentDate) =>
           isPast(curentDate) ||
-          rezervedDates.some((date) => isSameDay(date, curentDate))
+          rezervedDates.some((date: any) => isSameDay(date, curentDate))
         }
       />
       <div className="flex items-center justify-between px-8 bg-accent-600 text-primary-900 h-[72px] rounded-lg">

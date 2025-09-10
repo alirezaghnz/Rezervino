@@ -28,7 +28,7 @@ export async function updateProf(formData: any) {
   const { error } = await supabase
     .from("guests")
     .update(udpateData)
-    .eq("id", session.user.guestId);
+    .eq("id", (session.user as { guestId?: string })?.guestId);
 
   if (error) {
     throw new Error("اطلاعات کاربر با موفقیت اپدیت نشد");
@@ -41,7 +41,9 @@ export async function delelteRezerv(rezervId: any) {
   if (!session) throw new Error("لطفا به حساب کاربری ورود کنید");
 
   // need to be fixed
-  const guestRezerv = await getRezerved(session.user.guestId);
+  const guestRezerv = await getRezerved(
+    (session.user as { guestId?: string })?.guestId
+  );
   const guestRezervId = guestRezerv.map((r) => r.id);
 
   if (!guestRezervId.includes(rezervId))
@@ -53,7 +55,7 @@ export async function delelteRezerv(rezervId: any) {
   revalidatePath("/account/rezerv");
 }
 
-export async function editRezerv(formData) {
+export async function editRezerv(formData: FormData) {
   const session = await auth();
   if (!session) throw new Error("لطفا به حساب کاربری ورود کنید");
 
@@ -76,16 +78,17 @@ export async function editRezerv(formData) {
   redirect("/account/rezerv");
 }
 
-export async function createRezerv(rezervData, formData) {
+export async function createRezerv(rezervData: any, formData: FormData | any) {
   const session = await auth();
   if (!session) throw new Error("لطفا به حساب کاربری ورود کنید");
+
   const newRezervs = {
     ...rezervData,
-    guestId: session.user.guestId,
+    guestId: (session.user as { guestId?: string })?.guestId,
     numGuests: Number(formData.get("numGuests")),
-    observation: formData.get("observation"),
+    observation: formData.get("observation").slice(0, 500),
     totalPrice: rezervData.villaPrice,
-    extraPrice: rezervData.villaPriceCalculated,
+    extraPrice: 0,
     isPaid: false,
     hasBreakfast: false,
     status: "در انتظار تایید",
@@ -101,6 +104,7 @@ export async function createRezerv(rezervData, formData) {
   }
 
   // for update rezerv date in villa page imidiately
-  revalidatePath("/villa/" + rezervData.villaId);
+  revalidatePath("/account/" + rezervData.villaId);
+  //after rezerv succesfuly we redirect user to another page
   redirect("/villas/thankyourezerved");
 }

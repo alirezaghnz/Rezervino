@@ -13,13 +13,11 @@ export const formatDistanceFromNow = (dateStr: any) =>
 export default function RezervCard({ rezerv }: any) {
   const {
     id,
-    guestId,
     startDate,
     endDate,
     numNights,
     totalPrice,
     numGuests,
-    status,
     created_at,
     villa: { name, image } = {},
   } = rezerv;

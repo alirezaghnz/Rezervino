@@ -10,7 +10,7 @@ export default async function Page() {
   return (
     <div className="flex gap-2  text-xl text-primary-900  border-b border-primary-400">
       <span>اکانت کاربری</span>
-      <h1 className="text-accent-600">{getUser?.user.name}</h1>
+      <h1 className="text-accent-600">{getUser?.user?.name}</h1>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { editRezerv } from "@/app/_lib/actions";
 import { getRezerv, getVilla } from "@/app/_lib/data-supabase";
 
-export default async function Page({ params }) {
+export default async function Page({ params }: any) {
   const { rezervId } = params;
   const { numGuests, observation, villaId } = await getRezerv(rezervId);
   const { maxCapacity } = await getVilla(villaId);

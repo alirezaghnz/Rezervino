@@ -86,7 +86,7 @@ export async function createGuest(newUser: any) {
   return data;
 }
 
-export async function getRezerved(guestId) {
+export async function getRezerved(guestId: any) {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, villa(name, image)")
