@@ -24,8 +24,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: any) {
   const villa = await getVilla(params.villaId);
 
-  const { id, name, maxCapacity, regularPrice, discount, image, description } =
-    villa;
+  const { name, maxCapacity, image, description } = villa;
   return (
     <div>
       <div className="max-w-6xl mx-auto mt-8 bg-primary-800 rounded-lg">
@@ -70,8 +69,8 @@ export default async function Page({ params }: any) {
         </div>
       </div>
       <div>
-        <h2 className="text-5xl text-center text-primary-500 mb-1 bg-accent-300 rounded-lg py-3">
-          همین امروز رزرو کنید
+        <h2 className="text-5xl text-center text-primary-500 mb-4 rounded-lg py-3">
+          رزرو ویلا
         </h2>
         <Suspense fallback={<Spinner />}>
           <Rezervation villa={villa} />

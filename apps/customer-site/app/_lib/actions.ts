@@ -91,7 +91,7 @@ export async function createRezerv(rezervData: any, formData: FormData | any) {
     extraPrice: 0,
     isPaid: false,
     hasBreakfast: false,
-    status: "در انتظار تایید",
+    status: "در انتظار",
   };
   //console.log(newRezervs);
 

@@ -35,7 +35,7 @@ export default function RezervCard({ rezerv }: any) {
 
       <div className="flex-grow px-6 py-3 flex flex-col">
         <div className="flex items-center justify-between">
-          <h3 className="text-xl font-semibold rounded-md  bg-accent-300 px-2">
+          <h3 className="text-xl font-semibold rounded-t-lg bg-primary-900 px-2">
             {numNights} شب ویلای {name ?? "نامشخص"}
           </h3>
           {isPast(new Date(startDate)) ? (
