@@ -141,11 +141,6 @@ function RezervData({ rezerv }: any) {
 
       <Section>
         <Guest>
-          {/* 
-          {countryFlag && (
-            <Flag src={countryFlag} alt={`پرچم کشور ${country}`} />
-          )}
-            */}
           <p>
             {guestName}
             {numGuests > 1 ? `به همراه  ${numGuests - 1} مهمان` : ""}
