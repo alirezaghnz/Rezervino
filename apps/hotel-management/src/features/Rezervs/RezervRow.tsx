@@ -2,7 +2,12 @@ import styled from "styled-components";
 import { format, isToday } from "date-fns-jalali";
 import Table from "../../ui/Table";
 import Tag from "../../ui/Tag";
-import { HiArrowDownOnSquare, HiArrowUpOnSquare, HiEye } from "react-icons/hi2";
+import {
+  HiArrowDownOnSquare,
+  HiArrowUpOnSquare,
+  HiEye,
+  HiTrash,
+} from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import {
   formatJalali,
@@ -10,8 +15,11 @@ import {
   toPersianDigits,
 } from "../../utils/persianFormat";
 import { useCheckinOut } from "../check-in-out/hooks/useCheckinOut";
-import { HiFolderRemove } from "react-icons/hi";
+
 import { useDeleteRezerv } from "./hooks/useDeleteRezerv";
+import { Modal } from "../../ui/Modal";
+import Menus from "../../ui/Menus";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const Villa = styled.div`
   font-size: 1.6rem;
@@ -89,14 +97,48 @@ export default function RezervRow({
 
       <Amount>{formatToman(totalPrice)}</Amount>
 
-      <HiEye onClick={() => navigate(`/rezervs/${rezervId}`)} />
-      {status === "در انتظار" && (
-        <HiArrowDownOnSquare onClick={() => navigate(`/checkin/${rezervId}`)} />
-      )}
-      {status === "تایید رزرو" && (
-        <HiArrowUpOnSquare onClick={() => checkout(rezervId)} />
-      )}
-      <HiFolderRemove onClick={() => deleteRezerv(rezervId)} />
+      <Modal>
+        <Menus>
+          <Menus.Menu>
+            <Menus.Toggle id={rezervId} />
+            <Menus.List id={rezervId}>
+              <Menus.Button
+                icon={<HiEye />}
+                onClick={() => navigate(`/rezervs/${rezervId}`)}
+              >
+                نمایش جزئیات
+              </Menus.Button>
+              {status === "در انتظار" && (
+                <Menus.Button
+                  icon={<HiArrowDownOnSquare />}
+                  onClick={() => navigate(`/checkin/${rezervId}`)}
+                >
+                  تایید رزرو
+                </Menus.Button>
+              )}
+
+              {status === "تایید رزرو" && (
+                <Menus.Button
+                  icon={<HiArrowUpOnSquare />}
+                  onClick={() => checkout(rezervId)}
+                >
+                  اتمام رزرو
+                </Menus.Button>
+              )}
+
+              <Modal.Open opens="delete">
+                <Menus.Button icon={<HiTrash />}>حذف رزرو</Menus.Button>
+              </Modal.Open>
+            </Menus.List>
+          </Menus.Menu>
+        </Menus>
+        <Modal.Window name="delete">
+          <ConfirmDelete
+            resourceName="rezerv"
+            onConfirm={() => deleteRezerv(rezervId)}
+          />
+        </Modal.Window>
+      </Modal>
     </Table.Row>
   );
 }

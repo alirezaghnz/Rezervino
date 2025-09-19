@@ -25,12 +25,7 @@ function ConfirmDelete({
   onConfirm,
   disabled,
   onCloseModal,
-}: {
-  resourceName: string;
-  onConfirm: () => void;
-  disabled?: boolean;
-  onCloseModal: () => void;
-}) {
+}: any) {
   return (
     <StyledConfirmDelete>
       <Heading as="h3">حذف {resourceName}</Heading>

@@ -83,10 +83,11 @@ function Menus({ children }: any) {
   );
 }
 
-function Toggle({ id }: { id: number | string }) {
+function Toggle({ id }: any) {
   const { openId, close, open, setPosition } = useContext(MenusContext);
 
   function handleClick(e: any) {
+    e.stopPropagation();
     const rect = e.target.closest("button").getBoundingClientRect();
     setPosition({
       x: window.innerWidth - rect.width - rect.x,
