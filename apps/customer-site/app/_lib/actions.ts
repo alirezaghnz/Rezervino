@@ -9,9 +9,7 @@ import { redirect } from "next/navigation";
 export async function signInAction() {
   await signIn("google", { redirectTo: "/account" });
 }
-export async function signOutAction() {
-  await signOut({ redirectTo: "/" });
-}
+
 export async function updateProf(formData: any) {
   // console.log(formData);
   const session = await auth();
