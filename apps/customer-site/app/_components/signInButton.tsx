@@ -1,4 +1,5 @@
 import { signInAction } from "../_lib/actions";
+import Image from "next/image";
 
 export default function SignInButton() {
   return (
@@ -8,11 +9,11 @@ export default function SignInButton() {
      border border-primary-700 px-10 py-5 font-medium"
       >
         <span>ورود با Google Account</span>
-        <img
+        <Image
           src="https://authjs.dev/img/providers/google.svg"
           alt="Google logo"
-          height="24"
-          width="24"
+          height={24}
+          width={24}
         />
       </button>
     </form>

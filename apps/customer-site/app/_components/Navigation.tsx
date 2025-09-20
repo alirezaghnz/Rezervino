@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { auth } from "../_lib/auth";
 import Image from "next/image";
+import { UserIcon } from "@heroicons/react/24/solid";
 
 export default async function Navigation() {
   const dataUser = await auth();
@@ -48,7 +49,7 @@ export default async function Navigation() {
               href="/account"
               className="hover:text-accent-400 transition-colors"
             >
-              ورود
+              <UserIcon className="w-6 h-6 border rounded-full" />
             </Link>
           )}
         </li>

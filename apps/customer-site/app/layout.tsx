@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "@/app/_styles/globals.css";
 
-import { Vazirmatn } from "@next/font/google";
+import { Vazirmatn } from "next/font/google";
 import Header from "./_components/Header";
 import { RezervationProvider } from "./_context/RezervationContext";
 

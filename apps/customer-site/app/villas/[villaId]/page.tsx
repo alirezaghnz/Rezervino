@@ -56,7 +56,7 @@ export default async function Page({ params }: any) {
               <li className="flex gap-3 items-center">
                 <MapIcon className="h-5 w-5 text-primary-100" />
                 <span className="text-xl">
-                  موقعیت مکانی در دل <span className="font-bold">رامسر</span>{" "}
+                  موقعیت مکانی در دل <span className="font-bold">{name}</span>{" "}
                   مازندران
                 </span>
               </li>
