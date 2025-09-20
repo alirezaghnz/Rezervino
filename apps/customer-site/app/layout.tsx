@@ -16,6 +16,9 @@ const vazir = Vazirmatn({
 export const metadata: Metadata = {
   title: { template: "%s | رزروینو", default: "خوش آمدید | رزروینو" },
   description: "رزرو ویلا در بهترین شهرهای ایران",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
