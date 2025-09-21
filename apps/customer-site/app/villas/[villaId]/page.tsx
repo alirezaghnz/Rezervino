@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: any) {
 export async function generateStaticParams() {
   const villas = getVillas();
   const id = (await villas).map((villa) => ({
-    villId: String(villa.id),
+    villaId: String(villa.id),
   }));
   console.log(id);
   return id;
