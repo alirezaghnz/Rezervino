@@ -1,10 +1,39 @@
 import { useState } from "react";
-import Button from "../../ui/Button";
+
 import Form from "../../ui/Form";
-import Input from "../../ui/Input";
-import FormRowVertical from "../../ui/FormRowVertical";
 
 import { useLogin } from "./hooks/useLogin";
+import styled from "styled-components";
+
+const Button = styled.button`
+  width: 100%;
+  padding: 0.9rem;
+  background: #1f2730;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-top: 2rem;
+
+  &:hover {
+    background: #357ab8;
+  }
+`;
+
+const Input = styled.input`
+  width: 100%;
+  padding: 1.1rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.2rem;
+
+  &:focus {
+    border-color: #4a90e2;
+    outline: none;
+  }
+`;
 
 export default function LoginForm() {
   const { login, isLoadingLogin } = useLogin();
@@ -29,30 +58,29 @@ export default function LoginForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <FormRowVertical label="آدرس ایمیل">
-        <Input
-          type="email"
-          id="email"
-          // for password managers
-          autoComplete="username"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={isLoadingLogin}
-        />
-      </FormRowVertical>
-      <FormRowVertical label="پسورد">
-        <Input
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={isLoadingLogin}
-        />
-      </FormRowVertical>
-      <FormRowVertical>
-        <Button size="large">ورود</Button>
-      </FormRowVertical>
+      <label>ایمیل آدرس</label>
+      <Input
+        type="email"
+        id="email"
+        placeholder="ایمیل خود را وارد نمایید"
+        // for password managers
+        autoComplete="username"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={isLoadingLogin}
+      />
+
+      <label>رمز عبور</label>
+      <Input
+        type="password"
+        id="password"
+        placeholder="رمز عبور خود را وارد نمایید."
+        autoComplete="current-password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        disabled={isLoadingLogin}
+      />
+      <Button>ورود</Button>
     </Form>
   );
 }
