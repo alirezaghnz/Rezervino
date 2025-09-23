@@ -6,7 +6,7 @@ const LoginLayout = styled.main`
   min-height: 100vh;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-grey-700);
+  background-color: #ddeef6;
 `;
 const Card = styled.div`
   display: flex;
@@ -17,6 +17,11 @@ const Card = styled.div`
   max-width: 1000px;
   width: 100%;
   height: 600px;
+  //for mobile image goes on top
+  @media (max-width: 768px) {
+    height: auto;
+    flex-direction: column;
+  }
 `;
 const Left = styled.div`
   flex: 1;
@@ -40,9 +45,9 @@ const Right = styled.div`
 `;
 
 const Title = styled.h2`
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   color: #8a3232;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.9rem;
   text-align: center;
 `;
 
@@ -51,10 +56,10 @@ export default function Login() {
     <LoginLayout>
       <Card>
         <Left>
-          <img src="./public/login.png" />
+          <img src="/login.png" alt="login" />
         </Left>
         <Right>
-          <Title>ورود به حساب کاربری</Title>
+          <Title>ورود به پنل کاربری</Title>
           <LoginForm />
         </Right>
       </Card>

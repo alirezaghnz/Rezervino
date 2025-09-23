@@ -14,6 +14,10 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+
+  @media (max-width: 600px) {
+    transform: translate(5%, -50%);
+  }
 `;
 
 const Overlay = styled.div`
@@ -26,6 +30,9 @@ const Overlay = styled.div`
   backdrop-filter: blur(10px);
   z-index: 1000;
   transition: all 0.5s;
+  @media (max-width: 600px) {
+    left: -10%;
+  }
 `;
 
 const Button = styled.button`

@@ -8,7 +8,7 @@ import styled from "styled-components";
 const Button = styled.button`
   width: 100%;
   padding: 0.9rem;
-  background: #1f2730;
+  background: #131d25;
   border: none;
   border-radius: 6px;
   color: white;
