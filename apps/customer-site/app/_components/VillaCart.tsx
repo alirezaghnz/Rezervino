@@ -5,13 +5,13 @@ import Link from "next/link";
 export default function VillaCart({ villa }: any) {
   const { id, name, regularPrice, discount, image, maxCapacity } = villa;
   return (
-    <div className="flex border-primary-800 border rounded-lg">
-      <div className="flex-1 relative ">
+    <div className="flex flex-col lg:flex-row border-primary-800 border rounded-lg overflow-hidden">
+      <div className="relative w-full h-48 lg:flex-1 lg:h-auto">
         <Image
           src={image}
           fill
           alt={`ویلا ${name}`}
-          className="object-cover border-r border-primary-800 rounded-s-lg"
+          className="object-cover rounded-t-lg lg:rounded-none lg:rounded-s-lg"
         />
       </div>
 

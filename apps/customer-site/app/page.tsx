@@ -14,7 +14,7 @@ export default function Page() {
         alt="رزرو بهترین ویلاهای شمال کشور در خزرشهر"
       />
       <div className="relative z-10 text-center">
-        <h1 className="text-6xl text-primary-200 mb-10 font-normal tracking-tight">
+        <h1 className="text-3xl lg:text-6xl text-primary-200 mb-10 font-normal tracking-tight">
           به رزروینو خوش آمدید
         </h1>
         <Link

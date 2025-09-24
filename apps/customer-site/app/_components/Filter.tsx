@@ -59,7 +59,7 @@ export default function Filter() {
 function Button({ filter, activeFilter, handleFilter, children }: any) {
   return (
     <button
-      className={`px-5 py-2 hover:bg-primary-400 rounded-lg ${
+      className={`px-2 lg:px-5 py-2 hover:bg-primary-400 rounded-lg ${
         filter === activeFilter ? "bg-primary-600 text-neutral-200" : ""
       }`}
       onClick={() => handleFilter(filter)}
