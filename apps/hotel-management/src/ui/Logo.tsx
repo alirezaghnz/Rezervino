@@ -9,7 +9,7 @@ const Image = styled.img`
 export default function Logo() {
   return (
     <div>
-      <Image src="public/logo.png" />
+      <Image src="/logo.png" />
     </div>
   );
 }
