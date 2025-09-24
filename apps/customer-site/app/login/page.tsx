@@ -28,7 +28,7 @@ export default function Page() {
             </svg>
           </div>
           <h2 className="text-xl lg:text-2xl font-bold mb-10 text-cyan-400">
-            خوش آمدید به رزروینو!
+            به رزروینو خوش آمدید!
           </h2>
           <p className="text-gray-500 mt-6 mb-3 ">
             ورود سریع و امن با حساب گوگل
