@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { supabase } from "./supabase";
 import { eachDayOfInterval } from "date-fns";
 
-export async function getVilla(id: any) {
+export async function getVilla(id: number) {
   const { data, error } = await supabase
     .from("villa")
     .select("*")

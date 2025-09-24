@@ -22,7 +22,7 @@ export default function RezervForm({ villa, dataUser }: any) {
   const crreateRezervWithData = createRezerv.bind(null, rezervData);
   return (
     <div className="scale-[1.01]">
-      <div className="bg-primary-800 text-primary-300 px-16 py-2 flex items-center gap-3">
+      <div className="bg-primary-800 text-primary-300 px-10 lg:px-16 py-2 flex items-center gap-3">
         <p>کاربر </p>
 
         <div className="flex gap-4 items-center">
@@ -32,7 +32,7 @@ export default function RezervForm({ villa, dataUser }: any) {
 
       <form
         action={(formData) => crreateRezervWithData(formData).then(resetRange)}
-        className="bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col"
+        className="bg-primary-900 py-6 px-10 text-md flex gap-5 flex-col lg:text-lg lg:py-10 lg:px-16"
       >
         <div className="space-y-2">
           <label htmlFor="numGuests"> مهمانان</label>

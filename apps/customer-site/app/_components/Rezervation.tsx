@@ -11,7 +11,7 @@ export default async function Rezervation({ villa }: any) {
   ]);
   const dataUser = await auth();
   return (
-    <div className="grid grid-cols-2 gap-4 min-h-[400px] border-primary-600">
+    <div className="grid grid-cols-1 gap-4 min-h-[400px] border-primary-600 lg:grid-cols-2 ">
       <DatePicker
         settings={settings}
         rezervedDates={rezervedDates}
