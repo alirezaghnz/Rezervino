@@ -2,6 +2,12 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
 :root {
+    @font-face {
+    font-family: 'IRANSans';
+    src: url('../assets/fonts/iranyekan-bold.woff2') format('ttf');
+    font-weight: 700;
+    font-style: normal;
+  }
 
 
 &,&.light-mode {
@@ -57,7 +63,7 @@ const GlobalStyles = createGlobalStyle`
 --color-grey-400: #6b7280;
 --color-grey-500: #9ca3af;
 --color-grey-600: #d1d5db;
---color-grey-700: #e5e7eb;
+--color-grey-700: #6f87b6ff;
 --color-grey-800: #f3f4f6;
 --color-grey-900: #f9fafb;
 
@@ -72,7 +78,7 @@ const GlobalStyles = createGlobalStyle`
 --color-indigo-100: #3730a3;
 --color-indigo-700: #e0e7ff;
 
---color-red-100: #fee2e2;
+--color-red-100: #ac4141ff;
 --color-red-700: #b91c1c;
 --color-red-800: #991b1b;
 
@@ -121,7 +127,7 @@ html {
 }
 
 body {
-  font-family: "Vazir", sans-serif;
+  font-family: "IRANSans", sans-serif;
   color: var(--color-grey-700);
 
   transition: color 0.3s, background-color 0.3s;
