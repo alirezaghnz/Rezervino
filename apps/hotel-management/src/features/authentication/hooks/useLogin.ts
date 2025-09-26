@@ -13,7 +13,7 @@ export function useLogin() {
     onSuccess: (user) => {
       queryClient.setQueryData(["user"], user.user);
       //replace for back button on the browser
-      navigate("/dashboard", { replace: true });
+      navigate("/villa", { replace: true });
     },
     onError: () => {
       toast.error("ایمیل یا پسورد اشتباه وارد شد.");

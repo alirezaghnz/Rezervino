@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { HiHome, HiOutlineCalendar, HiOutlineUsers } from "react-icons/hi";
 import { HiOutlineCog6Tooth, HiOutlineHomeModern } from "react-icons/hi2";
+import { GrDashboard } from "react-icons/gr";
+import { MdDashboard } from "react-icons/md";
 
 const NavList = styled.ul`
   display: flex;
@@ -51,21 +53,9 @@ export default function MainNav() {
   return (
     <NavList>
       <li>
-        <StyledNavLink to="/dashboard">
-          <HiHome />
-          <span>داشبورد</span>
-        </StyledNavLink>
-      </li>
-      <li>
-        <StyledNavLink to="/settings">
-          <HiOutlineCog6Tooth />
-          <span>تنظیمات</span>
-        </StyledNavLink>
-      </li>
-      <li>
-        <StyledNavLink to="/rezervs">
-          <HiOutlineCalendar />
-          <span>رزرو</span>
+        <StyledNavLink to="/villa">
+          <HiOutlineHomeModern />
+          <span>ایجاد ویلا</span>
         </StyledNavLink>
       </li>
       <li>
@@ -75,9 +65,22 @@ export default function MainNav() {
         </StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to="/villa">
-          <HiOutlineHomeModern />
-          <span>ویلا</span>
+        <StyledNavLink to="/rezervs">
+          <HiOutlineCalendar />
+          <span>رزرو</span>
+        </StyledNavLink>
+      </li>
+      <li>
+        <StyledNavLink to="/settings">
+          <HiOutlineCog6Tooth />
+          <span>تنظیمات</span>
+        </StyledNavLink>
+      </li>
+
+      <li>
+        <StyledNavLink to="/dashboard">
+          <MdDashboard />
+          <span>داشبورد</span>
         </StyledNavLink>
       </li>
     </NavList>

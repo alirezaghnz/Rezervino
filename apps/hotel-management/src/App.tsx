@@ -41,14 +41,14 @@ export default function App() {
                 </ProtectionRoute>
               }
             >
-              <Route index element={<Navigate replace to="dashboard" />} />
+              <Route index element={<Navigate replace to="villa" />} />
+              <Route path="villa" element={<Villa />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="account" element={<Account />} />
               <Route path="rezervs" element={<Rezerv />} />
               <Route path="rezervs/:bookingId" element={<RezervPage />} />
               <Route path="checkin/:bookingId" element={<Checkin />} />
               <Route path="settings" element={<Settings />} />
-              <Route path="villa" element={<Villa />} />
               <Route path="users" element={<Users />} />
             </Route>
             <Route path="login" element={<Login />} />
