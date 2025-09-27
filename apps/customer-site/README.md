@@ -1,38 +1,41 @@
-# Panel Admin Rezerv Villa
 
-A  **admin dashboard** for managing villa bookings, handling authentication, and monitoring reservations.  
-Built with **React.js, TypeScript, React Query, Styled Components, and Supabase**, and deployed on **Netlify**.
+
+## 📝 **Rezerv Villa (Customer Site)**  
+
+
+
+A **user-friendly villa booking platform** with authentication and date selection for customers.  
+Developed using **Next.js, TypeScript, React, Supabase, and Tailwind CSS**, and deployed on **Netlify**.
 
 ## 🚀 Features
-- 🔑 Authentication system (Supabase)
-- 🏡 Manage villas and Rezerv
-- 📊 Admin dashboard with real-time data
-- 🎨 Styled with **Styled Components**
-- ⚡ State management and data fetching with **React Query**
-- ✅ Written in **TypeScript** for type-safety
+- 🔑 User authentication (Supabase/Google Provider)
+- 📅 Book and select dates for villas
+- 🏡 Browse available villas
+- 🎨 Styled with **Tailwind CSS**
+- ✅ Written in **TypeScript** for maintainability
+- ⚡ SEO-friendly with **Next.js**
 
 ## 🛠 Tech Stack
-- React.js
+- Next.js
+- React
 - TypeScript
-- React Query
-- Styled Components
 - Supabase
+- Tailwind CSS
 - Netlify (deployment)
 
 ## 🌐 Live Demo
-[Live Demo](https://panelrezerv.netlify.app/)
+[Live Demo](https://your-live-demo-link.netlify.app)
 
 ## 💻 Installation
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/panel-admin-rezerv-villa.git
+git clone https://github.com/alirezaghnz/Rezervino
 
 # Navigate to the project
-cd panel-admin-rezerv-villa
+cd customer-site
 
 # Install dependencies
 npm install
 
 # Start the development server
 npm run dev
-
