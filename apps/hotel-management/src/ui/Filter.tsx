@@ -33,6 +33,10 @@ const FilterButton = styled.button<FilterButtonProps>`
   padding: 0.44rem 0.8rem;
   transition: all 0.3s;
 
+  @media (max-width: 768px) {
+    padding: 0.1rem 1rem;
+  }
+
   &:hover:not(:disabled) {
     background-color: var(--color-brand-600);
     color: var(--color-brand-50);

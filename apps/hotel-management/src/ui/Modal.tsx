@@ -15,8 +15,8 @@ const StyledModal = styled.div`
   padding: 3.2rem 4rem;
   transition: all 0.5s;
 
-  @media (max-width: 600px) {
-    transform: translate(5%, -50%);
+  @media (max-width: 768px) {
+    transform: translate(-48%, -50%);
   }
 `;
 
@@ -30,8 +30,8 @@ const Overlay = styled.div`
   backdrop-filter: blur(10px);
   z-index: 1000;
   transition: all 0.5s;
-  @media (max-width: 600px) {
-    left: -10%;
+  @media (max-width: 768px) {
+    position: none;
   }
 `;
 

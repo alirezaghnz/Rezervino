@@ -29,6 +29,10 @@ const Img = styled.img`
   object-fit: cover;
   object-position: center;
   transform: scale(1.5) translateX(-7px);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 const Villa = styled.div`
@@ -45,6 +49,9 @@ const Button = styled.button`
   border: none;
   color: white;
   background-color: var(--color-brand-500);
+  @media (max-width: 768px) {
+    padding: 0.4rem;
+  }
 `;
 
 const Price = styled.div`
@@ -56,6 +63,10 @@ const Discount = styled.div`
   font-family: "Sono";
   font-weight: 500;
   color: var(--color-green-700);
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export default function VillaRows({ v }: any) {
@@ -84,7 +95,7 @@ export default function VillaRows({ v }: any) {
         <Villa>{name}</Villa>
         <div>برای {maxCapacity} ظرفیت داده شد</div>
         <Price>{formatToman(regularPrice)}</Price>
-        {discount === 0 ? "__" : <Discount>{discount}</Discount>}
+        <Discount>{discount}</Discount>
 
         <div>
           <Modal>

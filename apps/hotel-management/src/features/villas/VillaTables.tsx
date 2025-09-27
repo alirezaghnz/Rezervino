@@ -3,7 +3,13 @@ import Table from "../../ui/Table";
 import Spinner from "../../ui/Spinner";
 import VillaRows from "./VillaRows";
 import { useSearchParams } from "react-router-dom";
-
+import styled from "styled-components";
+const Discount = styled.div`
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 export default function VillaTable() {
   const { isLoading, villa } = useVillas();
   const [searchParams] = useSearchParams();
@@ -64,7 +70,7 @@ export default function VillaTable() {
         <div>ویلا</div>
         <div>ظرفیت</div>
         <div>قیمت</div>
-        <div>تخفیف</div>
+        <Discount>تخفیف</Discount>
       </Table.Header>
       {/*  we use render prop to render each villa Body instead of compound components */}
       <Table.Body

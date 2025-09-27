@@ -1,14 +1,22 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { HiHome, HiOutlineCalendar, HiOutlineUsers } from "react-icons/hi";
+import { HiOutlineCalendar, HiOutlineUsers } from "react-icons/hi";
 import { HiOutlineCog6Tooth, HiOutlineHomeModern } from "react-icons/hi2";
-import { GrDashboard } from "react-icons/gr";
+
 import { MdDashboard } from "react-icons/md";
 
 const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
 `;
 
 const StyledNavLink = styled(NavLink)`
@@ -23,6 +31,12 @@ const StyledNavLink = styled(NavLink)`
     font-weight: 500;
     padding: 1.2rem 2.4rem;
     transition: all 0.3s;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      font-size: 1.2rem;
+      padding: 0.2rem;
+    }
   }
 
   &:hover,
@@ -61,7 +75,7 @@ export default function MainNav() {
       <li>
         <StyledNavLink to="/users">
           <HiOutlineUsers />
-          <span>ایجاد کاربر</span>
+          <span>ایجاد ادمین</span>
         </StyledNavLink>
       </li>
       <li>

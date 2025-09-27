@@ -35,17 +35,26 @@ const Stacked = styled.div`
 
   & span:first-child {
     font-weight: 500;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   & span:last-child {
     color: var(--color-grey-500);
     font-size: 1.2rem;
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 `;
 
 const Amount = styled.div`
   font-family: "Sono";
   font-weight: 500;
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export default function RezervRow({
@@ -134,7 +143,7 @@ export default function RezervRow({
         </Menus>
         <Modal.Window name="delete">
           <ConfirmDelete
-            resourceName="rezerv"
+            resourceName="رزرو"
             onConfirm={() => deleteRezerv(rezervId)}
           />
         </Modal.Window>

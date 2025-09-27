@@ -25,6 +25,9 @@ const StyledBookingDataBox = styled.section`
 const Header = styled.header`
   background-color: var(--color-brand-500);
   padding: 2rem 4rem;
+  @media (max-width: 768px) {
+    padding: 1.2rem 2rem;
+  }
   color: #e0e7ff;
   font-size: 1.8rem;
   font-weight: 500;
@@ -46,12 +49,16 @@ const Header = styled.header`
   }
 
   & span {
-    font-family: "Sono";
     font-size: 2rem;
     margin-left: 4px;
   }
 `;
-
+const Zam = styled.p`
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 const Section = styled.section`
   padding: 3.2rem 4rem 1.2rem;
 `;
@@ -62,7 +69,10 @@ const Guest = styled.div`
   gap: 1.2rem;
   margin-bottom: 1.6rem;
   color: var(--color-grey-500);
-
+  @media (max-width: 768px) {
+    display: grid;
+    gap: 0;
+  }
   & p:first-of-type {
     font-weight: 500;
     color: var(--color-grey-700);
@@ -79,7 +89,9 @@ const Price = styled.div<Price>`
   padding: 1.6rem 3.2rem;
   border-radius: var(--border-radius-sm);
   margin-top: 2.4rem;
-
+  @media (max-width: 768px) {
+    display: none;
+  }
   background-color: ${(props) =>
     props.isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
   color: ${(props) =>
@@ -132,11 +144,11 @@ function RezervData({ rezerv }: any) {
           </p>
         </div>
 
-        <p>
+        <Zam>
           {formatJalali(new Date(startDate), "EEE, MMM dd yyyy")} (
           {isToday(new Date(startDate)) ? "امروز" : startDate}) &mdash;{" "}
           {formatJalali(new Date(endDate), "EEE, MMM dd yyyy")}
-        </p>
+        </Zam>
       </Header>
 
       <Section>

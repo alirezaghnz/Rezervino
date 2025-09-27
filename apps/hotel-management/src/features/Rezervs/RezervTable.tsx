@@ -3,7 +3,25 @@ import Table from "../../ui/Table";
 import { useRezervs } from "./hooks/useRezervs";
 import RezervRow from "./RezervRow";
 import Pagination from "../../ui/Pagination";
-
+import styled from "styled-components";
+const Price = styled.div`
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+const Zaman = styled.div`
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+const Guests = styled.div`
+  display: block;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
 export default function RezervTabel() {
   const { rezervs, isLoading, count } = useRezervs();
 
@@ -36,10 +54,10 @@ export default function RezervTabel() {
     <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
       <Table.Header>
         <div>ویلا</div>
-        <div>مهمان</div>
-        <div>زمان</div>
+        <Guests>مهمان</Guests>
+        <Zaman>زمان</Zaman>
         <div>وضعیت</div>
-        <div>قیمت پرداختی</div>
+        <Price>قیمت پرداختی</Price>
         <div></div>
       </Table.Header>
 

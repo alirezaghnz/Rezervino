@@ -16,6 +16,9 @@ const StyledToggle = styled.button`
   padding: 0.4rem;
   border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
+  @media (max-width: 768px) {
+    transform: translateX(2rem);
+  }
   transition: all 0.2s;
 
   &:hover {
@@ -38,6 +41,9 @@ const StyledList = styled.ul<{ position: { x: number; y: number } }>`
 
   right: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
+  @media (max-width: 768px) {
+    right: 200px;
+  }
 `;
 
 const StyledButton = styled.button`

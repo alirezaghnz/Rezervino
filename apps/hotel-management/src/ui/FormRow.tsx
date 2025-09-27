@@ -6,8 +6,13 @@ const StyledFormRow = styled.div`
   grid-template-columns: 24rem 1fr 1.2fr;
   gap: 2.4rem;
 
-  padding: 1.2rem 0;
-
+  padding: 1rem 0;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 0.3rem;
+  }
   &:first-child {
     padding-top: 0;
   }
@@ -23,7 +28,11 @@ const StyledFormRow = styled.div`
   &:has(button) {
     display: flex;
     justify-content: flex-end;
-    gap: 1.2rem;
+    gap: 0.2rem;
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: row;
+    }
   }
 `;
 

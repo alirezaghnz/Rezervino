@@ -8,16 +8,33 @@ const StyledLayout = styled.div`
   grid-template-columns: 26rem 1fr;
   grid-template-rows: auto 1fr;
   height: 100vh;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr;
+    min-height: 100vh;
+    height: auto;
+
+    overflow-x: hidden;
+  }
 `;
 
 const Main = styled.main`
   background-color: var(--color-grey-100);
   padding: 4rem 4.8rem 6.4rem;
+  @media (max-width: 768px) {
+    padding: 2rem;
+  }
 `;
 
 const Container = styled.div`
   max-width: 120rem;
+
   margin: 0 auto;
+  @media (max-width: 768px) {
+    max-width: 100%;
+    padding: 0;
+  }
 `;
 export default function AppLayout() {
   return (
