@@ -2,10 +2,14 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
+import { useState } from "react";
 
-const StyledLayout = styled.div`
+const StyledLayout = styled.div<{ $collapsed?: boolean }>`
   display: grid;
-  grid-template-columns: 26rem 1fr;
+  transition: grid-template-columns 0.5s ease;
+  grid-template-columns: ${(props) =>
+    props.$collapsed ? "10rem 1fr" : "26rem 1fr"};
+
   grid-template-rows: auto 1fr;
   height: 100vh;
 
@@ -37,10 +41,11 @@ const Container = styled.div`
   }
 `;
 export default function AppLayout() {
+  const [collapsed, setCollapsed] = useState(false);
   return (
-    <StyledLayout>
+    <StyledLayout $collapsed={collapsed}>
       <Header />
-      <Sidebar />
+      <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
       <Main>
         <Container>
           <Outlet />

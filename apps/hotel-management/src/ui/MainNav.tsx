@@ -19,17 +19,17 @@ const NavList = styled.ul`
   }
 `;
 
-const StyledNavLink = styled(NavLink)`
+const StyledNavLink = styled(NavLink)<{ $collapsed?: boolean }>`
   &:link,
   &:visited {
     display: flex;
     align-items: center;
-    gap: 1.2rem;
+    gap: 0.8rem;
 
     color: var(--color-grey-600);
     font-size: 1.6rem;
     font-weight: 500;
-    padding: 1.2rem 2.4rem;
+    padding: 0.7rem 2.4rem;
     transition: all 0.3s;
 
     @media (max-width: 768px) {
@@ -44,7 +44,9 @@ const StyledNavLink = styled(NavLink)`
   &.active:link,
   &.active:visited {
     color: var(--color-grey-800);
-    background-color: var(--color-yellow-500);
+    /* when collapsed we want the background to be transparent */
+    background-color: ${(props) =>
+      props.$collapsed ? "transparent" : "var(--color-yellow-500)"};
     border-radius: var(--border-radius-sm);
   }
 
@@ -63,38 +65,54 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-export default function MainNav() {
+interface MainNavProps {
+  collapsed?: boolean;
+}
+
+export default function MainNav({ collapsed }: MainNavProps) {
   return (
     <NavList>
       <li>
-        <StyledNavLink to="/villa">
-          <HiOutlineHomeModern />
-          <span>ایجاد ویلا</span>
+        <StyledNavLink to="/villa" $collapsed={collapsed}>
+          <span>
+            <HiOutlineHomeModern />
+          </span>
+
+          {!collapsed && <span>ایجاد ویلا</span>}
         </StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to="/users">
-          <HiOutlineUsers />
-          <span>ایجاد ادمین</span>
+        <StyledNavLink to="/users" $collapsed={collapsed}>
+          <span>
+            <HiOutlineUsers />
+          </span>
+          {!collapsed && <span>ایجاد ادمین</span>}
         </StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to="/rezervs">
-          <HiOutlineCalendar />
-          <span>رزرو</span>
+        <StyledNavLink to="/rezervs" $collapsed={collapsed}>
+          <span>
+            <HiOutlineCalendar />
+          </span>
+          {!collapsed && <span>رزرو</span>}
         </StyledNavLink>
       </li>
       <li>
-        <StyledNavLink to="/settings">
-          <HiOutlineCog6Tooth />
-          <span>تنظیمات</span>
+        <StyledNavLink to="/settings" $collapsed={collapsed}>
+          <span>
+            <HiOutlineCog6Tooth />
+          </span>
+          {!collapsed && <span>تنظیمات</span>}
         </StyledNavLink>
       </li>
 
       <li>
-        <StyledNavLink to="/dashboard">
-          <MdDashboard />
-          <span>داشبورد</span>
+        <StyledNavLink to="/dashboard" $collapsed={collapsed}>
+          <span>
+            <MdDashboard />
+          </span>
+
+          {!collapsed && <span>داشبورد</span>}
         </StyledNavLink>
       </li>
     </NavList>
