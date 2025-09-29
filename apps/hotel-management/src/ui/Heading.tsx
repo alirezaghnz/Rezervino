@@ -7,6 +7,9 @@ const Heading = styled.h1`
       font-size: 2rem;
       font-weight: 300;
       margin-bottom: 1rem;
+      @media (max-width: 768px) {
+        display: none;
+      }
     `}
 
   ${(props) =>
@@ -14,12 +17,19 @@ const Heading = styled.h1`
     css`
       font-size: 2rem;
       font-weight: 600;
+      margin-bottom: 1rem;
+      @media (max-width: 768px) {
+        display: none;
+      }
     `}
       ${(props) =>
     props.as === "h3" &&
     css`
       font-size: 2rem;
       font-weight: 500;
+      @media (max-width: 768px) {
+        display: none;
+      }
     `}
 `;
 

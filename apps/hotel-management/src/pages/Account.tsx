@@ -6,7 +6,7 @@ import Row from "../ui/Row";
 export default function Account() {
   return (
     <>
-      <Heading>ویرایش اطلاعات </Heading>;
+      <Heading as="h2">ویرایش اطلاعات </Heading>;
       <Row>
         <UpdateUser />
       </Row>

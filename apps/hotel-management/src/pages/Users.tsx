@@ -4,7 +4,7 @@ import Heading from "../ui/Heading";
 export default function Users() {
   return (
     <>
-      <Heading as="h1">ایجاد ادمین جدید</Heading>
+      <Heading as="h2">ایجاد ادمین جدید</Heading>
       <SignupForm />
     </>
   );

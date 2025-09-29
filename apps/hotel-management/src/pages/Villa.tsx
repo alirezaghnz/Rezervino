@@ -6,7 +6,7 @@ import Heading from "../ui/Heading";
 export default function Villa() {
   return (
     <>
-      <Heading as="h1">لیست ویلا</Heading>
+      <Heading as="h2">لیست ویلا</Heading>
       <VillaTableOp />
 
       <VillaTable />

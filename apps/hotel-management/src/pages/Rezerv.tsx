@@ -5,7 +5,7 @@ import Heading from "../ui/Heading";
 export default function Rezerv() {
   return (
     <div>
-      <Heading>رزرو</Heading>
+      <Heading as="h2">رزرو</Heading>
       <RezervTabelOp />
 
       <RezervTabel />

@@ -59,6 +59,10 @@ const StyledSidebar = styled.aside<{ $collapsed?: boolean }>`
     & > :first-child {
       display: none;
     }
+    & svg {
+      width: 2.4rem;
+      height: 2rem;
+    }
   }
 `;
 

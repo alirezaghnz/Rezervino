@@ -4,7 +4,7 @@ import Heading from "../ui/Heading";
 export default function Settings() {
   return (
     <>
-      <Heading as="h1">ویرایش تنظیمات ویلا</Heading>
+      <Heading as="h2">ویرایش تنظیمات ویلا</Heading>
       <UpdateSettings />
     </>
   );

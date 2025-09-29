@@ -18,7 +18,6 @@ const StyledLayout = styled.div<{ $collapsed?: boolean }>`
     grid-template-rows: auto auto 1fr;
     min-height: 100vh;
     height: auto;
-
     overflow-x: hidden;
   }
 `;
@@ -28,6 +27,7 @@ const Main = styled.main`
   padding: 4rem 4.8rem 6.4rem;
   @media (max-width: 768px) {
     padding: 2rem;
+    min-height: auto;
   }
 `;
 
@@ -37,7 +37,8 @@ const Container = styled.div`
   margin: 0 auto;
   @media (max-width: 768px) {
     max-width: 100%;
-    padding: 0;
+    //padding bottom for responsive mobile
+    padding: 0 0 6rem;
   }
 `;
 export default function AppLayout() {

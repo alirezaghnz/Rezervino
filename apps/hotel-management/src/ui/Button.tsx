@@ -55,6 +55,7 @@ const variations = {
 
 const Button = styled.button<ButtonProps>`
   border: none;
+  margin-top: 10px;
   border-radius: var(--border-radius-sm);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
