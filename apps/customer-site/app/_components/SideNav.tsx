@@ -26,24 +26,25 @@ export default function SideNav() {
     },
   ];
   return (
-    <nav className="border-l border-primary-950 bg-primary-700">
-      <ul className="flex flex-col gap-2 h-full text-lg">
+    <nav className="border-l border-primary-950 bg-primary-700 flex md:block fixed md:static bottom-0 left-0 right-0">
+      <ul className="flex md:flex-col gap-2 h-full text-lg">
         {nLink.map((link) => {
           const isActive = pathname === link.href;
           return (
             <li
               key={link.name}
-              className={`py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 
+              className={`flex-1 py-3 px-5 hover:bg-primary-900 hover:text-primary-100 transition-colors flex items-center gap-4 font-semibold text-primary-200 
              ${isActive ? "bg-primary-900" : " "}`}
             >
-              <Link href={link.href}>
-                {link.icon} <span>{link.name}</span>
+              <Link href={link.href} className="flex items-center gap-2">
+                {link.icon}{" "}
+                <span className="grid grid-cols-2">{link.name}</span>
               </Link>
             </li>
           );
         })}
 
-        <li className="mt-auto">
+        <li className="hidden md:block mt-auto">
           <SignOutButt />
         </li>
       </ul>

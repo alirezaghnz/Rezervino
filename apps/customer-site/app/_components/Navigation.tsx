@@ -34,8 +34,8 @@ export default async function Navigation() {
               href="/account"
               className="flex items-center gap-2 hover:text-accent-400 transition-colors"
             >
-              <span className="text-sm">{dataUser.user.name}</span>
-              <div className="relative w-6 h-6">
+              <span className="text-xs lg:text-md">{dataUser.user.name}</span>
+              <div className="relative w-6 h-6 ">
                 <Image
                   className="rounded-full"
                   fill
@@ -47,9 +47,10 @@ export default async function Navigation() {
           ) : (
             <Link
               href="/account"
-              className="hover:text-accent-400 transition-colors"
+              className="flex  gap-2 hover:text-accent-400 transition-colors"
             >
-              <UserIcon className="w-6 h-6 border rounded-full" />
+              <span>ورود</span>
+              <UserIcon className="w-6 h-6 border rounded-lg" />
             </Link>
           )}
         </li>

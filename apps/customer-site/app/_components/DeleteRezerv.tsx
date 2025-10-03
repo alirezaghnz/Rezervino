@@ -11,7 +11,7 @@ export default function DeleteRezerv({ rezervId }: { rezervId: string }) {
   return (
     <button
       onClick={handleDelete}
-      className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-3 hover:bg-primary-900 transition-colors hover:text-primary-100 hover:rounded-xl"
+      className="group flex items-center gap-2 uppercase text-xs font-bold text-primary-300 flex-grow px-8 py-2 hover:bg-primary-900 transition-colors hover:text-primary-100 hover:rounded-md"
     >
       {!isPending ? (
         <>

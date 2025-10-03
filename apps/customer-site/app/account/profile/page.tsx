@@ -20,7 +20,7 @@ export default async function Page() {
           id="nationality"
           defaultCity={dataUser.nationality}
           name="nationality"
-          className="px-6 py-2 rounded-lg text-neutral-800 w-full bg-neutral-200"
+          className="px-1 py-1 lg:px-4 lg:py-1 rounded-lg text-neutral-800 w-full bg-neutral-200"
         />
       </UpdateForm>
     </div>

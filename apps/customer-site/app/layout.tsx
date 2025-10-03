@@ -29,11 +29,11 @@ export default function RootLayout({
   return (
     <html dir="rtl" lang="fa">
       <body
-        className={`${vazir.className} bg-neutral-100 text-primary-100 min-h-screen flex flex-col antialiased relative`}
+        className={`${vazir.className} bg-neutral-200 text-primary-100 min-h-screen flex flex-col antialiased relative`}
       >
         <Header />
         <div className="flex-1 px-8 py-12 grid">
-          <main className="max-w-7xl mx-auto w-full">
+          <main className="max-w-1xl   mx-auto w-full">
             <RezervationProvider>{children}</RezervationProvider>
           </main>
         </div>

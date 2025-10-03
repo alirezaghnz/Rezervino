@@ -7,10 +7,10 @@ export const metadata = {
 
 export default function Page() {
   return (
-    <main className="flex flex-1 items-center justify-center px-6 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full items-center">
+    <main className=" flex flex-1 items-center justify-center px-6 py-12">
+      <div className=" border border-sky-300  rounded-2xl grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl w-full items-center">
         {/* Login Card */}
-        <div className="bg-white  rounded-2xl shadow-lg p-10 px-1 lg:p-10 flex flex-col h-[400px] lg:h-[500px] items-center text-center">
+        <div className="bg-white rounded-2xl lg:rounded-r-2xl lg:rounded-l-none shadow-lg p-10 px-1 lg:p-10 flex flex-col h-[400px] lg:h-[500px] items-center text-center ">
           <div className="flex items-center justify-center w-12 h-12 rounded-full bg-cyan-300 mb-4">
             <svg
               xmlns="http://www.w3.org/2000/svg"

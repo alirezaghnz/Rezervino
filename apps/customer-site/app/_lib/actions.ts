@@ -104,5 +104,5 @@ export async function createRezerv(rezervData: any, formData: FormData | any) {
   // for update rezerv date in villa page imidiately
   revalidatePath("/account/" + rezervData.villaId);
   //after rezerv succesfuly we redirect user to another page
-  redirect("/villas/thankyourezerved");
+  redirect("/villas/success");
 }

@@ -22,7 +22,7 @@ export default function UpdateForm({
           disabled
           name="fullName"
           defaultValue={fullName}
-          className="rounded-lg px-4 py-1 w-full shadow-sm disabled:cursor-not-allowed disabled:bg-gray-500  disabled:text-gray-400"
+          className="rounded-lg px-1 py-1 lg:px-4 lg:py-1 w-full shadow-sm disabled:cursor-not-allowed disabled:bg-gray-500  disabled:text-gray-400"
         />
       </div>
       <div className="space-y-2">
@@ -31,11 +31,11 @@ export default function UpdateForm({
           disabled
           name="email"
           defaultValue={email}
-          className="rounded-lg px-4 py-1 w-full shadow-sm disabled:cursor-not-allowed disabled:bg-gray-500  disabled:text-gray-400"
+          className="rounded-lg px-1 py-1 lg:px-4 lg:py-1 w-full shadow-sm disabled:cursor-not-allowed disabled:bg-gray-500  disabled:text-gray-400"
         />
       </div>
       <div className="space-y-2">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
           <label htmlFor="nationality">از کدام استان سفر کرده اید</label>
         </div>
         {children}
@@ -45,7 +45,7 @@ export default function UpdateForm({
         <input
           name="nationalID"
           defaultValue={nationalID}
-          className="px-4 py-1 bg-neutral-200 text-neutral-800 w-full shadow-sm rounded-lg"
+          className="px-1 py-1 lg:px-4 lg:py-1 bg-neutral-200 text-neutral-800 w-full shadow-sm rounded-lg"
         />
       </div>
       <div className="flex justify-end items-center gap-6">
