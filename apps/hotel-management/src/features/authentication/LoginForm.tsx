@@ -1,10 +1,31 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
 import Form from "../../ui/Form";
-
 import { useLogin } from "./hooks/useLogin";
-import styled from "styled-components";
 import toast from "react-hot-toast";
+import ClickIndicator from "../../ui/Click";
+
+const slideUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const slideDown = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+`;
 
 const Button = styled.button`
   width: 100%;
@@ -39,15 +60,20 @@ const Input = styled.input`
 //for Karfarma
 
 const Karfarma = styled.p`
+  border: 1px solid #ccc;
+  background-color: #dfd1d1;
+  border-radius: 5px;
   margin-top: 1rem;
   padding-right: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   text-align: center;
   font-size: 14px;
   color: #0077ff;
   cursor: pointer;
 `;
 
-const ModalOverlay = styled.div`
+const ModalOverlay = styled.div<{ $closing?: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
@@ -60,13 +86,14 @@ const ModalOverlay = styled.div`
   padding: 1rem; /* برای موبایل */
 `;
 
-const Modal = styled.div`
+const Modal = styled.div<{ $closing?: boolean }>`
   background: white;
   padding: 2rem;
   border-radius: 12px;
   width: 400px;
   max-width: 100%; /* روی موبایل فیت بشه */
   text-align: center;
+  animation: ${({ $closing }) => ($closing ? slideDown : slideUp)} 0.3s forwards;
 
   h3 {
     margin-bottom: 1rem;
@@ -105,13 +132,29 @@ const Modal = styled.div`
     }
   }
 `;
+
 export default function LoginForm() {
   const { login, isLoadingLogin } = useLogin();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [isAutoShowModal, setIsAutoShowModal] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
+
+  useEffect(() => {
+    //if already shown in this browser, do not show again.
+    const alreadyShow = localStorage.getItem("isAutoShowModal");
+    if (alreadyShow) return;
+
+    const timer = setTimeout(() => {
+      setIsAutoShowModal(true);
+      localStorage.setItem("isAutoShowModal", "true");
+    }, 3500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const copyToClipboard = (text: string, label: string) => {
+    // use the Clipboard API to copy text for pass and email Karfarma
     navigator.clipboard.writeText(text);
     toast.success(`${label} کپی شد.`, {
       position: "top-center",
@@ -132,6 +175,15 @@ export default function LoginForm() {
         },
       }
     );
+  }
+
+  function handleClose() {
+    setIsClosing(true);
+    setTimeout(() => {
+      setShowModal(false);
+      setIsAutoShowModal(false);
+      setIsClosing(false);
+    }, 300);
   }
 
   return (
@@ -162,13 +214,16 @@ export default function LoginForm() {
         <Button>ورود</Button>
 
         <Karfarma onClick={() => setShowModal(true)}>
-          اطلاعات ورود به پنل برای کارفرما
+          <span>برای ورود به پنل ادمین کلیک کنید </span>
+          <span>
+            <ClickIndicator />
+          </span>
         </Karfarma>
       </Form>
 
-      {showModal && (
-        <ModalOverlay onClick={() => setShowModal(false)}>
-          <Modal onClick={(e) => e.stopPropagation()}>
+      {(showModal || isAutoShowModal) && (
+        <ModalOverlay $closing={isClosing} onClick={handleClose}>
+          <Modal $closing={isClosing} onClick={(e) => e.stopPropagation()}>
             <h3>اطلاعات ورود به پنل ادمین</h3>
 
             <div className="cred">
@@ -184,7 +239,14 @@ export default function LoginForm() {
               </button>
             </div>
 
-            <button onClick={() => setShowModal(false)}>بستن</button>
+            <button
+              onClick={() => {
+                setIsAutoShowModal(false);
+                setShowModal(false);
+              }}
+            >
+              بستن
+            </button>
           </Modal>
         </ModalOverlay>
       )}

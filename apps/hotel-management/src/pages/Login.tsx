@@ -59,7 +59,7 @@ export default function Login() {
           <img src="/login.png" alt="login" />
         </Left>
         <Right>
-          <Title>ورود به پنل کاربری</Title>
+          <Title>ورود به پنل ادمین</Title>
           <LoginForm />
         </Right>
       </Card>
