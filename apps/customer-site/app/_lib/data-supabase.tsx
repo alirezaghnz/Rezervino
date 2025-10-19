@@ -19,7 +19,7 @@ export async function getVilla(id: number) {
 export async function getVillas() {
   const { data, error } = await supabase
     .from("villa")
-    .select("id, name, maxCapacity, regularPrice, discount, image")
+    .select("id, name, maxCapacity, regularPrice, discount, image,description")
     .order("name");
 
   if (error) {

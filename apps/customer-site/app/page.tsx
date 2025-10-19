@@ -1,10 +1,13 @@
 import Image from "next/image";
 import bg from "@/public/Maz2.jpg";
 import Link from "next/link";
+import HomeList from "./_components/HomeList";
+import { Suspense } from "react";
+import Spinner from "./_components/Spinner";
 
-export default function Page() {
+export default async function Page() {
   return (
-    <main className="mt-24">
+    <main className="mt-24 flex flex-col items-center justify-center">
       <Image
         className="object-cover"
         placeholder="blur"
@@ -27,6 +30,8 @@ export default function Page() {
           رزرو ویلا در شمال ایران
         </Link>
       </div>
+
+      <HomeList />
     </main>
   );
 }
