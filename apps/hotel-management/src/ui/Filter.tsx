@@ -2,13 +2,32 @@ import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const StyledFilter = styled.div`
-  border: 1px solid var(--color-grey-100);
-  background-color: var(--color-grey-0);
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--border-radius-lg);
-  padding: 0.4rem;
   display: flex;
+  align-items: center;
   gap: 0.4rem;
+
+  width: fit-content;
+  max-width: 100%;
+
+  padding: 0.4rem;
+
+  background-color: var(--color-grey-0);
+  border: 1px solid var(--color-grey-200);
+  border-radius: 12px;
+
+  box-shadow: var(--shadow-sm);
+
+  overflow-x: auto;
+
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 type FilterButtonProps = {
@@ -16,64 +35,100 @@ type FilterButtonProps = {
 };
 
 const FilterButton = styled.button<FilterButtonProps>`
-  background-color: var(--color-grey-0);
+  flex-shrink: 0;
+
   border: none;
+  border-radius: 9px;
+
+  padding: 0.8rem 1.4rem;
+
+  background-color: transparent;
+
+  color: var(--color-grey-600);
+
+  font-size: 1.35rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
 
   ${(props) =>
     props.active &&
     css`
       background-color: var(--color-brand-600);
-      color: var(--color-brand-50);
+      color: white;
+      box-shadow: var(--shadow-sm);
     `}
 
-  border-radius: var(--border-radius-sm);
-  font-weight: 500;
-  font-size: 1.4rem;
-  /* To give the same height as select */
-  padding: 0.44rem 0.8rem;
-  transition: all 0.3s;
-
-  @media (max-width: 768px) {
-    padding: 0.1rem 1rem;
+  &:hover:not(:disabled) {
+    background-color: var(--color-brand-50);
+    color: var(--color-brand-700);
   }
 
-  &:hover:not(:disabled) {
-    background-color: var(--color-brand-600);
-    color: var(--color-brand-50);
+  ${(props) =>
+    props.active &&
+    css`
+      &:hover {
+        background-color: var(--color-brand-600);
+        color: white;
+      }
+    `}
+
+  &:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.85rem 1.2rem;
+    font-size: 1.3rem;
   }
 `;
 
-//reusable Filter component
 export default function Filter({
   filterFiled,
   options,
 }: {
   filterFiled: string;
-  options: { label: string; value: string }[];
+  options: {
+    label: string;
+    value: string;
+  }[];
 }) {
-  // Using useSearchParams to set query parameters for filtering and globally manage the filter state
   const [searchParams, setSearchParams] = useSearchParams();
-  //Get the current filter(or First option by default) value from URl for active
-  const currentFilter = searchParams.get(filterFiled) || options[0].value;
+
+  const currentFilter = searchParams.get(filterFiled) || options[0]?.value;
 
   const handleFilter = (value: string) => {
-    searchParams.set(filterFiled, value);
-    //fix bug in filter when we go another filter
-    if (searchParams.get("page")) searchParams.set("page", "1");
+    const params = new URLSearchParams(searchParams);
 
-    setSearchParams(searchParams);
+    params.set(filterFiled, value);
+
+    if (params.get("page")) {
+      params.set("page", "1");
+    }
+
+    setSearchParams(params);
   };
+
   return (
     <StyledFilter>
       {options.map((option) => (
         <FilterButton
           key={option.value}
-          onClick={() => handleFilter(option.value)}
+          type="button"
           active={option.value === currentFilter}
+          onClick={() => handleFilter(option.value)}
         >
-          {option.label}
+          {option.label}{" "}
         </FilterButton>
-      ))}
+      ))}{" "}
     </StyledFilter>
   );
 }

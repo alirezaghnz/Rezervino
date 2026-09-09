@@ -3,12 +3,12 @@ import styled from "styled-components";
 import type { TableHeaderProps, TableProps } from "../types/Table.types";
 
 const StyledTable = styled.div`
+  overflow-x: auto;
+  background: var(--color-grey-0);
   border: 1px solid var(--color-grey-200);
-
-  font-size: 1.4rem;
-  background-color: var(--color-grey-0);
-  border-radius: 7px;
-  overflow: hidden;
+  border-radius: 24px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
 `;
 
 const CommonRow = styled.div<{ columns?: string }>`
@@ -20,24 +20,24 @@ const CommonRow = styled.div<{ columns?: string }>`
 `;
 
 const StyledHeader = styled(CommonRow)`
-  padding: 1.6rem 2.4rem;
-
-  background-color: var(--color-grey-50);
-  border-bottom: 1px solid var(--color-grey-100);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  font-weight: 600;
+  padding: 1.8rem 2rem;
+  background: var(--color-grey-50);
+  border-bottom: 1px solid var(--color-grey-200);
+  font-weight: 700;
   color: var(--color-grey-600);
+  font-size: 1.4rem;
 `;
-
 const StyledRow = styled(CommonRow)`
-  padding: 1.2rem 2.4rem;
+  padding: 1.4rem 2rem;
+  transition: background 0.2s;
+  &:hover {
+    background: var(--color-grey-50);
+  }
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
 `;
-
 const StyledBody = styled.section`
   margin: 0.4rem 0;
 `;
@@ -54,11 +54,11 @@ const Footer = styled.footer`
   }
 `;
 
-const Empty = styled.p`
-  font-size: 1.6rem;
-  font-weight: 500;
+const Empty = styled.div`
+  padding: 4rem;
   text-align: center;
-  margin: 2.4rem;
+  color: var(--color-grey-500);
+  font-size: 1.5rem;
 `;
 
 const TableContext = createContext<{ columns: any } | null>(null);

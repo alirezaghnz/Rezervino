@@ -2,40 +2,25 @@ import styled from "styled-components";
 
 const StyledFormRow = styled.div`
   display: grid;
+
+  grid-template-columns: 180px 1fr;
+
+  gap: 1.6rem;
+
   align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
 
   padding: 1rem 0;
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 0.3rem;
-  }
-  &:first-child {
-    padding-top: 0;
-  }
 
-  &:last-child {
-    padding-bottom: 0;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+
+    gap: 0.6rem;
   }
 
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.2rem;
-    @media (max-width: 768px) {
-      display: flex;
-      flex-direction: row;
-    }
-  }
 `;
-
 const Label = styled.label`
   font-weight: 500;
 `;

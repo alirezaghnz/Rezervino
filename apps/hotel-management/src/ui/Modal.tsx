@@ -4,59 +4,120 @@ import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 
-const StyledModal = styled.div`
+interface WindowProps {
+  children: React.ReactElement<{
+    onCloseModal?: () => void;
+  }>;
+  name: string;
+  size?: "small" | "medium" | "large";
+}
+
+const StyledModal = styled.div<{
+  $size: "small" | "medium" | "large";
+}>`
   position: fixed;
+
   top: 50%;
   left: 50%;
+
   transform: translate(-50%, -50%);
+
+  width: ${(props) => {
+    switch (props.$size) {
+      case "small":
+        return "44rem";
+
+      case "medium":
+        return "60rem";
+
+      case "large":
+      default:
+        return "80rem";
+    }
+  }};
+
+  max-width: calc(100vw - 3.2rem);
+  max-height: calc(100vh - 3.2rem);
+
+  overflow-y: auto;
+
   background-color: var(--color-grey-0);
-  border-radius: var(--border-radius-lg);
+
+  border: 1px solid var(--color-grey-200);
+
+  border-radius: 18px;
+
   box-shadow: var(--shadow-lg);
-  padding: 3.2rem 4rem;
-  transition: all 0.5s;
+
+  padding: ${(props) => (props.$size === "small" ? "2.4rem" : "2.8rem")};
+
+  z-index: 1001;
+
+  animation: modalIn 0.2s ease-out;
+
+  @keyframes modalIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -48%);
+    }
+
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
 
   @media (max-width: 768px) {
-    transform: translate(-48%, -50%);
+    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+
+    max-height: calc(100vh - 2rem);
+
+    border-radius: 16px;
+
+    padding: ${(props) => (props.$size === "small" ? "1.8rem" : "1.6rem")};
   }
 `;
 
 const Overlay = styled.div`
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--backdrop-color);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
-  transition: all 0.5s;
-  @media (max-width: 768px) {
-    position: none;
-  }
-`;
+  inset: 0;
 
+  background: rgba(0, 0, 0, 0.45);
+
+  backdrop-filter: blur(6px);
+
+  z-index: 9999;
+`;
 const Button = styled.button`
-  background: none;
+  position: sticky;
+
+  top: 1rem;
+
+  margin-right: auto;
+
+  width: 4rem;
+  height: 4rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   border: none;
-  padding: 0.4rem;
-  border-radius: var(--border-radius-sm);
-  transform: translateX(0.8rem);
-  transition: all 0.2s;
-  position: absolute;
-  top: 1.2rem;
-  right: 1.9rem;
+
+  border-radius: 999px;
+
+  background: var(--color-grey-100);
+
+  transition: 0.2s;
 
   &:hover {
-    background-color: var(--color-grey-100);
+    background: var(--color-red-100);
   }
 
-  & svg {
-    width: 2.4rem;
-    height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
-    color: var(--color-grey-500);
+  svg {
+    width: 2rem;
+    height: 2rem;
   }
 `;
 
@@ -98,28 +159,36 @@ interface WindowProps {
   children: React.ReactElement<{ onCloseModal?: () => void }>;
   name: string;
 }
-export function Window({ children, name }: WindowProps) {
+export function Window({ children, name, size = "large" }: WindowProps) {
   const context = useContext(ModalContext);
-  if (!context) throw new Error("Window must be used within a Modal");
+
+  if (!context) {
+    throw new Error("Window must be used within a Modal");
+  }
+
   const { openName, close } = context;
-  //for click outside the modal we create custom hook with ref
+
   const ref = useOutsideClick<HTMLDivElement>(close);
 
   if (name !== openName) return null;
+
   return createPortal(
     <Overlay>
-      <StyledModal ref={ref}>
+      <StyledModal ref={ref} $size={size}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
 
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+        <div>
+          {cloneElement(children, {
+            onCloseModal: close,
+          })}
+        </div>
       </StyledModal>
     </Overlay>,
-    document.body
+    document.body,
   );
 }
-
 // We need to export Open and Window so that we can use them in other components
 Modal.Open = Open;
 Modal.Window = Window;

@@ -7,6 +7,8 @@ const GlobalStyles = createGlobalStyle`
     src: url('../assets/fonts/iranyekan-bold.woff2') format('ttf');
     font-weight: 700;
     font-style: normal;
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+    --container-width: 140rem;
   }
 
 
@@ -41,6 +43,19 @@ const GlobalStyles = createGlobalStyle`
   --color-red-700: #b91c1c;
   --color-red-800: #991b1b;
 
+
+  --color-danger-bg: #fef2f2;
+  --color-danger-border: #fecaca;
+  --color-danger-text: #b91c1c;
+  --color-danger-hover: #fee2e2;
+
+  --color-success-bg: #f0fdf4;
+  --color-success-border: #bbf7d0;
+  --color-success-text: #15803d;
+
+  --color-warning-bg: #fffbeb;
+  --color-warning-border: #fde68a;
+  --color-warning-text: #a16207;
   
 
   --backdrop-color: rgba(255, 255, 255, 0.1);
@@ -48,6 +63,7 @@ const GlobalStyles = createGlobalStyle`
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
   --shadow-md: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.45);
 
 
   --image-grayscale: 0;
@@ -81,6 +97,19 @@ const GlobalStyles = createGlobalStyle`
 --color-red-100: #ac4141ff;
 --color-red-700: #b91c1c;
 --color-red-800: #991b1b;
+
+--color-danger-bg: #3b1c21;
+--color-danger-border: #7f1d1d;
+--color-danger-text: #fca5a5;
+--color-danger-hover: #4c2026;
+
+--color-success-bg: #14291b;
+--color-success-border: #166534;
+--color-success-text: #86efac;
+
+--color-warning-bg: #30250d;
+--color-warning-border: #854d0e;
+--color-warning-text: #fde68a;
 
 --backdrop-color: rgba(0, 0, 0, 0.3);
 
