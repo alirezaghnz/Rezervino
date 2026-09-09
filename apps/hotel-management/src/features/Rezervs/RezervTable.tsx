@@ -4,72 +4,71 @@ import { useRezervs } from "./hooks/useRezervs";
 import RezervRow from "./RezervRow";
 import Pagination from "../../ui/Pagination";
 import styled from "styled-components";
-const Price = styled.div`
+import RezervMobileCard from "./RezervMobileCard";
+
+const DesktopView = styled.div`
   display: block;
-  @media (max-width: 768px) {
+
+  @media (max-width: 1024px) {
     display: none;
   }
 `;
-const Zaman = styled.div`
-  display: block;
-  @media (max-width: 768px) {
-    display: none;
+
+const MobileView = styled.div`
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: grid;
+    gap: 1.4rem;
   }
 `;
-const Guests = styled.div`
-  display: block;
-  @media (max-width: 768px) {
-    display: none;
-  }
+
+const MobilePagination = styled.div`
+  margin-top: 1.6rem;
+  display: flex;
+  justify-content: center;
 `;
+
 export default function RezervTabel() {
   const { rezervs, isLoading, count } = useRezervs();
 
-  {
-    // we build filtering and sorting on the back-end Side on the supabase
-    /* 
-  const [searchParams] = useSearchParams();
-
-  //filter Rezerv
-  const filteredValue = searchParams.get("status") || "all";
-
-  let filteredRezervs;
-  if (filteredValue === "all") {
-    filteredRezervs = rezervs;
-  } else if (filteredValue === "وارد شده") {
-    filteredRezervs = rezervs?.filter((r) => r.status === "وارد شده");
-  } else if (filteredValue === "تایید نشده") {
-    filteredRezervs = rezervs?.filter((r) => r.status === "تایید نشده");
-  } else if (filteredValue === "خارج شده") {
-    filteredRezervs = rezervs?.filter((r) => r.status === "خارج شده");
-  }
-
-  //sort Rezerv
-  const sortBy = searchParams.get("sortBy") || "";
-  */
-  }
-
   if (isLoading) return <Spinner />;
-  return (
-    <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
-      <Table.Header>
-        <div>ویلا</div>
-        <Guests>مهمان</Guests>
-        <Zaman>زمان</Zaman>
-        <div>وضعیت</div>
-        <Price>قیمت پرداختی</Price>
-        <div></div>
-      </Table.Header>
 
-      <Table.Body
-        data={rezervs}
-        render={(rezerv: any) => (
-          <RezervRow key={rezerv.id} rezerving={rezerv} />
-        )}
-      />
-      <Table.Footer>
-        <Pagination count={count} />
-      </Table.Footer>
-    </Table>
+  return (
+    <>
+      <DesktopView>
+        <Table columns="1.1fr 1.8fr 2.2fr 1.2fr 1.2fr 3.6rem">
+          <Table.Header>
+            <div>ویلا</div>
+            <div>مهمان</div>
+            <div>زمان</div>
+            <div>وضعیت</div>
+            <div>قیمت</div>
+            <div></div>
+          </Table.Header>
+
+          <Table.Body
+            data={rezervs ?? []}
+            render={(rezerv: any) => (
+              <RezervRow key={rezerv.id} rezerving={rezerv} />
+            )}
+          />
+
+          <Table.Footer>
+            <Pagination count={count} />
+          </Table.Footer>
+        </Table>
+      </DesktopView>
+
+      <MobileView>
+        {(rezervs ?? []).map((rezerv: any) => (
+          <RezervMobileCard key={rezerv.id} rezerv={rezerv} />
+        ))}
+
+        <MobilePagination>
+          <Pagination count={count} />
+        </MobilePagination>
+      </MobileView>
+    </>
   );
 }

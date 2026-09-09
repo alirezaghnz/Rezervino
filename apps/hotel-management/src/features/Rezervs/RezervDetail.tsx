@@ -17,42 +17,85 @@ import ConfirmDelete from "../../ui/ConfirmDelete";
 
 const HeadingGroup = styled.div`
   display: flex;
-  gap: 2.4rem;
   align-items: center;
+  gap: 1rem;
+
+  min-width: 0;
+
+  @media (max-width: 600px) {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+`;
+
+const PageHeader = styled(Row)`
+  @media (max-width: 600px) {
+    margin-bottom: 1.5rem;
+  }
+`;
+
+const Actions = styled(ButtonGroup)`
+  flex-wrap: wrap;
+  gap: 0.8rem;
+
+  @media (max-width: 600px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    width: 100%;
+
+    & > * {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 420px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 function RezervDetail() {
   const navigate = useNavigate();
+
   const { rezerv, isLoading } = useRezerv();
+
   const { checkout, isCheckingOut } = useCheckinOut();
-  // we need add isDelet loading
+
   const { deleteRezerv, isDeleteRerzerv } = useDeleteRezerv();
+
   const moveBack = useMoveBack();
 
   if (isLoading) return <Spinner />;
 
   type Status = "در انتظار" | "تایید رزرو" | "اتمام رزرو";
+
   type TagColor = "blue" | "green" | "silver";
+
   const statusToTagName: Record<Status, TagColor> = {
     "در انتظار": "blue",
     "تایید رزرو": "green",
     "اتمام رزرو": "silver",
   };
 
-  const { status, id: rezervId } = rezerv as { status: Status; id: number };
+  const { status, id: rezervId } = rezerv as {
+    status: Status;
+    id: number;
+  };
 
   return (
     <>
-      <Row type="horizontal">
+      <PageHeader type="horizontal">
         <HeadingGroup>
           <Heading as="h1">رزرو #{rezervId}</Heading>
-          <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
+
+          <Tag type={statusToTagName[status]}>{status}</Tag>
         </HeadingGroup>
-      </Row>
+      </PageHeader>
 
       <RezervData rezerv={rezerv} />
 
-      <ButtonGroup>
+      <Actions>
         {status === "در انتظار" && (
           <Button
             variation="primary"
@@ -62,6 +105,7 @@ function RezervDetail() {
             تایید رزرو
           </Button>
         )}
+
         {status === "تایید رزرو" && (
           <Button
             size="medium"
@@ -69,30 +113,34 @@ function RezervDetail() {
             onClick={() => checkout(rezervId)}
             disabled={isCheckingOut}
           >
-            اتمام رزرو
+            {isCheckingOut ? "در حال اتمام..." : "اتمام رزرو"}
           </Button>
         )}
+
         <Button size="medium" variation="secondary" onClick={moveBack}>
           بازگشت
         </Button>
+
         <Modal>
           <Modal.Open opens="delete-rezerv">
             <Button size="medium" variation="danger">
               حذف رزرو
             </Button>
           </Modal.Open>
+
           <Modal.Window name="delete-rezerv">
             <ConfirmDelete
-              {...({
-                resourceName: "رزرو",
-                disabled: isDeleteRerzerv,
-                onConfirm: () =>
-                  deleteRezerv(rezervId, { onSettled: () => navigate(-1) }),
-              } as any)}
+              resourceName="رزرو"
+              disabled={isDeleteRerzerv}
+              onConfirm={() =>
+                deleteRezerv(rezervId, {
+                  onSettled: () => navigate(-1),
+                })
+              }
             />
           </Modal.Window>
         </Modal>
-      </ButtonGroup>
+      </Actions>
     </>
   );
 }
