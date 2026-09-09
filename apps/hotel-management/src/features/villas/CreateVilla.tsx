@@ -9,7 +9,20 @@ import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
 import FormRow from "../../ui/FormRow";
+import styled from "styled-components";
 
+const ActionButtons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    button {
+      width: 100%;
+    }
+  }
+`;
 export function CreateVilla({
   villaEdit = {},
   onCloseModal,
@@ -21,9 +34,12 @@ export function CreateVilla({
   const { isCreating, createVilla } = useCreateVilla();
   const { isEditing, editVilla } = useUpdateVilla();
   const editSession = Boolean(editId);
-  const { register, handleSubmit, reset } = useForm<CreateVillaForm>({
-    defaultValues: editSession ? editValue : {},
-  });
+  const { register, handleSubmit, setValue, reset, watch } =
+    useForm<CreateVillaForm>({
+      defaultValues: editSession ? editValue : {},
+    });
+
+  const regularPrice = watch("regularPrice");
 
   //for disable feature
   const isWorking = isCreating || isEditing;
@@ -70,9 +86,19 @@ export function CreateVilla({
 
       <FormRow label="قیمت ویلا">
         <Input
-          type="number"
+          type="text"
           id="regularPrice"
-          {...register("regularPrice")}
+          value={
+            regularPrice
+              ? Number(String(regularPrice).replace(/,/g, "")).toLocaleString(
+                  "en-US",
+                )
+              : ""
+          }
+          onChange={(e) => {
+            const raw = e.target.value.replace(/,/g, "");
+            setValue("regularPrice", Number(raw) as any);
+          }}
           disabled={isWorking}
         />
       </FormRow>
@@ -81,7 +107,7 @@ export function CreateVilla({
         <Input
           type="number"
           id="discount"
-          defaultValue={0}
+          defaultValue={""}
           {...register("discount")}
           disabled={isWorking}
         />
@@ -101,18 +127,20 @@ export function CreateVilla({
       </FormRow>
 
       <FormRow>
-        <Button
-          variation="secondary"
-          size="medium"
-          type="reset"
-          disabled={isWorking}
-          onClick={() => onCloseModal?.()}
-        >
-          بازگشت
-        </Button>
-        <Button variation="primary" size="medium" disabled={isWorking}>
-          {editSession ? "ویرایش" : "اضافه"}
-        </Button>
+        <ActionButtons>
+          <Button
+            variation="secondary"
+            size="medium"
+            type="reset"
+            disabled={isWorking}
+            onClick={() => onCloseModal?.()}
+          >
+            بازگشت
+          </Button>
+          <Button variation="primary" size="medium" disabled={isWorking}>
+            {editSession ? "ویرایش" : "افزودن"}
+          </Button>
+        </ActionButtons>
       </FormRow>
     </Form>
   );

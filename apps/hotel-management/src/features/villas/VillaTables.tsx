@@ -4,10 +4,29 @@ import Spinner from "../../ui/Spinner";
 import VillaRows from "./VillaRows";
 import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import VillaMobileCard from "./VillaMobileCard";
+
 const Discount = styled.div`
   display: block;
   @media (max-width: 768px) {
     display: none;
+  }
+`;
+
+const DesktopView = styled.div`
+  display: block;
+
+  @media (max-width: 1024px) {
+    display: none;
+  }
+`;
+
+const MobileView = styled.div`
+  display: none;
+
+  @media (max-width: 1024px) {
+    display: grid;
+    gap: 1.6rem;
   }
 `;
 export default function VillaTable() {
@@ -64,19 +83,32 @@ export default function VillaTable() {
   if (isLoading) return <Spinner />;
 
   return (
-    <Table columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
-      <Table.Header {...({ role: "row" } as any)}>
-        <div></div>
-        <div>ویلا</div>
-        <div>ظرفیت</div>
-        <div>قیمت</div>
-        <Discount>تخفیف</Discount>
-      </Table.Header>
-      {/*  we use render prop to render each villa Body instead of compound components */}
-      <Table.Body
-        data={sortedVillas ?? []}
-        render={(v: any) => <VillaRows key={v.id} v={v} />}
-      />
-    </Table>
+    <>
+      {/* Desktop */}
+      <DesktopView>
+        <Table columns="80px 2fr 1fr 1fr 1fr 140px">
+          <Table.Header>
+            <div></div>
+            <div>ویلا</div>
+            <div>ظرفیت</div>
+            <div>قیمت</div>
+            <div>تخفیف</div>
+            <div>عملیات</div>
+          </Table.Header>
+
+          <Table.Body
+            data={sortedVillas ?? []}
+            render={(v: any) => <VillaRows key={v.id} v={v} />}
+          />
+        </Table>
+      </DesktopView>
+
+      {/* Mobile */}
+      <MobileView>
+        {sortedVillas?.map((villa) => (
+          <VillaMobileCard key={villa.id} villa={villa} />
+        ))}
+      </MobileView>
+    </>
   );
 }

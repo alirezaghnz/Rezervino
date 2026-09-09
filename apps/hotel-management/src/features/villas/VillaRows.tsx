@@ -4,31 +4,21 @@ import { useDeleteVilla } from "./hooks/useDeleteVilla";
 import { Modal } from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
+
 import styled from "styled-components";
 import { formatToman } from "../../utils/persianFormat";
 
-{
-  /*export const TableRow = styled.div`
-  display: grid;
-  grid-template-columns: 0.6fr 1.8fr 2.2fr 1fr 1fr 1fr;
-  column-gap: 2.4rem;
-  align-items: center;
-  padding: 1.4rem 2.4rem;
+import { HiOutlinePencilSquare, HiOutlineTrash } from "react-icons/hi2";
 
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-`;
-*/
-}
 const Img = styled.img`
-  display: block;
-  width: 6.4rem;
-  border-radius: 2px;
-  aspect-ratio: 3 / 2;
+  width: 8rem;
+  height: 6rem;
+
+  border-radius: 12px;
+
   object-fit: cover;
-  object-position: center;
-  transform: scale(1.5) translateX(-7px);
+
+  border: 1px solid var(--color-grey-200);
 
   @media (max-width: 768px) {
     display: none;
@@ -36,36 +26,113 @@ const Img = styled.img`
 `;
 
 const Villa = styled.div`
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--color-grey-600);
-  font-family: "Sono";
+  min-width: 0;
+
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  color: var(--color-grey-700);
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
-const Button = styled.button`
-  margin-left: 0.8rem;
-  border-radius: 0.2rem;
-  padding: 0.6rem;
-  border: none;
-  color: white;
-  background-color: var(--color-brand-500);
-  @media (max-width: 768px) {
-    padding: 0.4rem;
-  }
+const Capacity = styled.div`
+  color: var(--color-grey-600);
+  font-size: 1.3rem;
 `;
 
 const Price = styled.div`
-  font-family: "Sono";
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
+
+  color: var(--color-grey-700);
+
+  white-space: nowrap;
 `;
 
 const Discount = styled.div`
-  font-family: "Sono";
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 700;
+
   color: var(--color-green-700);
-  display: block;
-  @media (max-width: 768px) {
-    display: none;
+
+  white-space: nowrap;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 0.8rem;
+`;
+
+const ActionButton = styled.button<{
+  $variant: "edit" | "delete";
+}>`
+  width: 3.8rem;
+  height: 3.8rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  border: 1px solid
+    ${(props) =>
+      props.$variant === "edit"
+        ? "var(--color-action-border)"
+        : "var(--color-danger-border)"};
+
+  background-color: ${(props) =>
+    props.$variant === "edit"
+      ? "var(--color-action-bg)"
+      : "var(--color-danger-bg)"};
+
+  color: ${(props) =>
+    props.$variant === "edit"
+      ? "var(--color-action-text)"
+      : "var(--color-danger-text)"};
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+
+  &:hover {
+    transform: translateY(-1px);
+
+    background-color: ${(props) =>
+      props.$variant === "edit"
+        ? "var(--color-action-hover)"
+        : "var(--color-danger-hover)"};
+
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+  }
+
+  svg {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  @media (max-width: 1024px) {
+    width: 4rem;
+    height: 4rem;
   }
 `;
 
@@ -73,54 +140,58 @@ export default function VillaRows({ v }: any) {
   const { deleteLoading, deleteVilla } = useDeleteVilla();
 
   const { id: villaId, name, maxCapacity, regularPrice, discount, image } = v;
-  /*
-    for duplicate villa but for now we dont needet
-  const { createVilla } = useCreateVilla();
 
-
-  function handleDup() {
-    createVilla({
-      name: `کپی از ${name}`,
-      maxCapacity,
-      regularPrice,
-      discount,
-      image,
-    } as any);
-  }
-*/
   return (
-    <>
-      <Table.Row {...({ role: "row" } as any)}>
-        <Img src={image} />
-        <Villa>{name}</Villa>
-        <div>برای {maxCapacity} ظرفیت داده شد</div>
-        <Price>{formatToman(regularPrice)}</Price>
-        <Discount>{discount}</Discount>
+    <Table.Row {...({ role: "row" } as any)}>
+      <Img src={image} alt={name} />
 
-        <div>
-          <Modal>
-            <Modal.Open opens="edit-villa">
-              <Button>ویرایش</Button>
-            </Modal.Open>
-            <Modal.Window name="edit-villa">
-              <CreateVilla villaEdit={v} />
-            </Modal.Window>
+      <Villa title={name}>{name}</Villa>
 
-            <Modal.Open opens="delete-villa">
-              <Button>حذف</Button>
-            </Modal.Open>
-            <Modal.Window name="delete-villa">
-              <ConfirmDelete
-                {...({
-                  resourceName: "رزرو",
-                  disabled: deleteLoading,
-                  onConfirm: () => deleteVilla(villaId),
-                } as any)}
-              />
-            </Modal.Window>
-          </Modal>
-        </div>
-      </Table.Row>
-    </>
+      <Capacity>{maxCapacity} نفر</Capacity>
+
+      <Price>{formatToman(regularPrice)}</Price>
+
+      <Discount>{discount > 0 ? formatToman(discount) : "بدون تخفیف"}</Discount>
+
+      <Actions>
+        <Modal>
+          {/* EDIT */}
+          <Modal.Open opens="edit-villa">
+            <ActionButton
+              type="button"
+              $variant="edit"
+              aria-label={`ویرایش ${name}`}
+              title="ویرایش ویلا"
+            >
+              <HiOutlinePencilSquare />
+            </ActionButton>
+          </Modal.Open>
+
+          <Modal.Window name="edit-villa" size="large">
+            <CreateVilla villaEdit={v} />
+          </Modal.Window>
+
+          {/* DELETE */}
+          <Modal.Open opens="delete-villa">
+            <ActionButton
+              type="button"
+              $variant="delete"
+              aria-label={`حذف ${name}`}
+              title="حذف ویلا"
+            >
+              <HiOutlineTrash />
+            </ActionButton>
+          </Modal.Open>
+
+          <Modal.Window name="delete-villa" size="small">
+            <ConfirmDelete
+              resourceName="ویلا"
+              disabled={deleteLoading}
+              onConfirm={() => deleteVilla(villaId)}
+            />
+          </Modal.Window>
+        </Modal>
+      </Actions>
+    </Table.Row>
   );
 }

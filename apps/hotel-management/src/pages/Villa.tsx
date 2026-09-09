@@ -1,16 +1,23 @@
-import AddVilla from "../features/villas/AddVilla";
 import VillaTableOp from "../features/villas/VillaTableOp";
 import VillaTable from "../features/villas/VillaTables";
 import Heading from "../ui/Heading";
 
 export default function Villa() {
   return (
-    <>
-      <Heading as="h2">لیست ویلا</Heading>
-      <VillaTableOp />
+    <div>
+      <div className="mb-8">
+        <Heading as="h2">مدیریت ویلاها</Heading>
+
+        <p className="text-slate-500 mt-2">
+          مشاهده، ویرایش و مدیریت اقامتگاه‌ها
+        </p>
+      </div>
+
+      <div className="mb-6">
+        <VillaTableOp />
+      </div>
 
       <VillaTable />
-      <AddVilla />
-    </>
+    </div>
   );
 }
