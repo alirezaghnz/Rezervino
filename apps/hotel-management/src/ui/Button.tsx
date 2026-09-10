@@ -7,16 +7,14 @@ type ButtonProps = {
 
 const sizes = {
   small: css`
-    font-size: 1.2rem;
-    padding: 0.4rem 0.8rem;
-    text-transform: uppercase;
+    font-size: 1.4rem;
+    padding: 1rem 1.6rem;
     font-weight: 600;
-    text-align: center;
   `,
   medium: css`
-    font-size: 1.4rem;
-    padding: 1.2rem 1.6rem;
-    font-weight: 500;
+    font-size: 1.5rem;
+    padding: 1.2rem 2rem;
+    font-weight: 600;
   `,
   large: css`
     font-size: 1.6rem;

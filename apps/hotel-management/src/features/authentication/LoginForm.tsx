@@ -83,7 +83,7 @@ const ModalOverlay = styled.div<{ $closing?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem; /* برای موبایل */
+  padding: 1rem;
 `;
 
 const Modal = styled.div<{ $closing?: boolean }>`
@@ -91,7 +91,7 @@ const Modal = styled.div<{ $closing?: boolean }>`
   padding: 2rem;
   border-radius: 12px;
   width: 400px;
-  max-width: 100%; /* روی موبایل فیت بشه */
+  max-width: 100%;
   text-align: center;
   animation: ${({ $closing }) => ($closing ? slideDown : slideUp)} 0.3s forwards;
 
@@ -108,7 +108,7 @@ const Modal = styled.div<{ $closing?: boolean }>`
     background: #f9f9f9;
     border-radius: 6px;
     font-size: 14px;
-    word-break: break-all; /* برای ایمیل طولانی */
+    word-break: break-all;
   }
 
   button {
@@ -173,7 +173,7 @@ export default function LoginForm() {
           setEmail("");
           setPassword("");
         },
-      }
+      },
     );
   }
 

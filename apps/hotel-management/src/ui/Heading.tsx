@@ -15,11 +15,13 @@ const Heading = styled.h1`
   ${(props) =>
     props.as === "h2" &&
     css`
-      font-size: 2rem;
-      font-weight: 600;
+      font-size: 3rem;
+      font-weight: 700;
       margin-bottom: 1rem;
+
       @media (max-width: 768px) {
-        display: none;
+        display: block;
+        font-size: 2.2rem;
       }
     `}
       ${(props) =>

@@ -4,7 +4,23 @@ import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import useUpdateUser from "./hooks/useUpdateUser";
+import styled from "styled-components";
 
+const Actions = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  margin-top: 2rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+
+    button {
+      width: 100%;
+    }
+  }
+`;
 export default function UpdatePassword() {
   //for control our form with useForm
   const { register, handleSubmit, formState, getValues, reset } = useForm();
@@ -48,14 +64,14 @@ export default function UpdatePassword() {
           })}
         />
       </FormRow>
-      <FormRow>
-        <Button onClick={reset} type="reset" variation="secondary">
+      <Actions>
+        <Button onClick={reset} type="reset" size="small" variation="secondary">
           بازگشت
         </Button>
         <Button variation="primary" size="small" disabled={isUpdateUserLoading}>
           تغییر رمز عبور
         </Button>
-      </FormRow>
+      </Actions>
     </Form>
   );
 }
