@@ -9,12 +9,13 @@ const NavList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-
   @media (max-width: 768px) {
+    width: 100%;
+
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 100%;
+
     gap: 0;
   }
 `;
@@ -31,11 +32,10 @@ const StyledNavLink = styled(NavLink)<{ $collapsed?: boolean }>`
     font-weight: 500;
     padding: 0.7rem 2.4rem;
     transition: all 0.3s;
-
     @media (max-width: 768px) {
-      flex-direction: column;
-      font-size: 1.2rem;
-      padding: 0.2rem;
+      span:last-child {
+        display: none;
+      }
     }
   }
 

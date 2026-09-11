@@ -1,6 +1,5 @@
 import { useSearchParams } from "react-router-dom";
 import styled, { css } from "styled-components";
-
 const StyledFilter = styled.div`
   display: flex;
   align-items: center;
@@ -8,6 +7,7 @@ const StyledFilter = styled.div`
 
   width: fit-content;
   max-width: 100%;
+  min-width: 0;
 
   padding: 0.4rem;
 
@@ -18,6 +18,7 @@ const StyledFilter = styled.div`
   box-shadow: var(--shadow-sm);
 
   overflow-x: auto;
+  overflow-y: hidden;
 
   scrollbar-width: none;
 
@@ -27,6 +28,7 @@ const StyledFilter = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
+    max-width: 100%;
   }
 `;
 
@@ -35,7 +37,9 @@ type FilterButtonProps = {
 };
 
 const FilterButton = styled.button<FilterButtonProps>`
-  flex-shrink: 0;
+  flex: 0 0 auto;
+  width: max-content;
+  min-width: max-content;
 
   border: none;
   border-radius: 9px;
@@ -43,7 +47,6 @@ const FilterButton = styled.button<FilterButtonProps>`
   padding: 0.8rem 1.4rem;
 
   background-color: transparent;
-
   color: var(--color-grey-600);
 
   font-size: 1.35rem;
@@ -86,11 +89,10 @@ const FilterButton = styled.button<FilterButtonProps>`
   }
 
   @media (max-width: 768px) {
-    padding: 0.85rem 1.2rem;
+    padding: 0.85rem 0.5rem;
     font-size: 1.3rem;
   }
 `;
-
 export default function Filter({
   filterFiled,
   options,

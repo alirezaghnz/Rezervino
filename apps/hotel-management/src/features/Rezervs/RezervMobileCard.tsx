@@ -234,9 +234,8 @@ const Price = styled.span`
 
 const Actions = styled.div`
   display: flex;
-  gap: 0.8rem;
-
-  padding: 1.2rem 1.5rem;
+  gap: 2rem;
+  margin-top: 1.6rem;
 
   border-top: 1px solid var(--color-grey-100);
   background-color: var(--color-grey-50);
