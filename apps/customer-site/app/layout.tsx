@@ -11,10 +11,11 @@ const vazir = Vazirmatn({
   display: "swap",
 });
 
-//console.log(vazir);
-
 export const metadata: Metadata = {
-  title: { template: "%s | رزروینو", default: "خوش آمدید | رزروینو" },
+  title: {
+    template: "%s | رزروینو",
+    default: "خوش آمدید | رزروینو",
+  },
   description: "رزرو ویلا در بهترین شهرهای ایران",
   icons: {
     icon: "/favicon.svg",
@@ -29,11 +30,17 @@ export default function RootLayout({
   return (
     <html dir="rtl" lang="fa">
       <body
-        className={`${vazir.className} bg-neutral-200 text-primary-100 min-h-screen flex flex-col antialiased relative`}
+        className={`           ${vazir.className}
+          min-h-screen
+          bg-slate-50
+          text-slate-900
+          antialiased
+        `}
       >
+        {" "}
         <Header />
-        <div className="flex-1 px-8 py-12 grid">
-          <main className="max-w-1xl   mx-auto w-full">
+        <div className="flex-1 px-8 py-12 ">
+          <main className="w-full">
             <RezervationProvider>{children}</RezervationProvider>
           </main>
         </div>

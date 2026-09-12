@@ -3,8 +3,8 @@ import Navigation from "./Navigation";
 
 export default function Header() {
   return (
-    <header className="border-b bg-primary-500 border-primary-100 px-6 lg:px-8 py-5 ">
-      <div className="flex justify-between items-center max-w-7xl mx-auto">
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Logo />
         <Navigation />
       </div>
